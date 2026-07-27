@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Grupo CESPAD — Canchas deportivas premium en Argentina. Fútbol, pádel, tenis, hockey y rugby. Del club profesional al patio de tu casa." />
+
+  <title>Grupo CESPAD — Canchas Deportivas Premium</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="img/favicon.png" />
+
+  <!-- Open Graph (previsualización al compartir en WhatsApp / redes) -->
+  <meta property="og:title" content="Grupo CESPAD — Canchas Deportivas Premium" />
+  <meta property="og:description" content="Fútbol, pádel, tenis, hockey y rugby. Del club profesional al patio de tu casa. Pedí tu presupuesto." />
+  <meta property="og:image" content="https://greenset-landing.vercel.app/img/og-image.jpg" />
+  <meta property="og:url" content="https://greenset-landing.vercel.app/" />
+  <meta property="og:type" content="website" />
+
+  <!-- Google Fonts (Bebas Neue para display, DM Sans para body). Cargadas de forma NO bloqueante. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600&display=swap"
+    media="print"
+    onload="this.media='all'"
+  />
+  <noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600&display=swap" />
+  </noscript>
+
+  <!-- Hoja de estilos principal -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+
+  <!-- ============================================================
+       HEADER / NAVEGACIÓN
+       ============================================================ -->
+  <header class="site-header" id="site-header">
+    <div class="container header-inner">
+      <a href="#hero" class="logo" aria-label="Ir al inicio">Grupo CESPAD</a>
+
+      <button
+        class="nav-toggle"
+        id="nav-toggle"
+        aria-label="Abrir menú"
+        aria-expanded="false"
+        aria-controls="primary-nav"
+      >
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+      </button>
+
+      <nav class="nav" id="primary-nav" aria-label="Menú principal">
+        <a class="nav-link" href="#nosotros">Nosotros</a>
+        <a class="nav-link" href="#deportes">Deportes</a>
+        <a class="nav-link" href="#proyectos">Proyectos</a>
+        <a class="nav-cta" href="#contacto">Contacto</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       HERO
+       ============================================================ -->
+  <section class="hero" id="hero" aria-label="Sección principal">
+
+    <div class="sport-selector" aria-label="Deportes que trabajamos">
+
+      <div class="sport-panel sport-panel--futbol" data-sport="futbol">
+        <div class="sport-panel-overlay" aria-hidden="true"></div>
+        <div class="sport-panel-content">
+          <button class="sport-panel-icon" type="button" data-sport-trigger="futbol" aria-label="Ver detalles de fútbol">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="8.75"/>
+              <path d="M12 8 15.8 10.76 14.35 15.24 9.65 15.24 8.2 10.76Z"/>
+              <path d="M12 8V3.25M15.8 10.76 20.32 9.3M14.35 15.24 17.14 19.08M9.65 15.24 6.86 19.08M8.2 10.76 3.68 9.3"/>
+            </svg>
+          </button>
+          <span class="sport-panel-label">Fútbol</span>
+        </div>
+      </div>
+
+      <div class="sport-panel sport-panel--padel" data-sport="padel">
+        <div class="sport-panel-overlay" aria-hidden="true"></div>
+        <div class="sport-panel-content">
+          <button class="sport-panel-icon" type="button" data-sport-trigger="padel" aria-label="Ver detalles de pádel">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="5.3" y="2.4" width="13.4" height="13.4" rx="5.2"/>
+              <rect x="10.8" y="15.6" width="2.4" height="6.4" rx="1.2"/>
+              <path d="M9.5 6.4h.01M14.5 6.4h.01M12 9.1h.01M9.5 11.8h.01M14.5 11.8h.01" stroke-width="2.3"/>
+            </svg>
+          </button>
+          <span class="sport-panel-label">Pádel</span>
+        </div>
+      </div>
+
+      <div class="sport-panel sport-panel--tenis" data-sport="tenis">
+        <div class="sport-panel-overlay" aria-hidden="true"></div>
+        <div class="sport-panel-content">
+          <button class="sport-panel-icon" type="button" data-sport-trigger="tenis" aria-label="Ver detalles de tenis">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <ellipse cx="12" cy="8.4" rx="5.4" ry="7.4"/>
+              <path d="M9.8 3.4v10M14.2 3.4v10M7.6 8.4h8.8"/>
+              <path d="M12 15.8v5.4"/>
+              <path d="M10.8 21.2h2.4"/>
+            </svg>
+          </button>
+          <span class="sport-panel-label">Tenis</span>
+        </div>
+      </div>
+
+      <div class="sport-panel sport-panel--rugby" data-sport="rugby">
+        <div class="sport-panel-overlay" aria-hidden="true"></div>
+        <div class="sport-panel-content">
+          <button class="sport-panel-icon" type="button" data-sport-trigger="rugby" aria-label="Ver detalles de rugby">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M3.8 12C4.9 8.9 7.6 6.6 12 6.6 16.4 6.6 19.1 8.9 20.2 12 19.1 15.1 16.4 17.4 12 17.4 7.6 17.4 4.9 15.1 3.8 12Z"/>
+              <path d="M9.6 10.6v2.8M12 10.6v2.8M14.4 10.6v2.8"/>
+            </svg>
+          </button>
+          <span class="sport-panel-label">Rugby</span>
+        </div>
+      </div>
+
+      <div class="sport-panel sport-panel--hockey" data-sport="hockey">
+        <div class="sport-panel-overlay" aria-hidden="true"></div>
+        <div class="sport-panel-content">
+          <button class="sport-panel-icon" type="button" data-sport-trigger="hockey" aria-label="Ver detalles de hockey">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M18.2 3.2 16.4 13.6C15.8 17.2 13.4 18.8 10.4 18.8 8.6 18.8 8.2 17.8 8.6 16.8"/>
+              <circle cx="4.4" cy="17.4" r="1.9"/>
+            </svg>
+          </button>
+          <span class="sport-panel-label">Hockey</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="hero-veil" aria-hidden="true"></div>
+
+    <div class="hero-content">
+      <p class="hero-eyebrow">Infraestructura Deportiva Premium</p>
+      <h1 class="hero-title">Grupo CESPAD</h1>
+      <p class="hero-subtitle">
+        Del club profesional, al patio de tu casa.<br />
+        Canchas y espacios verdes que elevan el nivel.
+      </p>
+      <a href="#contacto" class="btn btn--primary">Pedí tu presupuesto</a>
+    </div>
+
+    <a href="#stats" class="scroll-arrow" aria-label="Ver más">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <line x1="12" y1="5" x2="12" y2="19"></line>
+        <polyline points="19 12 12 19 5 12"></polyline>
+      </svg>
+    </a>
+  </section>
+
+  <!-- ============================================================
+       STATS
+       ============================================================ -->
+  <section class="stats" id="stats" aria-label="Estadísticas del club" hidden>
+    <div class="container stats-grid">
+      <div class="stat-item reveal">
+        <div class="stat-number" data-target="+15">0</div>
+        <div class="stat-label">Canchas Instaladas</div>
+      </div>
+      <div class="stat-item reveal reveal--delay-1">
+        <div class="stat-number" data-target="+5">0</div>
+        <div class="stat-label">Años de Trayectoria</div>
+      </div>
+      <div class="stat-item reveal reveal--delay-2">
+        <div class="stat-number" data-target="+50">0</div>
+        <div class="stat-label">% Clientes Satisfechos</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       MARQUEE
+       ============================================================ -->
+  <section class="marquee-specs" aria-label="Rubros que trabajamos">
+    <div class="marquee-track">
+      <div class="marquee-content">
+        <span class="marquee-item">Canchas de fútbol</span>
+        <span class="marquee-dot" aria-hidden="true"></span>
+        <span class="marquee-item">Pádel</span>
+        <span class="marquee-dot" aria-hidden="true"></span>
+        <span class="marquee-item">Tenis</span>
+        <span class="marquee-dot" aria-hidden="true"></span>
+        <span class="marquee-item">Hockey</span>
+        <span class="marquee-dot" aria-hidden="true"></span>
+        <span class="marquee-item">Rugby</span>
+        <span class="marquee-dot" aria-hidden="true"></span>
+        <span class="marquee-item">Parquización · Espacios verdes</span>
+        <span class="marquee-dot" aria-hidden="true"></span>
+        <span class="marquee-item">Proyectos llave en mano</span>
+        <span class="marquee-dot" aria-hidden="true"></span>
+      </div>
+      <div class="marquee-content" aria-hidden="true">
+        <span class="marquee-item">Canchas de fútbol</span>
+        <span class="marquee-dot"></span>
+        <span class="marquee-item">Pádel</span>
+        <span class="marquee-dot"></span>
+        <span class="marquee-item">Tenis</span>
+        <span class="marquee-dot"></span>
+        <span class="marquee-item">Hockey</span>
+        <span class="marquee-dot"></span>
+        <span class="marquee-item">Rugby</span>
+        <span class="marquee-dot"></span>
+        <span class="marquee-item">Parquización · Espacios verdes</span>
+        <span class="marquee-dot"></span>
+        <span class="marquee-item">Proyectos llave en mano</span>
+        <span class="marquee-dot"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       NOSOTROS
+       ============================================================ -->
+  <section class="nosotros" id="nosotros" aria-label="Acerca de nosotros">
+    <div class="container nosotros-inner">
+      <div class="nosotros-img-wrap reveal">
+        <div class="nosotros-img" role="img" aria-label="Nuestra planta y equipo"></div>
+        <div class="nosotros-float-card">
+          <span class="float-icon" aria-hidden="true">✓</span>
+          <span class="float-text">15 años transformando espacios deportivos</span>
+        </div>
+      </div>
+
+      <div class="nosotros-text reveal reveal--delay-1">
+        <p class="section-eyebrow">Nuestra historia</p>
+        <h2 class="section-title">Pasión por el detalle, obsesión por la calidad.</h2>
+        <p class="nosotros-desc">
+          En Grupo CESPAD transformamos espacios en canchas
+          deportivas de alto nivel y proyectos de parquización que perduran. Combinamos ingeniería,
+          materiales premium e instalación especializada para entregar proyectos llave en mano
+          que superan toda expectativa.
+        </p>
+        <p class="nosotros-desc">
+          Tenemos un objetivo claro: que cada cancha, cada jardín, cada espacio que entregamos
+          sea un motivo de orgullo tanto para nosotros como para quienes lo van a disfrutar
+          durante años.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       DEPORTES — Tabs + Card con foto horizontal arriba,
+       specs abajo-izquierda, swatches abajo-derecha.
+       Al tocar un swatch, cambia la foto grande.
+       ============================================================ -->
+  <section class="deportes" id="deportes" aria-label="Nuestras canchas por deporte">
+    <div class="container">
+
+      <div class="section-header">
+        <p class="section-eyebrow reveal">Cada deporte, su cancha</p>
+        <h2 class="section-title reveal reveal--delay-1">Diseñado para el juego real</h2>
+        <p class="section-desc reveal reveal--delay-2">
+          Cada disciplina tiene sus exigencias. Tocá el deporte que te interesa y conocé
+          los materiales, medidas y detalles técnicos con los que trabajamos.
+        </p>
+      </div>
+
+      <div class="deportes-panel reveal">
+        <!-- Columna izquierda: tabs -->
+        <div class="deportes-tabs" role="tablist" aria-label="Deportes disponibles">
+
+          <button class="deportes-tab is-active" role="tab" data-tab="futbol" aria-selected="true" aria-controls="deporte-content">
+            <span class="deportes-tab-icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="8.75"/>
+                <path d="M12 8 15.8 10.76 14.35 15.24 9.65 15.24 8.2 10.76Z"/>
+                <path d="M12 8V3.25M15.8 10.76 20.32 9.3M14.35 15.24 17.14 19.08M9.65 15.24 6.86 19.08M8.2 10.76 3.68 9.3"/>
+              </svg>
+            </span>
+            <span class="deportes-tab-label">Fútbol</span>
+          </button>
+
+          <button class="deportes-tab" role="tab" data-tab="padel" aria-selected="false" aria-controls="deporte-content">
+            <span class="deportes-tab-icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="5.3" y="2.4" width="13.4" height="13.4" rx="5.2"/>
+                <rect x="10.8" y="15.6" width="2.4" height="6.4" rx="1.2"/>
+                <path d="M9.5 6.4h.01M14.5 6.4h.01M12 9.1h.01M9.5 11.8h.01M14.5 11.8h.01" stroke-width="2.3"/>
+              </svg>
+            </span>
+            <span class="deportes-tab-label">Pádel</span>
+          </button>
+
+          <button class="deportes-tab" role="tab" data-tab="tenis" aria-selected="false" aria-controls="deporte-content">
+            <span class="deportes-tab-icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <ellipse cx="12" cy="8.4" rx="5.4" ry="7.4"/>
+                <path d="M9.8 3.4v10M14.2 3.4v10M7.6 8.4h8.8"/>
+                <path d="M12 15.8v5.4"/>
+                <path d="M10.8 21.2h2.4"/>
+              </svg>
+            </span>
+            <span class="deportes-tab-label">Tenis</span>
+          </button>
+
+          <button class="deportes-tab" role="tab" data-tab="rugby" aria-selected="false" aria-controls="deporte-content">
+            <span class="deportes-tab-icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3.8 12C4.9 8.9 7.6 6.6 12 6.6 16.4 6.6 19.1 8.9 20.2 12 19.1 15.1 16.4 17.4 12 17.4 7.6 17.4 4.9 15.1 3.8 12Z"/>
+                <path d="M9.6 10.6v2.8M12 10.6v2.8M14.4 10.6v2.8"/>
+              </svg>
+            </span>
+            <span class="deportes-tab-label">Rugby</span>
+          </button>
+
+          <button class="deportes-tab" role="tab" data-tab="hockey" aria-selected="false" aria-controls="deporte-content">
+            <span class="deportes-tab-icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18.2 3.2 16.4 13.6C15.8 17.2 13.4 18.8 10.4 18.8 8.6 18.8 8.2 17.8 8.6 16.8"/>
+                <circle cx="4.4" cy="17.4" r="1.9"/>
+              </svg>
+            </span>
+            <span class="deportes-tab-label">Hockey</span>
+          </button>
+
+        </div>
+
+        <!-- Columna derecha: card que cambia según el tab activo -->
+        <div class="deportes-card" id="deporte-content" role="tabpanel">
+
+          <!-- FÚTBOL (sin selector de color por ahora) -->
+          <article class="deporte-detail is-active" data-detail="futbol">
+            <div class="deporte-detail-hero">
+              <div class="deporte-detail-img" style="background-image: url('img/aereo-futbol.jpg');" role="img" aria-label="Cancha de fútbol"></div>
+              <div class="deporte-detail-hero-veil" aria-hidden="true"></div>
+              <h3 class="deporte-detail-title">Fútbol</h3>
+            </div>
+            <div class="deporte-detail-body">
+              <p class="deporte-detail-desc">
+                [PLACEHOLDER: escribí una descripción de 2 líneas sobre canchas de fútbol.
+                Ej: superficies profesionales de césped sintético para clubes, complejos y
+                canchas de fútbol 5, 7 u 11 con drenaje y durabilidad optimizados.]
+              </p>
+              <div class="deporte-info-grid deporte-info-grid--solo-specs">
+                <ul class="deporte-specs">
+                  <li><span class="spec-label">Césped</span><span class="spec-value">[Ej: 50mm monofilamento]</span></li>
+                  <li><span class="spec-label">Base</span><span class="spec-value">[Ej: Caucho SBR]</span></li>
+                  <li><span class="spec-label">Homologación</span><span class="spec-value">[Ej: FIFA Quality]</span></li>
+                  <li><span class="spec-label">Iluminación</span><span class="spec-value">[Ej: LED perimetral]</span></li>
+                </ul>
+              </div>
+              <a href="#contacto" class="btn btn--outline">Consultar por cancha de fútbol</a>
+            </div>
+          </article>
+
+          <!-- PÁDEL (con selector de 5 colores) -->
+          <article class="deporte-detail" data-detail="padel" hidden>
+            <div class="deporte-detail-hero">
+              <div class="deporte-detail-img" style="background-image: url('img/canchas/padel-verde.jpg');" role="img" aria-label="Cancha de pádel"></div>
+              <div class="deporte-detail-hero-veil" aria-hidden="true"></div>
+              <h3 class="deporte-detail-title">Pádel</h3>
+            </div>
+            <div class="deporte-detail-body">
+              <p class="deporte-detail-desc">
+                [PLACEHOLDER: escribí una descripción de 2 líneas sobre canchas de pádel.
+                Ej: canchas panorámicas y tradicionales con estructura de acero, vidrios
+                templados de seguridad y césped de alta densidad.]
+              </p>
+
+              <div class="deporte-info-grid">
+                <ul class="deporte-specs">
+                  <li><span class="spec-label">Estructura</span><span class="spec-value">[Ej: Acero 3mm]</span></li>
+                  <li><span class="spec-label">Vidrios</span><span class="spec-value">[Ej: Templados TÜV 12mm]</span></li>
+                  <li><span class="spec-label">Césped</span><span class="spec-value">[Ej: 12mm · 1500 gr/m²]</span></li>
+                  <li><span class="spec-label">Iluminación</span><span class="spec-value">[Ej: LED 8×200W]</span></li>
+                </ul>
+
+                <div class="deporte-colores">
+                  <p class="deporte-colores-label">Color de césped</p>
+                  <div class="deporte-colores-swatches" role="radiogroup" aria-label="Elegí el color del césped">
+                    <button type="button" class="color-swatch is-active"
+                            data-color-name="Verde"
+                            data-image="img/canchas/padel-verde.jpg"
+                            style="background-image: url('img/pastos/verde.jpg');"
+                            aria-label="Verde" aria-checked="true"></button>
+                    <button type="button" class="color-swatch"
+                            data-color-name="Azul"
+                            data-image="img/canchas/padel-azul.jpg"
+                            style="background-image: url('img/pastos/azul.jpg');"
+                            aria-label="Azul" aria-checked="false"></button>
+                    <button type="button" class="color-swatch"
+                            data-color-name="Rosa"
+                            data-image="img/canchas/padel-rosa.jpg"
+                            style="background-image: url('img/pastos/rosa.jpg');"
+                            aria-label="Rosa" aria-checked="false"></button>
+                    <button type="button" class="color-swatch"
+                            data-color-name="Lila"
+                            data-image="img/canchas/padel-lila.jpg"
+                            style="background-image: url('img/pastos/lila.jpg');"
+                            aria-label="Lila" aria-checked="false"></button>
+                    <button type="button" class="color-swatch"
+                            data-color-name="Negro"
+                            data-image="img/canchas/padel-negro.jpg"
+                            style="background-image: url('img/pastos/negro.jpg');"
+                            aria-label="Negro" aria-checked="false"></button>
+                  </div>
+                  <p class="deporte-colores-selected">Color: <span data-color-name>Verde</span></p>
+                </div>
+              </div>
+
+              <a href="#contacto" class="btn btn--outline">Consultar por cancha de pádel</a>
+            </div>
+          </article>
+
+          <!-- TENIS (con selector de 3 colores) -->
+          <article class="deporte-detail" data-detail="tenis" hidden>
+            <div class="deporte-detail-hero">
+              <div class="deporte-detail-img" style="background-image: url('img/canchas/tenis-verde.jpg');" role="img" aria-label="Cancha de tenis"></div>
+              <div class="deporte-detail-hero-veil" aria-hidden="true"></div>
+              <h3 class="deporte-detail-title">Tenis</h3>
+            </div>
+            <div class="deporte-detail-body">
+              <p class="deporte-detail-desc">
+                [PLACEHOLDER: descripción de 2 líneas sobre canchas de tenis.
+                Ej: superficies de césped sintético o polvo de ladrillo con marcado profesional
+                y sistema de drenaje que permite jugar todo el año.]
+              </p>
+
+              <div class="deporte-info-grid">
+                <ul class="deporte-specs">
+                  <li><span class="spec-label">Superficie</span><span class="spec-value">[Ej: Césped 15mm]</span></li>
+                  <li><span class="spec-label">Medidas</span><span class="spec-value">[Ej: ITF regulación]</span></li>
+                  <li><span class="spec-label">Drenaje</span><span class="spec-value">[Ej: Base filtrante]</span></li>
+                  <li><span class="spec-label">Iluminación</span><span class="spec-value">[Ej: LED 6×200W]</span></li>
+                </ul>
+
+                <div class="deporte-colores">
+                  <p class="deporte-colores-label">Color de césped</p>
+                  <div class="deporte-colores-swatches" role="radiogroup" aria-label="Elegí el color del césped">
+                    <button type="button" class="color-swatch is-active"
+                            data-color-name="Verde"
+                            data-image="img/canchas/tenis-verde.jpg"
+                            style="background-image: url('img/pastos/verde.jpg');"
+                            aria-label="Verde" aria-checked="true"></button>
+                    <button type="button" class="color-swatch"
+                            data-color-name="Azul"
+                            data-image="img/canchas/tenis-azul.jpg"
+                            style="background-image: url('img/pastos/azul.jpg');"
+                            aria-label="Azul" aria-checked="false"></button>
+                    <button type="button" class="color-swatch"
+                            data-color-name="Terracota"
+                            data-image="img/canchas/tenis-terracota.jpg"
+                            style="background-image: url('img/pastos/terracota.jpg');"
+                            aria-label="Terracota" aria-checked="false"></button>
+                  </div>
+                  <p class="deporte-colores-selected">Color: <span data-color-name>Verde</span></p>
+                </div>
+              </div>
+
+              <a href="#contacto" class="btn btn--outline">Consultar por cancha de tenis</a>
+            </div>
+          </article>
+
+          <!-- RUGBY -->
+          <article class="deporte-detail" data-detail="rugby" hidden>
+            <div class="deporte-detail-hero">
+              <div class="deporte-detail-img" style="background-image: url('img/aereo-rugby.jpg');" role="img" aria-label="Cancha de rugby"></div>
+              <div class="deporte-detail-hero-veil" aria-hidden="true"></div>
+              <h3 class="deporte-detail-title">Rugby</h3>
+            </div>
+            <div class="deporte-detail-body">
+              <p class="deporte-detail-desc">
+                [PLACEHOLDER: descripción de 2 líneas sobre canchas de rugby.
+                Ej: campos de césped sintético de alta densidad con relleno de caucho para
+                amortiguar el impacto y resistir el uso intensivo del deporte.]
+              </p>
+              <div class="deporte-info-grid deporte-info-grid--solo-specs">
+                <ul class="deporte-specs">
+                  <li><span class="spec-label">Césped</span><span class="spec-value">[Ej: 60mm monofilamento]</span></li>
+                  <li><span class="spec-label">Relleno</span><span class="spec-value">[Ej: Caucho + arena]</span></li>
+                  <li><span class="spec-label">Homologación</span><span class="spec-value">[Ej: World Rugby]</span></li>
+                  <li><span class="spec-label">Marcado</span><span class="spec-value">[Ej: Permanente incrustado]</span></li>
+                </ul>
+              </div>
+              <a href="#contacto" class="btn btn--outline">Consultar por cancha de rugby</a>
+            </div>
+          </article>
+
+          <!-- HOCKEY -->
+          <article class="deporte-detail" data-detail="hockey" hidden>
+            <div class="deporte-detail-hero">
+              <div class="deporte-detail-img" style="background-image: url('img/aereo-hockey.jpg');" role="img" aria-label="Cancha de hockey"></div>
+              <div class="deporte-detail-hero-veil" aria-hidden="true"></div>
+              <h3 class="deporte-detail-title">Hockey</h3>
+            </div>
+            <div class="deporte-detail-body">
+              <p class="deporte-detail-desc">
+                [PLACEHOLDER: descripción de 2 líneas sobre canchas de hockey.
+                Ej: superficies de césped sintético de fibra corta con sistema de riego
+                para asegurar velocidad y precisión en el juego profesional.]
+              </p>
+              <div class="deporte-info-grid deporte-info-grid--solo-specs">
+                <ul class="deporte-specs">
+                  <li><span class="spec-label">Césped</span><span class="spec-value">[Ej: 13mm texturizado]</span></li>
+                  <li><span class="spec-label">Base</span><span class="spec-value">[Ej: Elástica shock-pad]</span></li>
+                  <li><span class="spec-label">Homologación</span><span class="spec-value">[Ej: FIH Global]</span></li>
+                  <li><span class="spec-label">Riego</span><span class="spec-value">[Ej: Perimetral automatizado]</span></li>
+                </ul>
+              </div>
+              <a href="#contacto" class="btn btn--outline">Consultar por cancha de hockey</a>
+            </div>
+          </article>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       POR QUÉ ELEGIRNOS
+       ============================================================ -->
+  <section class="por-que" aria-label="Por qué elegirnos">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-eyebrow reveal">Nuestro diferencial</p>
+        <h2 class="section-title reveal reveal--delay-1">Por qué elegirnos</h2>
+      </div>
+
+      <div class="por-que-grid">
+        <div class="por-que-item reveal">
+          <div class="por-que-icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2 4 5v6c0 5.5 3.8 10.7 8 12 4.2-1.3 8-6.5 8-12V5l-8-3z"/>
+              <path d="M9 12l2 2 4-4"/>
+            </svg>
+          </div>
+          <h3 class="por-que-title">Alta Durabilidad</h3>
+          <p class="por-que-desc">Materiales premium probados en clubes profesionales que soportan uso intensivo por más de 10 años.</p>
+        </div>
+
+        <div class="por-que-item reveal reveal--delay-1">
+          <div class="por-que-icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/>
+            </svg>
+          </div>
+          <h3 class="por-que-title">Instalación Especializada</h3>
+          <p class="por-que-desc">Equipo técnico propio con años en el rubro. Cada instalación queda plana, alineada y con garantía por escrito.</p>
+        </div>
+
+        <div class="por-que-item reveal reveal--delay-2">
+          <div class="por-que-icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0z"/>
+            </svg>
+          </div>
+          <h3 class="por-que-title">Drenaje Optimizado</h3>
+          <p class="por-que-desc">Sistemas de base filtrante que permiten jugar minutos después de una lluvia. Cero pozos ni encharcamientos.</p>
+        </div>
+
+        <div class="por-que-item reveal reveal--delay-3">
+          <div class="por-que-icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="5" width="20" height="14" rx="2"/>
+              <line x1="2" y1="10" x2="22" y2="10"/>
+              <path d="M6 15h4"/>
+            </svg>
+          </div>
+          <h3 class="por-que-title">Presupuesto Sin Cargo</h3>
+          <p class="por-que-desc">Visita, medición y cotización personalizada sin costo ni compromiso. Te asesoramos antes de que decidas.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       COMPARATIVA
+       ============================================================ -->
+  <section class="comparativa" aria-label="Comparación estándar vs premium">
+    <div class="container">
+
+      <div class="section-header">
+        <p class="section-eyebrow reveal">La diferencia se nota</p>
+        <h2 class="section-title reveal reveal--delay-1">Cancha estándar vs cancha CESPAD</h2>
+        <p class="section-desc reveal reveal--delay-2">
+          El precio inicial no siempre refleja el costo real. Comparalo con lo que recibís
+          cuando trabajás con nosotros.
+        </p>
+      </div>
+
+      <div class="comparativa-grid">
+
+        <div class="comparativa-col comparativa-col--estandar reveal">
+          <h3 class="comparativa-heading">Cancha estándar</h3>
+          <ul class="comparativa-list">
+            <li>Estructuras de menor calibre que se deforman con el uso intensivo.</li>
+            <li>Materiales sin certificación, con vida útil corta y garantías limitadas.</li>
+            <li>Instalación tercerizada, sin control técnico sobre el resultado final.</li>
+            <li>Drenaje básico que colapsa con lluvias fuertes y deja pozos.</li>
+            <li>Iluminación genérica que no cumple los lux mínimos para juego nocturno.</li>
+            <li>Sin postventa. Ante un problema, quedás solo con el fabricante.</li>
+          </ul>
+        </div>
+
+        <div class="comparativa-col comparativa-col--premium reveal reveal--delay-1">
+          <span class="comparativa-badge">Nuestro estándar</span>
+          <h3 class="comparativa-heading">Cancha CESPAD</h3>
+          <ul class="comparativa-list">
+            <li>Estructuras dimensionadas por ingeniería, con acero de calibre certificado.</li>
+            <li>Materiales homologados por las federaciones internacionales de cada deporte.</li>
+            <li>Instalación con equipo técnico propio y control de calidad en cada etapa.</li>
+            <li>Sistema de drenaje diseñado a medida del terreno, jugable después de la lluvia.</li>
+            <li>Iluminación LED profesional calculada según normas de cada disciplina.</li>
+            <li>Garantía escrita y postventa directa con nosotros durante toda la vida útil.</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <p class="comparativa-footer reveal reveal--delay-2">
+        Cada dato específico por deporte lo ves arriba en la sección de <a href="#deportes">Deportes</a>.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       PROCESO
+       ============================================================ -->
+  <section class="proceso" aria-label="Nuestro proceso de trabajo">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-eyebrow reveal">Cómo trabajamos</p>
+        <h2 class="section-title reveal reveal--delay-1">De la consulta al primer partido</h2>
+      </div>
+
+      <div class="proceso-steps">
+        <div class="proceso-step reveal">
+          <div class="proceso-number">01</div>
+          <h3 class="proceso-step-title">Consulta</h3>
+          <p class="proceso-step-desc">Nos contás qué necesitás y visitamos el lugar sin costo.</p>
+        </div>
+        <div class="proceso-line" aria-hidden="true"></div>
+
+        <div class="proceso-step reveal reveal--delay-1">
+          <div class="proceso-number">02</div>
+          <h3 class="proceso-step-title">Diseño</h3>
+          <p class="proceso-step-desc">Proyecto técnico a medida con presupuesto detallado.</p>
+        </div>
+        <div class="proceso-line" aria-hidden="true"></div>
+
+        <div class="proceso-step reveal reveal--delay-2">
+          <div class="proceso-number">03</div>
+          <h3 class="proceso-step-title">Instalación</h3>
+          <p class="proceso-step-desc">Nuestro equipo ejecuta la obra con supervisión constante.</p>
+        </div>
+        <div class="proceso-line" aria-hidden="true"></div>
+
+        <div class="proceso-step reveal reveal--delay-3">
+          <div class="proceso-number">04</div>
+          <h3 class="proceso-step-title">Entrega</h3>
+          <p class="proceso-step-desc">Habilitación de la cancha y respaldo postventa continuo.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       PROYECTOS (oculto, para cuando tengamos mas clientes quitar hidden)
+       ============================================================ -->
+  <section class="proyectos" id="proyectos" aria-label="Nuestros proyectos" hidden>
+    <div class="container">
+      <div class="section-header">
+        <p class="section-eyebrow reveal">Nuestro trabajo</p>
+        <h2 class="section-title reveal reveal--delay-1">Proyectos entregados</h2>
+        <p class="section-desc reveal reveal--delay-2">
+          Cada obra habla por nosotros. Un recorrido por algunos de los proyectos que
+          instalamos en clubes, casas y espacios públicos.
+        </p>
+      </div>
+
+      <div class="masonry">
+        <img src="img/proyectos/proyecto-01.jpg" alt="Descripción del proyecto 1: cliente, deporte, ubicación" loading="lazy" />
+        <img src="img/proyectos/proyecto-02.jpg" alt="Descripción del proyecto 2: cliente, deporte, ubicación" loading="lazy" />
+        <img src="img/proyectos/proyecto-03.jpg" alt="Descripción del proyecto 3: cliente, deporte, ubicación" loading="lazy" />
+        <img src="img/proyectos/proyecto-04.jpg" alt="Descripción del proyecto 4: cliente, deporte, ubicación" loading="lazy" />
+        <img src="img/proyectos/proyecto-05.jpg" alt="Descripción del proyecto 5: cliente, deporte, ubicación" loading="lazy" />
+        <img src="img/proyectos/proyecto-06.jpg" alt="Descripción del proyecto 6: cliente, deporte, ubicación" loading="lazy" />
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       TESTIMONIOS (oculto)
+       ============================================================ -->
+  <section class="testimonios" aria-label="Testimonios de clientes" hidden>
+    <div class="container">
+      <div class="section-header">
+        <p class="section-eyebrow reveal">Lo que dicen</p>
+        <h2 class="section-title reveal reveal--delay-1">Clientes que ya confían</h2>
+      </div>
+      <div class="testimonios-grid"></div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CONTACTO
+       ============================================================ -->
+  <section class="contacto" id="contacto" aria-label="Formulario de contacto">
+    <div class="container contacto-inner">
+      <div class="reveal">
+        <p class="section-eyebrow">Hablemos</p>
+        <h2 class="section-title">Pedí tu presupuesto</h2>
+        <p class="contacto-desc">
+          Completá el formulario y te respondemos directo por WhatsApp con una propuesta
+          personalizada para tu proyecto.
+        </p>
+        <ul class="contact-info">
+          <li>
+            <span class="ci-icon" aria-hidden="true">📞</span>
+            <span>+54 9 11 3149 6374</span>
+          </li>
+          <li>
+            <span class="ci-icon" aria-hidden="true">📍</span>
+            <span>Córdoba, Argentina — trabajamos en todo el país</span>
+          </li>
+          <li>
+            <span class="ci-icon" aria-hidden="true">⏱</span>
+            <span>Respuestas en menos de 24hs por nuestros asesores</span>
+          </li>
+        </ul>
+      </div>
+
+      <form class="form reveal reveal--delay-1" id="contact-form" novalidate>
+        <div class="form-group">
+          <label class="form-label" for="nombre">
+            Nombre completo <span class="required-mark" aria-hidden="true">*</span>
+          </label>
+          <input class="form-input" type="text" id="nombre" name="nombre" required aria-required="true" />
+          <span class="form-error" id="err-nombre" role="alert"></span>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="ciudad">
+            Ciudad / Localidad <span class="required-mark" aria-hidden="true">*</span>
+          </label>
+          <input class="form-input" type="text" id="ciudad" name="ciudad" required aria-required="true" />
+          <span class="form-error" id="err-ciudad" role="alert"></span>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="deporte">
+            ¿Qué tipo de cancha te interesa? <span class="required-mark" aria-hidden="true">*</span>
+          </label>
+          <select class="form-input form-select" id="deporte" name="deporte" required aria-required="true">
+            <option value="">Elegí una opción</option>
+            <option value="Fútbol">Fútbol</option>
+            <option value="Pádel">Pádel</option>
+            <option value="Tenis">Tenis</option>
+            <option value="Rugby">Rugby</option>
+            <option value="Hockey">Hockey</option>
+            <option value="Parquización / Espacios verdes">Parquización / Espacios verdes</option>
+            <option value="Otro">Otro / No lo sé aún</option>
+          </select>
+          <span class="form-error" id="err-deporte" role="alert"></span>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="proyecto">
+            Tipo de proyecto <span class="required-mark" aria-hidden="true">*</span>
+          </label>
+          <select class="form-input form-select" id="proyecto" name="proyecto" required aria-required="true">
+            <option value="">Elegí una opción</option>
+            <option value="Club / complejo deportivo">Club / complejo deportivo</option>
+            <option value="Casa particular">Casa particular</option>
+            <option value="Jardín / bar / espacio urbano">Jardín / bar / espacio urbano</option>
+            <option value="Municipio / institución">Municipio / institución</option>
+            <option value="Otro">Otro</option>
+          </select>
+          <span class="form-error" id="err-proyecto" role="alert"></span>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="etapa">
+            ¿En qué etapa estás?
+            <span class="label-opcional">(opcional)</span>
+          </label>
+          <select class="form-input form-select" id="etapa" name="etapa">
+            <option value="">Elegí una opción</option>
+            <option value="Recién explorando ideas">Recién explorando ideas</option>
+            <option value="Comparando presupuestos">Comparando presupuestos</option>
+            <option value="Listo para avanzar">Listo para avanzar</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="espacio">
+            Espacio aproximado disponible
+            <span class="label-opcional">(opcional)</span>
+          </label>
+          <input class="form-input" type="text" id="espacio" name="espacio" placeholder="Ej: 20m x 10m" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="mensaje">
+            Comentario <span class="label-opcional">(opcional)</span>
+          </label>
+          <textarea class="form-input form-textarea" id="mensaje" name="mensaje" rows="4"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn--primary btn--full">Enviar consulta por WhatsApp</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <a href="#hero" class="footer-brand" aria-label="Volver arriba">Grupo CESPAD</a>
+      <p class="footer-copy">© <span id="year">2026</span> Grupo CESPAD. Todos los derechos reservados.</p>
+      <div class="footer-social">
+        <a class="social-link" href="https://instagram.com/grupocespad" aria-label="Instagram" target="_blank" rel="noopener">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+            <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============================================================
+       WHATSAPP FAB
+       ============================================================ -->
+  <a
+    class="whatsapp-fab"
+    href="https://wa.me/5491131496374"
+    target="_blank"
+    rel="noopener"
+    aria-label="Escribinos por WhatsApp"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+    </svg>
+  </a>
+
+  <script src="main.js" defer></script>
+</body>
+</html>
