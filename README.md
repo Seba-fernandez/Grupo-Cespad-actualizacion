@@ -9,10 +9,10 @@ Landing page para **Greenset Court**, empresa de venta e instalación de canchas
 ## Preview
 
 ### Desktop
-![Vista desktop](img/preview-desktop.png)
+![Vista desktop]![alt text](image.png)
 
 ### Mobile
-![Vista mobile](img/preview-mobile.png)
+![Vista mobile]![alt text](image-1.png)
 
 ## Stack
 
