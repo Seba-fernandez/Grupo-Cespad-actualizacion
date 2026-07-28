@@ -13,8 +13,8 @@
   <!-- Open Graph (previsualización al compartir en WhatsApp / redes) -->
   <meta property="og:title" content="Grupo CESPAD — Canchas Deportivas Premium" />
   <meta property="og:description" content="Fútbol, pádel, tenis, hockey y rugby. Del club profesional al patio de tu casa. Pedí tu presupuesto." />
-  <meta property="og:image" content="https://greenset-landing.vercel.app/img/og-image.jpg" />
-  <meta property="og:url" content="https://greenset-landing.vercel.app/" />
+  <meta property="og:image" content="https://grupo-cespad-actualizacion.vercel.app/img/og-image.jpg" />
+  <meta property="og:url" content="https://grupo-cespad-actualizacion.vercel.app/" />
   <meta property="og:type" content="website" />
 
   <!-- Google Fonts (Bebas Neue para display, DM Sans para body). Cargadas de forma NO bloqueante. -->
@@ -58,7 +58,7 @@
       <nav class="nav" id="primary-nav" aria-label="Menú principal">
         <a class="nav-link" href="#nosotros">Nosotros</a>
         <a class="nav-link" href="#deportes">Deportes</a>
-        <a class="nav-link" href="#proyectos">Proyectos</a>
+        <a class="nav-link" href="#proyectos"hidden>Proyectos</a >
         <a class="nav-cta" href="#contacto">Contacto</a>
       </nav>
     </div>
@@ -70,21 +70,7 @@
   <section class="hero" id="hero" aria-label="Sección principal">
 
     <div class="sport-selector" aria-label="Deportes que trabajamos">
-
-      <div class="sport-panel sport-panel--futbol" data-sport="futbol">
-        <div class="sport-panel-overlay" aria-hidden="true"></div>
-        <div class="sport-panel-content">
-          <button class="sport-panel-icon" type="button" data-sport-trigger="futbol" aria-label="Ver detalles de fútbol">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <circle cx="12" cy="12" r="8.75"/>
-              <path d="M12 8 15.8 10.76 14.35 15.24 9.65 15.24 8.2 10.76Z"/>
-              <path d="M12 8V3.25M15.8 10.76 20.32 9.3M14.35 15.24 17.14 19.08M9.65 15.24 6.86 19.08M8.2 10.76 3.68 9.3"/>
-            </svg>
-          </button>
-          <span class="sport-panel-label">Fútbol</span>
-        </div>
-      </div>
-
+      
       <div class="sport-panel sport-panel--padel" data-sport="padel">
         <div class="sport-panel-overlay" aria-hidden="true"></div>
         <div class="sport-panel-content">
@@ -111,6 +97,20 @@
             </svg>
           </button>
           <span class="sport-panel-label">Tenis</span>
+        </div>
+      </div>
+
+      <div class="sport-panel sport-panel--futbol" data-sport="futbol">
+        <div class="sport-panel-overlay" aria-hidden="true"></div>
+        <div class="sport-panel-content">
+          <button class="sport-panel-icon" type="button" data-sport-trigger="futbol" aria-label="Ver detalles de fútbol">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="8.75"/>
+              <path d="M12 8 15.8 10.76 14.35 15.24 9.65 15.24 8.2 10.76Z"/>
+              <path d="M12 8V3.25M15.8 10.76 20.32 9.3M14.35 15.24 17.14 19.08M9.65 15.24 6.86 19.08M8.2 10.76 3.68 9.3"/>
+            </svg>
+          </button>
+          <span class="sport-panel-label">Fútbol</span>
         </div>
       </div>
 
@@ -273,19 +273,8 @@
       <div class="deportes-panel reveal">
         <!-- Columna izquierda: tabs -->
         <div class="deportes-tabs" role="tablist" aria-label="Deportes disponibles">
-
-          <button class="deportes-tab is-active" role="tab" data-tab="futbol" aria-selected="true" aria-controls="deporte-content">
-            <span class="deportes-tab-icon" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="8.75"/>
-                <path d="M12 8 15.8 10.76 14.35 15.24 9.65 15.24 8.2 10.76Z"/>
-                <path d="M12 8V3.25M15.8 10.76 20.32 9.3M14.35 15.24 17.14 19.08M9.65 15.24 6.86 19.08M8.2 10.76 3.68 9.3"/>
-              </svg>
-            </span>
-            <span class="deportes-tab-label">Fútbol</span>
-          </button>
-
-          <button class="deportes-tab" role="tab" data-tab="padel" aria-selected="false" aria-controls="deporte-content">
+          
+          <button class="deportes-tab is-active" role="tab" data-tab="padel" aria-selected="true" aria-controls="deporte-content">
             <span class="deportes-tab-icon" aria-hidden="true">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
                 <rect x="5.3" y="2.4" width="13.4" height="13.4" rx="5.2"/>
@@ -307,6 +296,18 @@
             </span>
             <span class="deportes-tab-label">Tenis</span>
           </button>
+
+          <button class="deportes-tab" role="tab" data-tab="futbol" aria-selected="false" aria-controls="deporte-content">
+            <span class="deportes-tab-icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="8.75"/>
+                <path d="M12 8 15.8 10.76 14.35 15.24 9.65 15.24 8.2 10.76Z"/>
+                <path d="M12 8V3.25M15.8 10.76 20.32 9.3M14.35 15.24 17.14 19.08M9.65 15.24 6.86 19.08M8.2 10.76 3.68 9.3"/>
+              </svg>
+            </span>
+            <span class="deportes-tab-label">Fútbol</span>
+          </button>
+
 
           <button class="deportes-tab" role="tab" data-tab="rugby" aria-selected="false" aria-controls="deporte-content">
             <span class="deportes-tab-icon" aria-hidden="true">
@@ -332,12 +333,116 @@
 
         <!-- Columna derecha: card que cambia según el tab activo -->
         <div class="deportes-card" id="deporte-content" role="tabpanel">
+          
+          <!-- PÁDEL (con selector de 5 colores) -->
+          <article class="deporte-detail is-active" data-detail="padel">
+            <div class="deporte-detail-hero">
+              <div class="deporte-detail-img" style="background-image: url('img/canchas/padel-verde.webp');" role="img" aria-label="Cancha de pádel"></div>
+              <div class="deporte-detail-hero-veil" aria-hidden="true"></div>
+              <h3 class="deporte-detail-title">Pádel</h3>
+            </div>
+            <div class="deporte-detail-body">
+              
+                <div class="deporte-colores">
+                  <p class="deporte-colores-label">Color de césped</p>
+                  <div class="deporte-colores-swatches" role="radiogroup" aria-label="Elegí el color del césped">
+                    <button type="button" class="color-swatch is-active"
+                            data-color-name="Verde"
+                            data-image="img/canchas/padel-verde.webp"
+                            style="background-image: url('img/pastos/verde.webp');"
+                            aria-label="Verde" aria-checked="true"></button>
+                    <button type="button" class="color-swatch"
+                            data-color-name="Azul"
+                            data-image="img/canchas/padel-azul.webp"
+                            style="background-image: url('img/pastos/azul.webp');"
+                            aria-label="Azul" aria-checked="false"></button>
+                    <button type="button" class="color-swatch"
+                            data-color-name="Rosa"
+                            data-image="img/canchas/padel-rosa.webp"
+                            style="background-image: url('img/pastos/rosa.webp');"
+                            aria-label="Rosa" aria-checked="false"></button>
+                    <button type="button" class="color-swatch"
+                            data-color-name="Negro"
+                            data-image="img/canchas/padel-negro.webp"
+                            style="background-image: url('img/pastos/negro.webp');"
+                            aria-label="Negro" aria-checked="false"></button>
+                  </div>
+                  <p class="deporte-colores-selected">Color: <span data-color-name>Verde</span></p>
+                </div>
+              <p class="deporte-detail-desc">
+                [PLACEHOLDER: escribí una descripción de 2 líneas sobre canchas de pádel.
+                Ej: canchas panorámicas y tradicionales con estructura de acero, vidrios
+                templados de seguridad y césped de alta densidad.]
+              </p>
+
+              <div class="deporte-info-grid">
+                <ul class="deporte-specs">
+                  <li><span class="spec-label">Estructura</span><span class="spec-value">[Ej: Acero 3mm]</span></li>
+                  <li><span class="spec-label">Vidrios</span><span class="spec-value">[Ej: Templados TÜV 12mm]</span></li>
+                  <li><span class="spec-label">Césped</span><span class="spec-value">[Ej: 12mm · 1500 gr/m²]</span></li>
+                  <li><span class="spec-label">Iluminación</span><span class="spec-value">[Ej: LED 8×200W]</span></li>
+                </ul>
+              </div>
+
+              <a href="#contacto" class="btn btn--outline">Consultar por cancha de pádel</a>
+            </div>
+          </article>
+
+          <!-- TENIS (con selector de 3 colores) -->
+          <article class="deporte-detail" data-detail="tenis" hidden>
+            <div class="deporte-detail-hero">
+              <div class="deporte-detail-img" style="background-image: url('img/canchas/tenis-verde.webp');" role="img" aria-label="Cancha de tenis"></div>
+              <div class="deporte-detail-hero-veil" aria-hidden="true"></div>
+              <h3 class="deporte-detail-title">Tenis</h3>
+            </div>
+            <div class="deporte-detail-body">
+              
+                <div class="deporte-colores">
+                  <p class="deporte-colores-label">Color de césped</p>
+                  <div class="deporte-colores-swatches" role="radiogroup" aria-label="Elegí el color del césped">
+                    <button type="button" class="color-swatch is-active"
+                            data-color-name="Verde"
+                            data-image="img/canchas/tenis-verde.webp"
+                            style="background-image: url('img/pastos/verde.webp');"
+                            aria-label="Verde" aria-checked="true"></button>
+                    <button type="button" class="color-swatch"
+                            data-color-name="Azul"
+                            data-image="img/canchas/tenis-azul.jpg"
+                            style="background-image: url('img/pastos/azul.webp');"
+                            aria-label="Azul" aria-checked="false"></button>
+                    <button type="button" class="color-swatch"
+                            data-color-name="Terracota"
+                            data-image="img/canchas/tenis-terracota.png"
+                            style="background-image: url('img/pastos/terracota.jpg');"
+                            aria-label="Terracota" aria-checked="false"></button>
+                  </div>
+                  <p class="deporte-colores-selected">Color: <span data-color-name>Verde</span></p>
+                </div>
+              <p class="deporte-detail-desc">
+                [PLACEHOLDER: descripción de 2 líneas sobre canchas de tenis.
+                Ej: superficies de césped sintético o polvo de ladrillo con marcado profesional
+                y sistema de drenaje que permite jugar todo el año.]
+              </p>
+
+              <div class="deporte-info-grid">
+                <ul class="deporte-specs">
+                  <li><span class="spec-label">Superficie</span><span class="spec-value">[Ej: Césped 15mm]</span></li>
+                  <li><span class="spec-label">Medidas</span><span class="spec-value">[Ej: ITF regulación]</span></li>
+                  <li><span class="spec-label">Drenaje</span><span class="spec-value">[Ej: Base filtrante]</span></li>
+                  <li><span class="spec-label">Iluminación</span><span class="spec-value">[Ej: LED 6×200W]</span></li>
+                </ul>
+
+              </div>
+
+              <a href="#contacto" class="btn btn--outline">Consultar por cancha de tenis</a>
+            </div>
+          </article>
 
           <!-- FÚTBOL (sin selector de color por ahora) -->
-          <article class="deporte-detail is-active" data-detail="futbol">
+          <article class="deporte-detail" data-detail="futbol" hidden>
             <div class="deporte-detail-hero">
-              <div class="deporte-detail-img" style="background-image: url('img/aereo-futbol.jpg');" role="img" aria-label="Cancha de fútbol"></div>
-              <div class="deporte-detail-hero-veil" aria-hidden="true"></div>
+              <div class="deporte-detail-img" style="background-image: url('img/aereo-futbol-horizontal.webp');" role="img" aria-label="Cancha de fútbol"></div>
+              <div class="deporte-detail-hero-veil" aria-hidden="false"></div>
               <h3 class="deporte-detail-title">Fútbol</h3>
             </div>
             <div class="deporte-detail-body">
@@ -358,118 +463,10 @@
             </div>
           </article>
 
-          <!-- PÁDEL (con selector de 5 colores) -->
-          <article class="deporte-detail" data-detail="padel" hidden>
-            <div class="deporte-detail-hero">
-              <div class="deporte-detail-img" style="background-image: url('img/canchas/padel-verde.jpg');" role="img" aria-label="Cancha de pádel"></div>
-              <div class="deporte-detail-hero-veil" aria-hidden="true"></div>
-              <h3 class="deporte-detail-title">Pádel</h3>
-            </div>
-            <div class="deporte-detail-body">
-              <p class="deporte-detail-desc">
-                [PLACEHOLDER: escribí una descripción de 2 líneas sobre canchas de pádel.
-                Ej: canchas panorámicas y tradicionales con estructura de acero, vidrios
-                templados de seguridad y césped de alta densidad.]
-              </p>
-
-              <div class="deporte-info-grid">
-                <ul class="deporte-specs">
-                  <li><span class="spec-label">Estructura</span><span class="spec-value">[Ej: Acero 3mm]</span></li>
-                  <li><span class="spec-label">Vidrios</span><span class="spec-value">[Ej: Templados TÜV 12mm]</span></li>
-                  <li><span class="spec-label">Césped</span><span class="spec-value">[Ej: 12mm · 1500 gr/m²]</span></li>
-                  <li><span class="spec-label">Iluminación</span><span class="spec-value">[Ej: LED 8×200W]</span></li>
-                </ul>
-
-                <div class="deporte-colores">
-                  <p class="deporte-colores-label">Color de césped</p>
-                  <div class="deporte-colores-swatches" role="radiogroup" aria-label="Elegí el color del césped">
-                    <button type="button" class="color-swatch is-active"
-                            data-color-name="Verde"
-                            data-image="img/canchas/padel-verde.jpg"
-                            style="background-image: url('img/pastos/verde.jpg');"
-                            aria-label="Verde" aria-checked="true"></button>
-                    <button type="button" class="color-swatch"
-                            data-color-name="Azul"
-                            data-image="img/canchas/padel-azul.jpg"
-                            style="background-image: url('img/pastos/azul.jpg');"
-                            aria-label="Azul" aria-checked="false"></button>
-                    <button type="button" class="color-swatch"
-                            data-color-name="Rosa"
-                            data-image="img/canchas/padel-rosa.jpg"
-                            style="background-image: url('img/pastos/rosa.jpg');"
-                            aria-label="Rosa" aria-checked="false"></button>
-                    <button type="button" class="color-swatch"
-                            data-color-name="Lila"
-                            data-image="img/canchas/padel-lila.jpg"
-                            style="background-image: url('img/pastos/lila.jpg');"
-                            aria-label="Lila" aria-checked="false"></button>
-                    <button type="button" class="color-swatch"
-                            data-color-name="Negro"
-                            data-image="img/canchas/padel-negro.jpg"
-                            style="background-image: url('img/pastos/negro.jpg');"
-                            aria-label="Negro" aria-checked="false"></button>
-                  </div>
-                  <p class="deporte-colores-selected">Color: <span data-color-name>Verde</span></p>
-                </div>
-              </div>
-
-              <a href="#contacto" class="btn btn--outline">Consultar por cancha de pádel</a>
-            </div>
-          </article>
-
-          <!-- TENIS (con selector de 3 colores) -->
-          <article class="deporte-detail" data-detail="tenis" hidden>
-            <div class="deporte-detail-hero">
-              <div class="deporte-detail-img" style="background-image: url('img/canchas/tenis-verde.jpg');" role="img" aria-label="Cancha de tenis"></div>
-              <div class="deporte-detail-hero-veil" aria-hidden="true"></div>
-              <h3 class="deporte-detail-title">Tenis</h3>
-            </div>
-            <div class="deporte-detail-body">
-              <p class="deporte-detail-desc">
-                [PLACEHOLDER: descripción de 2 líneas sobre canchas de tenis.
-                Ej: superficies de césped sintético o polvo de ladrillo con marcado profesional
-                y sistema de drenaje que permite jugar todo el año.]
-              </p>
-
-              <div class="deporte-info-grid">
-                <ul class="deporte-specs">
-                  <li><span class="spec-label">Superficie</span><span class="spec-value">[Ej: Césped 15mm]</span></li>
-                  <li><span class="spec-label">Medidas</span><span class="spec-value">[Ej: ITF regulación]</span></li>
-                  <li><span class="spec-label">Drenaje</span><span class="spec-value">[Ej: Base filtrante]</span></li>
-                  <li><span class="spec-label">Iluminación</span><span class="spec-value">[Ej: LED 6×200W]</span></li>
-                </ul>
-
-                <div class="deporte-colores">
-                  <p class="deporte-colores-label">Color de césped</p>
-                  <div class="deporte-colores-swatches" role="radiogroup" aria-label="Elegí el color del césped">
-                    <button type="button" class="color-swatch is-active"
-                            data-color-name="Verde"
-                            data-image="img/canchas/tenis-verde.jpg"
-                            style="background-image: url('img/pastos/verde.jpg');"
-                            aria-label="Verde" aria-checked="true"></button>
-                    <button type="button" class="color-swatch"
-                            data-color-name="Azul"
-                            data-image="img/canchas/tenis-azul.jpg"
-                            style="background-image: url('img/pastos/azul.jpg');"
-                            aria-label="Azul" aria-checked="false"></button>
-                    <button type="button" class="color-swatch"
-                            data-color-name="Terracota"
-                            data-image="img/canchas/tenis-terracota.jpg"
-                            style="background-image: url('img/pastos/terracota.jpg');"
-                            aria-label="Terracota" aria-checked="false"></button>
-                  </div>
-                  <p class="deporte-colores-selected">Color: <span data-color-name>Verde</span></p>
-                </div>
-              </div>
-
-              <a href="#contacto" class="btn btn--outline">Consultar por cancha de tenis</a>
-            </div>
-          </article>
-
           <!-- RUGBY -->
           <article class="deporte-detail" data-detail="rugby" hidden>
             <div class="deporte-detail-hero">
-              <div class="deporte-detail-img" style="background-image: url('img/aereo-rugby.jpg');" role="img" aria-label="Cancha de rugby"></div>
+              <div class="deporte-detail-img" style="background-image: url('img/aereo-rugby-horizontal.webp');" role="img" aria-label="Cancha de rugby"></div>
               <div class="deporte-detail-hero-veil" aria-hidden="true"></div>
               <h3 class="deporte-detail-title">Rugby</h3>
             </div>
@@ -494,7 +491,7 @@
           <!-- HOCKEY -->
           <article class="deporte-detail" data-detail="hockey" hidden>
             <div class="deporte-detail-hero">
-              <div class="deporte-detail-img" style="background-image: url('img/aereo-hockey.jpg');" role="img" aria-label="Cancha de hockey"></div>
+              <div class="deporte-detail-img" style="background-image: url('img/aereo-hockey-horizontal.webp');" role="img" aria-label="Cancha de hockey"></div>
               <div class="deporte-detail-hero-veil" aria-hidden="true"></div>
               <h3 class="deporte-detail-title">Hockey</h3>
             </div>
