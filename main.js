@@ -1,261 +1,373 @@
 /* ============================================================
-   GRUPO CESPAD — main.js (v3.2)
-   Módulos IIFE independientes.
+   GRUPO CESPAD — main.js
+   ------------------------------------------------------------
+   Módulos IIFE independientes. Cada uno hace un early-return si
+   su markup no existe, así se puede borrar una sección del HTML
+   sin romper nada.
+
+   01. CONFIG + helpers
+   02. Header (scroll)
+   03. Scroll effects (reveal + contadores) — un solo observer
+   04. Marquee (duplica el track)
+   05. Menú mobile
+   06. Deportes (tabs + swatches + deep-link desde el hero)
+   07. Formulario → WhatsApp
+   08. WhatsApp global (FAB, teléfono) + año
    ============================================================ */
 
-const WHATSAPP_NUMBER = '5491131496374';
+'use strict';
 
-/* ---------------- Header scroll ---------------- */
+/* ------------------------------------------------------------
+   01. CONFIG + helpers
+   Único lugar donde se toca el número de WhatsApp.
+   ------------------------------------------------------------ */
+const CONFIG = {
+  // Número principal (Marcelo). Recibe TODO: FAB, formulario y botones de cada deporte.
+  whatsapp: '5491131496374',
+  whatsappDisplay: '+54 9 11 3149-6374',
+  whatsappSaludo: 'Hola Grupo CESPAD, quiero consultar por una cancha.',
+
+  // Segundo asesor. Se muestra como canal alternativo en Contacto.
+  // Dejalo en '' y la línea no aparece en la web.
+  whatsappSecundario: '',
+  whatsappSecundarioDisplay: '',
+
+  // Ruteo opcional por tipo de consulta (value exacto del <select id="deporte">).
+  // Vacío = todo va al número principal. Descomentá sólo lo que quieras derivar.
+  // Sirve para repartir por especialidad SIN que compitan por el mismo lead.
+  ruteo: {
+    // 'Parquización / Espacios verdes': '549351XXXXXXX',
+  },
+};
+
+const $ = (sel, ctx = document) => ctx.querySelector(sel);
+const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
+const REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const SCROLL_BEHAVIOR = REDUCED_MOTION ? 'auto' : 'smooth';
+
+/* ------------------------------------------------------------
+   02. HEADER — fondo al scrollear
+   El listener sólo agenda un frame: el trabajo real corre como
+   máximo 1 vez por repintado, no 1 vez por evento de scroll.
+   ------------------------------------------------------------ */
 (function initHeader() {
-  const header = document.getElementById('site-header');
+  const header = $('#site-header');
   if (!header) return;
-  const onScroll = () => {
-    if (window.scrollY > 40) header.classList.add('scrolled');
-    else header.classList.remove('scrolled');
+
+  let queued = false;
+
+  const paint = () => {
+    header.classList.toggle('scrolled', window.scrollY > 40);
+    queued = false;
   };
-  onScroll();
-  window.addEventListener('scroll', onScroll, { passive: true });
+
+  window.addEventListener('scroll', () => {
+    if (queued) return;
+    queued = true;
+    requestAnimationFrame(paint);
+  }, { passive: true });
+
+  paint();
 })();
 
-/* ---------------- Reveal on scroll ---------------- */
-(function initReveal() {
-  const items = document.querySelectorAll('.reveal');
-  if (!items.length || !('IntersectionObserver' in window)) {
-    items.forEach(el => el.classList.add('is-visible'));
-    return;
-  }
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('is-visible');
-        io.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.15, rootMargin: '0px 0px -80px 0px' });
-  items.forEach(el => io.observe(el));
-})();
+/* ------------------------------------------------------------
+   03. SCROLL EFFECTS — reveal + contadores en un solo observer
+   Antes había 2 IntersectionObserver recorriendo el DOM por
+   separado. Ahora hay 1 con delegación por dataset.
+   ------------------------------------------------------------ */
+(function initScrollEffects() {
+  const targets = $$('[data-reveal], [data-count]');
+  if (!targets.length) return;
 
-/* ---------------- Contadores animados ---------------- */
-(function initCounters() {
-  const nums = document.querySelectorAll('.stat-number[data-target]');
-  if (!nums.length || !('IntersectionObserver' in window)) return;
+  const countUp = (el) => {
+    const target = Number(el.dataset.count);
+    if (!Number.isFinite(target)) return;
 
-  const animate = (el) => {
-    const target = parseInt(el.getAttribute('data-target'), 10);
-    if (isNaN(target)) return;
+    const prefix = el.dataset.prefix || '';
+    const suffix = el.dataset.suffix || '';
+    const render = (n) => { el.textContent = `${prefix}${n}${suffix}`; };
+
+    if (REDUCED_MOTION) { render(target); return; }
+
     const duration = 1600;
     const start = performance.now();
 
     const tick = (now) => {
-      const elapsed = now - start;
-      const progress = Math.min(elapsed / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      el.textContent = Math.round(target * eased);
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3); // ease-out cúbico
+      render(Math.round(target * eased));
       if (progress < 1) requestAnimationFrame(tick);
     };
     requestAnimationFrame(tick);
   };
 
+  const activate = (el) => {
+    if ('reveal' in el.dataset) el.classList.add('is-visible');
+    if ('count' in el.dataset) countUp(el);
+  };
+
+  // Fallback: sin IntersectionObserver mostramos todo de una.
+  if (!('IntersectionObserver' in window)) {
+    targets.forEach(activate);
+    return;
+  }
+
   const io = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        animate(entry.target);
-        io.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.4 });
-  nums.forEach(el => io.observe(el));
+    for (const entry of entries) {
+      if (!entry.isIntersecting) continue;
+      activate(entry.target);
+      io.unobserve(entry.target); // cada elemento se anima una sola vez
+    }
+  }, { threshold: 0.2, rootMargin: '0px 0px -60px 0px' });
+
+  targets.forEach((el) => io.observe(el));
 })();
 
-/* ---------------- Menú mobile ---------------- */
+/* ------------------------------------------------------------
+   04. MARQUEE — la copia para el loop la genera el JS
+   Evita mantener el mismo listado duplicado a mano en el HTML.
+   ------------------------------------------------------------ */
+(function initMarquee() {
+  const track = $('.marquee-track');
+  const content = track && $('.marquee-content', track);
+  if (!content) return;
+
+  const clone = content.cloneNode(true);
+  clone.setAttribute('aria-hidden', 'true');
+  track.appendChild(clone);
+  track.classList.add('is-ready'); // recién ahora arranca la animación
+})();
+
+/* ------------------------------------------------------------
+   05. MENÚ MOBILE
+   ------------------------------------------------------------ */
 (function initMobileMenu() {
-  const toggle = document.getElementById('nav-toggle');
-  const nav = document.getElementById('primary-nav');
+  const toggle = $('#nav-toggle');
+  const nav = $('#primary-nav');
   if (!toggle || !nav) return;
 
-  const close = () => {
-    toggle.classList.remove('is-open');
-    nav.classList.remove('is-open');
-    toggle.setAttribute('aria-expanded', 'false');
-  };
-  const open = () => {
-    toggle.classList.add('is-open');
-    nav.classList.add('is-open');
-    toggle.setAttribute('aria-expanded', 'true');
+  const setOpen = (open) => {
+    toggle.classList.toggle('is-open', open);
+    nav.classList.toggle('is-open', open);
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
   };
 
-  toggle.addEventListener('click', () => {
-    if (nav.classList.contains('is-open')) close();
-    else open();
-  });
+  toggle.addEventListener('click', () => setOpen(!nav.classList.contains('is-open')));
 
-  nav.addEventListener('click', (e) => {
-    if (e.target.matches('.nav-link, .nav-cta')) close();
-  });
-
+  // Un solo listener en el documento cubre: click en un link, click afuera y Escape.
   document.addEventListener('click', (e) => {
     if (!nav.classList.contains('is-open')) return;
-    if (nav.contains(e.target) || toggle.contains(e.target)) return;
-    close();
+    const dentroDelToggle = toggle.contains(e.target);
+    const esLink = e.target.closest('.nav-link, .nav-cta');
+    if (dentroDelToggle) return;
+    if (esLink || !nav.contains(e.target)) setOpen(false);
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && nav.classList.contains('is-open')) {
+      setOpen(false);
+      toggle.focus();
+    }
   });
 })();
 
-/* ---------------- Deportes: tabs ---------------- */
-(function initDeportesTabs() {
-  const tabs = document.querySelectorAll('.deportes-tab[data-tab]');
-  const details = document.querySelectorAll('.deporte-detail[data-detail]');
+/* ------------------------------------------------------------
+   06. DEPORTES — tabs, swatches y deep-link desde el hero
+   3 listeners delegados en lugar de ~17 individuales.
+   Agregar un deporte no requiere tocar este archivo.
+   ------------------------------------------------------------ */
+(function initDeportes() {
+  const section = $('#deportes');
+  if (!section) return;
+
+  const tablist = $('.deportes-tabs', section);
+  const tabs = $$('.deportes-tab[data-sport]', section);
+  const details = $$('.deporte-detail[data-detail]', section);
   if (!tabs.length || !details.length) return;
 
-  const activate = (sport) => {
-    tabs.forEach(t => {
-      const on = t.getAttribute('data-tab') === sport;
-      t.classList.toggle('is-active', on);
-      t.setAttribute('aria-selected', on ? 'true' : 'false');
-    });
-    details.forEach(d => {
-      const on = d.getAttribute('data-detail') === sport;
-      d.classList.toggle('is-active', on);
-      if (on) d.removeAttribute('hidden');
-      else d.setAttribute('hidden', '');
-    });
+  const precargadas = new Set();
+
+  /** Calienta la caché de la foto de un deporte antes de que se muestre. */
+  const prefetch = (sport) => {
+    const detail = details.find((d) => d.dataset.detail === sport);
+    const img = detail && $('.deporte-detail-img', detail);
+    if (!img || precargadas.has(img.src)) return;
+    precargadas.add(img.src);
+    new Image().src = img.src;
   };
 
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => activate(tab.getAttribute('data-tab')));
+  const activate = (sport) => {
+    if (!tabs.some((t) => t.dataset.sport === sport)) return false;
+
+    tabs.forEach((tab) => {
+      const on = tab.dataset.sport === sport;
+      tab.classList.toggle('is-active', on);
+      tab.setAttribute('aria-selected', String(on));
+      tab.tabIndex = on ? 0 : -1; // roving tabindex: el tablist es 1 sola parada de tabulación
+    });
+
+    details.forEach((d) => { d.hidden = d.dataset.detail !== sport; });
+    return true;
+  };
+
+  // Clicks dentro de la sección: tabs y swatches.
+  section.addEventListener('click', (e) => {
+    const tab = e.target.closest('.deportes-tab[data-sport]');
+    if (tab) { activate(tab.dataset.sport); return; }
+
+    const swatch = e.target.closest('.color-swatch');
+    if (swatch) selectColor(swatch);
   });
 
-  // Deep-link desde íconos del hero
-  const triggers = document.querySelectorAll('[data-sport-trigger]');
-  triggers.forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      const sport = btn.getAttribute('data-sport-trigger');
-      if (!sport) return;
-      e.preventDefault();
-      activate(sport);
-      const target = document.getElementById('deportes');
-      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
+  // Navegación por teclado del tablist (patrón ARIA de tabs).
+  tablist?.addEventListener('keydown', (e) => {
+    const step = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[e.key];
+    if (!step) return;
+    e.preventDefault();
+    const actual = tabs.findIndex((t) => t.classList.contains('is-active'));
+    const proximo = tabs[(actual + step + tabs.length) % tabs.length];
+    activate(proximo.dataset.sport);
+    proximo.focus();
   });
+
+  function selectColor(swatch) {
+    const grupo = swatch.closest('.deporte-colores');
+    const detail = swatch.closest('.deporte-detail');
+    if (!grupo || !detail) return;
+
+    $$('.color-swatch', grupo).forEach((s) => {
+      const on = s === swatch;
+      s.classList.toggle('is-active', on);
+      s.setAttribute('aria-checked', String(on));
+    });
+
+    const img = $('.deporte-detail-img', detail);
+    if (img && swatch.dataset.image) img.src = swatch.dataset.image;
+
+    const salida = $('[data-color-out]', grupo);
+    if (salida && swatch.dataset.color) salida.textContent = swatch.dataset.color;
+  }
+
+  // Deep-link: los íconos del hero activan el tab y bajan a la sección.
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-sport-goto]');
+    if (!btn) return;
+    if (activate(btn.dataset.sportGoto)) {
+      section.scrollIntoView({ behavior: SCROLL_BEHAVIOR, block: 'start' });
+    }
+  });
+
+  // Prefetch al pasar el mouse por un tab o por un ícono del hero.
+  const onHover = (e) => {
+    const el = e.target.closest('[data-sport], [data-sport-goto]');
+    if (el) prefetch(el.dataset.sport || el.dataset.sportGoto);
+  };
+  tablist?.addEventListener('pointerenter', onHover, { capture: true });
+  $('#hero')?.addEventListener('pointerover', onHover, { passive: true });
 })();
 
-/* ---------------- Deportes: color swatches ---------------- */
-/* Al clickear un swatch, cambia la foto grande de la card correspondiente. */
-(function initColorSwatches() {
-  const groups = document.querySelectorAll('.deporte-colores-swatches');
-  if (!groups.length) return;
-
-  groups.forEach(group => {
-    const swatches = group.querySelectorAll('.color-swatch');
-    const article = group.closest('.deporte-detail');
-    const imgEl = article ? article.querySelector('.deporte-detail-img') : null;
-    const wrapper = group.closest('.deporte-colores');
-    const nameEl = wrapper ? wrapper.querySelector('.deporte-colores-selected [data-color-name]') : null;
-
-    swatches.forEach(swatch => {
-      swatch.addEventListener('click', () => {
-        swatches.forEach(s => {
-          s.classList.remove('is-active');
-          s.setAttribute('aria-checked', 'false');
-        });
-        swatch.classList.add('is-active');
-        swatch.setAttribute('aria-checked', 'true');
-
-        const newImg = swatch.getAttribute('data-image');
-        if (imgEl && newImg) {
-          imgEl.style.backgroundImage = `url('${newImg}')`;
-        }
-
-        const colorName = swatch.getAttribute('data-color-name');
-        if (nameEl && colorName) nameEl.textContent = colorName;
-      });
-    });
-  });
-})();
-
-/* ---------------- Formulario ---------------- */
+/* ------------------------------------------------------------
+   07. FORMULARIO → WhatsApp
+   ------------------------------------------------------------ */
 (function initForm() {
-  const form = document.getElementById('contact-form');
+  const form = $('#contact-form');
   if (!form) return;
 
-  const fields = [
-    { id: 'nombre',   label: 'Nombre completo' },
-    { id: 'ciudad',   label: 'Ciudad / Localidad' },
-    { id: 'deporte',  label: 'Tipo de cancha' },
+  const REQUERIDOS = [
+    { id: 'nombre', label: 'Nombre completo' },
+    { id: 'ciudad', label: 'Ciudad / Localidad' },
+    { id: 'deporte', label: 'Tipo de cancha' },
     { id: 'proyecto', label: 'Tipo de proyecto' },
   ];
 
-  const clearError = (id) => {
-    const err = document.getElementById('err-' + id);
-    const input = document.getElementById(id);
-    if (err) err.textContent = '';
-    if (input) input.classList.remove('has-error');
+  const valor = (id) => ($(`#${id}`)?.value || '').trim();
+
+  const setError = (input, mensaje) => {
+    const box = $(`#err-${input.id}`);
+    if (box) box.textContent = mensaje;
+    input.classList.toggle('is-invalid', Boolean(mensaje));
+    if (mensaje) input.setAttribute('aria-invalid', 'true');
+    else input.removeAttribute('aria-invalid');
   };
 
-  fields.forEach(f => {
-    const input = document.getElementById(f.id);
-    if (!input) return;
-    input.addEventListener('input', () => clearError(f.id));
-    input.addEventListener('change', () => clearError(f.id));
-  });
-
-  const showError = (id, message) => {
-    const err = document.getElementById('err-' + id);
-    const input = document.getElementById(id);
-    if (err) err.textContent = message;
-    if (input) input.classList.add('has-error');
+  // Delegación: input y change burbujean hasta el form.
+  const limpiar = (e) => {
+    if (e.target.id && e.target.classList.contains('is-invalid')) setError(e.target, '');
   };
+  form.addEventListener('input', limpiar);
+  form.addEventListener('change', limpiar);
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    let firstInvalid = null;
-    fields.forEach(f => {
-      const input = document.getElementById(f.id);
-      if (!input) return;
-      if (!input.value.trim()) {
-        showError(f.id, `${f.label} es obligatorio.`);
-        if (!firstInvalid) firstInvalid = input;
-      }
-    });
+    let primerInvalido = null;
+    for (const campo of REQUERIDOS) {
+      const input = $(`#${campo.id}`);
+      if (!input) continue;
+      const vacio = !input.value.trim();
+      setError(input, vacio ? `${campo.label} es obligatorio.` : '');
+      if (vacio && !primerInvalido) primerInvalido = input;
+    }
 
-    if (firstInvalid) {
-      firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      setTimeout(() => firstInvalid.focus({ preventScroll: true }), 350);
+    if (primerInvalido) {
+      primerInvalido.scrollIntoView({ behavior: SCROLL_BEHAVIOR, block: 'center' });
+      setTimeout(() => primerInvalido.focus({ preventScroll: true }), 350);
       return;
     }
 
-    const val = (id) => (document.getElementById(id)?.value || '').trim();
-    const nombre    = val('nombre');
-    const ciudad    = val('ciudad');
-    const deporte   = val('deporte');
-    const proyecto  = val('proyecto');
-    const etapa     = val('etapa');
-    const espacio   = val('espacio');
-    const mensaje   = val('mensaje');
-
-    const partes = [
+    const lineas = [
       '¡Hola Grupo CESPAD! 👋',
       '',
-      `👤 *Nombre:* ${nombre}`,
-      `📍 *Ciudad:* ${ciudad}`,
-      `⚽ *Tipo de cancha:* ${deporte}`,
-      `🏗️ *Tipo de proyecto:* ${proyecto}`,
+      `👤 *Nombre:* ${valor('nombre')}`,
+      `📍 *Ciudad:* ${valor('ciudad')}`,
+      `⚽ *Tipo de cancha:* ${valor('deporte')}`,
+      `🏗️ *Tipo de proyecto:* ${valor('proyecto')}`,
     ];
-    if (etapa)   partes.push(`📊 *Etapa:* ${etapa}`);
-    if (espacio) partes.push(`📐 *Espacio disponible:* ${espacio}`);
-    if (mensaje) partes.push('', `💬 *Comentario:* ${mensaje}`);
-    partes.push('', 'Quedo a la espera de su respuesta. ¡Gracias!');
 
-    const texto = encodeURIComponent(partes.join('\n'));
-    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${texto}`;
+    // Opcionales: sólo entran si tienen contenido.
+    const opcionales = [
+      ['📊 *Etapa:*', valor('etapa')],
+      ['📐 *Espacio disponible:*', valor('espacio')],
+      ['💬 *Comentario:*', valor('mensaje')],
+    ];
+    for (const [etiqueta, texto] of opcionales) {
+      if (texto) lineas.push(`${etiqueta} ${texto}`);
+    }
+    lineas.push('', 'Quedo a la espera de su respuesta. ¡Gracias!');
 
-    const win = window.open(url, '_blank', 'noopener');
-    if (!win) window.location.href = url;
+    // Si el tipo de cancha tiene un número asignado en CONFIG.ruteo, va ahí.
+    const destino = CONFIG.ruteo[valor('deporte')] || CONFIG.whatsapp;
+    const url = `https://wa.me/${destino}?text=${encodeURIComponent(lineas.join('\n'))}`;
+    const ventana = window.open(url, '_blank', 'noopener');
+    if (!ventana) window.location.href = url; // fallback si el navegador bloquea el popup
   });
 })();
 
-/* ---------------- Año dinámico ---------------- */
-(function setYear() {
-  const el = document.getElementById('year');
-  if (el) el.textContent = new Date().getFullYear();
+/* ------------------------------------------------------------
+   08. WhatsApp global + año
+   Un solo número en CONFIG alimenta el FAB y el teléfono visible.
+   ------------------------------------------------------------ */
+(function initGlobales() {
+  const link = (numero, texto) => `https://wa.me/${numero}?text=${encodeURIComponent(texto)}`;
+
+  // Un solo recorrido cubre el FAB, el teléfono de contacto y los botones
+  // de cada deporte. data-wa-msg define el contexto del mensaje.
+  $$('[data-wa-link]').forEach((a) => {
+    const msg = a.dataset.waMsg
+      ? `Hola Grupo CESPAD, quiero consultar por ${a.dataset.waMsg}.`
+      : CONFIG.whatsappSaludo;
+    a.href = link(CONFIG.whatsapp, msg);
+  });
+  $$('[data-wa-display]').forEach((el) => { el.textContent = CONFIG.whatsappDisplay; });
+
+  // Segundo asesor: sólo aparece si está cargado en CONFIG.
+  if (CONFIG.whatsappSecundario) {
+    $$('[data-wa-link-2]').forEach((a) => { a.href = link(CONFIG.whatsappSecundario, CONFIG.whatsappSaludo); });
+    $$('[data-wa-display-2]').forEach((el) => { el.textContent = CONFIG.whatsappSecundarioDisplay; });
+    $$('[data-wa-secundario]').forEach((el) => { el.hidden = false; });
+  }
+
+  const anio = $('#year');
+  if (anio) anio.textContent = String(new Date().getFullYear());
 })();
