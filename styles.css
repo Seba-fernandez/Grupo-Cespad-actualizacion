@@ -232,7 +232,7 @@ button {
   position: relative;
   background-color: #0d130c;
   background-image:
-    linear-gradient(var(--pasto-veil-a, rgba(10, 15, 8, 0.78)), var(--pasto-veil-b, rgba(10, 15, 8, 0.88))),
+    linear-gradient(var(--pasto-veil-a, rgba(10, 15, 8, 0.60)), var(--pasto-veil-b, rgba(10, 15, 8, 0.88))),
     url('img/textura-pasto.webp');
   background-size: auto, cover;
   background-position: center;
@@ -534,7 +534,7 @@ button {
   align-items: center;
   gap: 0.7rem;
   width: 100%;
-  padding-bottom: clamp(var(--space-md), 9vh, var(--space-lg));
+  padding-bottom: clamp(var(--space-md), 9vh, var(--space-xl));
 }
 
 .sport-panel-icon {
@@ -1154,7 +1154,7 @@ button {
    ============================================================ */
 .por-que {
   padding-block: var(--space-xl);
-  --pasto-veil-a: rgba(10, 15, 8, 0.88);
+  --pasto-veil-a: rgba(10, 15, 8, 0.40);
   --pasto-veil-b: rgba(10, 15, 8, 0.92);
 }
 
@@ -1703,7 +1703,7 @@ button {
   }
 
   .sport-panel:focus-within {
-    flex-grow: 3;
+    flex-grow: 4;
   }
 }
 
@@ -1793,7 +1793,7 @@ button {
 
   .sport-panel:hover,
   .sport-panel:focus-within {
-    flex-grow: 1.7;
+    flex-grow: 1.5;
   }
 
   .sport-panel:hover .sport-panel-overlay {
