@@ -831,6 +831,8 @@ button {
    ============================================================ */
 .deportes {
   padding-block: var(--space-xl);
+  content-visibility: auto;
+  contain-intrinsic-size: auto 1400px;
 }
 
 .deportes::before {

@@ -67,7 +67,7 @@ const SCROLL_BEHAVIOR = REDUCED_MOTION ? 'auto' : 'smooth';
     requestAnimationFrame(paint);
   }, { passive: true });
 
-  paint();
+  requestAnimationFrame(paint);
 })();
 
 /* ------------------------------------------------------------
