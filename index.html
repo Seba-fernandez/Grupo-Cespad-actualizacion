@@ -25,6 +25,15 @@
   <!-- Fuentes: preconnect + carga no bloqueante -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <!-- Preload de las 2 fuentes del above-the-fold (hero-brand y hero-kicker/
+       hero-subtitle) para evitar el CLS por swap de fuente. URLs verificadas
+       contra el CSS real de Google Fonts (no las URLs viejas del pedido). -->
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="https://fonts.gstatic.com/s/bebasneue/v16/JTUSjIg69CK48gW7PXoo9Wlhyw.woff2" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="https://fonts.gstatic.com/s/dmsans/v17/rP2Yp2ywxg089UriI5-g4vlH9VoD8Cmcqbu0-K4.woff2" />
+
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600&display=swap"
     media="print" onload="this.media='all'" />
