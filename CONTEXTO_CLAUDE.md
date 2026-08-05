@@ -45,8 +45,17 @@ Landing HTML/CSS/JS vanilla, sin frameworks, sin build step.
 - **Bloque 2B** — Preload del LCP + limpieza de fetchpriority en hero 
   + content-visibility en .deportes + investigar reprocesamiento 
   forzado en main.js:60. Meta: LCP <2.5s, PageSpeed +88.
+
+  - **Bloque 2C** — Recompresión de las 5 imágenes del hero + 
+  nosotrosfoto + corrección del preload a aereo-tenis.webp 
+  (LCP real detectado por Lighthouse). PageSpeed 75→88. LCP 4.8s→3.1s.
   
   ## ##Bloques pendientes (en orden)
+  - **Bloque 2D** — CSS crítico inline + diferido de styles.css + 
+  fix bug ARIA en deporte-detail (article→div, role="tabpanel" 
+  válido) + recompresión final de nosotrosfoto. PageSpeed 88→XX. 
+  FCP 2.6s→X.Xs. Navegación con Agentes 1/2→2/2.
+  
 - **Bloque 4** — Rediseño sección Deportes: container proporcionalmente 
   más ancho en desktop, imagen full-width y más alta, contenido debajo 
   fuera de card apretada, botones no apretados.
