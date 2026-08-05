@@ -210,6 +210,32 @@
 
     .nav.is-open { display: flex; }
 
+    /* Base de .nav-link/.nav-cta: sin esto, en desktop (donde .nav
+       está visible desde el primer render) los links del menú se ven
+       como texto plano sin estilo hasta que carga styles.css. */
+    .nav-link,
+    .nav-cta {
+      width: 100%;
+      padding: 1rem;
+      text-align: center;
+      font-size: 1.5rem;
+      letter-spacing: 0.05em;
+      transition: color var(--transition-fast), background-color var(--transition-fast);
+    }
+
+    .nav-link { color: var(--color-text); }
+
+    .nav-link:hover { color: var(--color-accent); }
+
+    .nav-cta {
+      margin-top: 0.5rem;
+      font-weight: 500;
+      background-color: var(--color-accent);
+      color: #0a0a0a;
+    }
+
+    .nav-cta:hover { background-color: var(--color-accent-dark); }
+
     .nav-toggle {
       display: flex;
       flex-direction: column;
@@ -233,6 +259,41 @@
     .nav-toggle.is-open .nav-toggle-bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
     .nav-toggle.is-open .nav-toggle-bar:nth-child(2) { opacity: 0; }
     .nav-toggle.is-open .nav-toggle-bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Nav horizontal desktop: sin esto el menú queda oculto (no roto,
+       pero tampoco usable) hasta que carga styles.css en 1440px+. */
+    @media (min-width: 992px) {
+      .nav-toggle { display: none; }
+
+      .nav {
+        display: flex;
+        position: static;
+        flex-direction: row;
+        gap: 3rem;
+        background: none;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        border: none;
+        padding-block: 0;
+      }
+
+      .nav-link,
+      .nav-cta {
+        width: auto;
+        padding: 0.5rem 1.25rem;
+      }
+
+      .nav-cta {
+        margin-top: 0;
+        border-radius: var(--radius-sm);
+        animation: nav-pulse 1.5s ease-in-out 2s infinite;
+      }
+
+      @keyframes nav-pulse {
+        0%, 100% { box-shadow: 0 0 0 0 rgba(215, 252, 83, 0.78); }
+        50%      { box-shadow: 0 0 7px 8px rgba(0, 0, 0, 0.24); }
+      }
+    }
 
     .hero {
       position: relative;
