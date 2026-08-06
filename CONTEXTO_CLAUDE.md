@@ -27,7 +27,7 @@ Landing HTML/CSS/JS vanilla, sin frameworks, sin build step.
 - favicon.png (PNG obligatorio)
 - Originales en img/_originales/ (no se sirven, fuente de reprocesamiento)
 - Backups en _backup*/ en la raíz (NO borrar)
-- cwebp 1.4.0 instalado en C:\tools\libwebp\bin
+- cwebp 1.4.0 instalado en C:\tools\libwebp\libwebp-1.4.0-windows-x64\bin
 
 ## Stack
 - HTML5 semántico, CSS3 con custom properties, JS vanilla en IIFEs.
@@ -50,11 +50,13 @@ Landing HTML/CSS/JS vanilla, sin frameworks, sin build step.
   nosotrosfoto + corrección del preload a aereo-tenis.webp 
   (LCP real detectado por Lighthouse). PageSpeed 75→88. LCP 4.8s→3.1s.
 
-  - **Bloque 2D** — CSS crítico inline (hero + header + nav horizontal 
-  + tokens + dependencias: a/button/.container/.icon/.nav base) + 
-  diferido de styles.css + fix bug ARIA en deporte-detail 
-  (article→div) + recompresión final de nosotrosfoto (88.5→64.9 KiB). 
-  PageSpeed 88→91. LCP 3.1s→2.8s. SI 4.4s→2.7s. Nav con Agentes 1/2→2/2.
+- **Bloque 2D** — CSS crítico inline (hero + header + nav horizontal 
+  + tokens + dependencias) + diferido de styles.css + fix bug ARIA 
+  en deporte-detail (article→div) + recompresión final de nosotrosfoto 
+  (88.5→64.9 KiB) + preload de las 2 woff2 del above-the-fold. 
+  Mobile: PageSpeed 88→92, FCP 2.6s→0.9s, LCP 3.1s→2.8s, SI 4.4s→2.7s, 
+  Nav Agentes 1/2→2/2. Desktop: PageSpeed 87→90, CLS 0.243→0.191. 
+  Piso de performance blindado en +90 en ambas plataformas.
   
   ## ##Bloques pendientes (en orden)
   
@@ -67,3 +69,4 @@ Landing HTML/CSS/JS vanilla, sin frameworks, sin build step.
 
 - **Bloque 5** — Headers de seguridad en vercel.json (CSP, COOP, XFO).
 Meta final: cerrar deploy en +90 PageSpeed sin perseguir perfección infinita.
+
