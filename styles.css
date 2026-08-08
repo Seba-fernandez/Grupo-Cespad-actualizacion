@@ -1783,11 +1783,11 @@ button {
 @media (max-width: 991px) {
   /* .deportes-card clipea (overflow:hidden) y está inset por DOS paddings
      acumulados: el de .container (--container-pad) y el de .deportes-panel
-     (1.5rem fijo). El margin-inline negativo tiene que cancelar la suma de
-     los dos — cancelar sólo uno de los dos seguía dejando un marco visible,
-     porque overflow:hidden recorta a la caja de la card, no a la del hero. */
+     (1.5rem fijo). El margin-inline negativo cancela la suma de los dos
+     menos 1rem, dejando ese 1rem como aire lateral a propósito (edge-to-edge
+     puro se veía como error visual). */
   .deportes-card {
-    margin-inline: calc((var(--container-pad) + 1.5rem) * -1);
+    margin-inline: calc((var(--container-pad) + 1.5rem - 1rem) * -1);
     padding-inline: 0;
     border-left: none;
     border-right: none;
@@ -1797,8 +1797,8 @@ button {
     border-bottom-right-radius: 0;
   }
 
-  /* La card ya llega al borde real del viewport: el hero (sin margin propio)
-     hereda ese ancho completo con su width:100% de la regla base. */
+  /* La card ya llega casi al borde real del viewport (con 1rem de aire):
+     el hero (sin margin propio) hereda ese ancho con su width:100% base. */
   .deporte-detail-hero {
     border-radius: 0;
   }
