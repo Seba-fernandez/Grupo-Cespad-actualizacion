@@ -1798,8 +1798,16 @@ button {
   }
 
   /* La card ya llega casi al borde real del viewport (con 1rem de aire):
-     el hero (sin margin propio) hereda ese ancho con su width:100% base. */
+     el hero (sin margin propio) hereda ese ancho con su width:100% base.
+     aspect-ratio reemplaza el min/max-height fijo de la regla base: la
+     altura sale de la proporción real de la foto (1200x858), así
+     object-fit:cover ya no tiene que recortar laterales para llenar un
+     alto forzado que no coincide con la foto. */
   .deporte-detail-hero {
+    aspect-ratio: 1200 / 858;
+    min-height: auto;
+    max-height: none;
+    height: auto;
     border-radius: 0;
   }
 
