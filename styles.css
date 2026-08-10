@@ -1904,6 +1904,12 @@ button {
     background: transparent;
     border: none;
     overflow: visible;
+    /* Sin esto, el align-items:stretch default del grid de .deportes-panel
+       estira los tabs a la altura del detail activo (ahora variable por
+       deporte desde 4A.5/4A.6). align-self solo en esta columna evita
+       tocar .deportes-panel y cualquier alineación que dependa de su
+       stretch por defecto. */
+    align-self: start;
   }
 
   .deportes-tab {
