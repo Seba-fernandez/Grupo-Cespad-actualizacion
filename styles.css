@@ -953,20 +953,17 @@ button {
 
 .deporte-detail-hero {
   position: relative;
-  width: 100%;
-  /* La foto manda: la altura real la define el min/max-height de abajo */
-  min-height: 60vh;
-  max-height: 70vh;
   overflow: hidden;
   background-color: var(--color-surface-2);
+  /* width/height reales por breakpoint más abajo: mobile usa el ratio
+     intrínseco del <img> (foto completa), desktop fuerza una altura para
+     tener cover consistente entre tabs. */
 }
 
 .deporte-detail-img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+  display: block;
   object-fit: cover;
+  /* width/height reales por breakpoint más abajo */
 }
 
 .deporte-detail-hero-overlay {
@@ -1798,17 +1795,27 @@ button {
   }
 
   /* La card ya llega casi al borde real del viewport (con 1rem de aire):
-     el hero (sin margin propio) hereda ese ancho con su width:100% base.
-     aspect-ratio reemplaza el min/max-height fijo de la regla base: la
-     altura sale de la proporción real de la foto (1200x858), así
-     object-fit:cover ya no tiene que recortar laterales para llenar un
-     alto forzado que no coincide con la foto. */
+     el hero (sin margin propio) hereda ese ancho con su width:100% acá.
+     Sin min/max-height forzado: la altura sale del ratio intrínseco real
+     de cada <img> (width/height del HTML), así se ve la foto completa
+     sin que cover tenga que recortar para llenar un alto que no le
+     corresponde. Cada deporte tendrá una altura de card distinta según
+     su foto sea vertical (pádel/tenis) u horizontal (fútbol/rugby/hockey):
+     es el comportamiento esperado. */
   .deporte-detail-hero {
-    aspect-ratio: 1200 / 858;
-    min-height: auto;
-    max-height: none;
+    width: 100%;
     height: auto;
     border-radius: 0;
+  }
+
+  .deporte-detail-img {
+    width: 100%;
+    height: auto;
+    /* La regla defensiva aspect-ratio:attr() se probó y confirmó inválida
+       (ningún browser la soporta hoy — computed value queda en "auto",
+       ignorada). Se saca: el intrinsic sizing del width/height reales del
+       <img> en el HTML ya resuelve el ratio solo, sin necesitarla. */
+    object-fit: cover;
   }
 
   /* La card ganó (--container-pad + 1.5rem) de ancho de cada lado: el
@@ -1940,13 +1947,20 @@ button {
   }
 
   .deporte-detail-hero {
-    height: 44rem;
+    width: 100%;
+    height: auto;
+    max-height: 44rem;
     min-height: 0;
-    max-height: none;
     border-top-right-radius: var(--radius-lg);
     border-bottom-right-radius: 0;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
+  }
+
+  .deporte-detail-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 
   /* El overflow:hidden del card clip-ea a su propio radio: sin esto el
