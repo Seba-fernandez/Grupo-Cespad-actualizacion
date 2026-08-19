@@ -1805,17 +1805,34 @@ button {
   .deporte-detail-hero {
     width: 100%;
     height: auto;
+    /* Piso para fotos muy panorámicas (ej. tenis 1200x586, ~166px de alto
+       a 375px de ancho): sin esto el overlay de título+descripción tapa
+       más de la mitad de la foto. No afecta a las fotos que ya superan
+       este alto por su propio ratio (pádel, fútbol, rugby, hockey). */
+    min-height: 280px;
     border-radius: 0;
   }
 
   .deporte-detail-img {
     width: 100%;
     height: auto;
+    /* min-height DIRECTO en el <img>, no height:100% del padre: probé
+       height:100% primero y no funciona acá — .deporte-detail-hero tiene
+       height:auto, y un min-height en el padre NO lo vuelve "definite"
+       para que un height:100% del hijo se resuelva contra él (cae a auto
+       igual, por spec). Con min-height puesto directo en el <img> no hay
+       ninguna referencia a un padre que resolver: el propio <img> se
+       clampea a 280px y object-fit:cover recorta el contenido para
+       cubrirlo, sin dejar hueco. El .deporte-detail-hero (auto) termina
+       heredando esa misma altura porque el <img> es su único contenido
+       en flujo. */
+    min-height: 280px;
     /* La regla defensiva aspect-ratio:attr() se probó y confirmó inválida
        (ningún browser la soporta hoy — computed value queda en "auto",
        ignorada). Se saca: el intrinsic sizing del width/height reales del
        <img> en el HTML ya resuelve el ratio solo, sin necesitarla. */
     object-fit: cover;
+    display: block;
   }
 
   /* La card ganó (--container-pad + 1.5rem) de ancho de cada lado: el
