@@ -1778,25 +1778,15 @@ button {
 
 /* ── Deportes: imagen edge-to-edge por debajo de desktop (mobile + tablet) ── */
 @media (max-width: 991px) {
-  /* .deportes-card clipea (overflow:hidden) y está inset por DOS paddings
-     acumulados: el de .container (--container-pad) y el de .deportes-panel
-     (1.5rem fijo). El margin-inline negativo cancela la suma de los dos
-     menos 1rem, dejando ese 1rem como aire lateral a propósito (edge-to-edge
-     puro se veía como error visual). */
-  .deportes-card {
-    margin-inline: calc((var(--container-pad) + 1.5rem - 1rem) * -1);
-    padding-inline: 0;
-    border-left: none;
-    border-right: none;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-  }
+  /* Ajuste 4A.10: se saca el bleed de .deportes-card (margin-inline
+     negativo + reseteo de padding/border/radius de los ajustes 4A/4A.2).
+     La card vuelve a heredar su ancho, padding, border y radius normales
+     de la regla base — queda contenida dentro de .deportes-panel como el
+     resto del contenido, sin edge-to-edge. .deporte-detail-hero no tiene
+     margin-inline propio (se confirmó al revisar antes de tocar nada), así
+     que no hace falta ningún cambio ahí más allá de lo que ya tenía. */
 
-  /* La card ya llega casi al borde real del viewport (con 1rem de aire):
-     el hero (sin margin propio) hereda ese ancho con su width:100% acá.
-     Sin min/max-height forzado: la altura sale del ratio intrínseco real
+  /* Sin min/max-height forzado: la altura sale del ratio intrínseco real
      de cada <img> (width/height del HTML), así se ve la foto completa
      sin que cover tenga que recortar para llenar un alto que no le
      corresponde. Cada deporte tendrá una altura de card distinta según
