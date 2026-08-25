@@ -888,27 +888,40 @@ button {
   grid-template-columns: 1fr;
   gap: 1.5rem;
   padding: 1.5rem;
-  background: rgba(20, 20, 20, 0.6);
+  /* 4B.1: sheen diagonal + tinte, en vez de un solo flat rgba.
+     Imita el "highlight layer" del material vibrancy de iOS/macOS:
+     un borde de luz sutil arriba-izquierda que se apaga rápido. */
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0) 35%),
+    rgba(20, 20, 20, 0.5);
   border: 1px solid var(--accent-20);
   border-radius: var(--radius-lg);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  box-shadow: var(--shadow-lg);
+  backdrop-filter: blur(12px) saturate(1.5);
+  -webkit-backdrop-filter: blur(12px) saturate(1.5);
+  /* inset superior = filo de luz del vidrio, box-shadow externa = elevación */
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.10), var(--shadow-lg);
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .deportes-panel { background: rgba(20, 20, 20, 0.92); }
 }
 
 /* --- Tabs --- */
 .deportes-tabs {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  background: rgba(10, 10, 10, 0.45);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0) 30%),
+    rgba(10, 10, 10, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.10);
   border-radius: var(--radius-md);
   overflow: hidden;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
   /* 4B: glass en el contenedor mobile de tabs.
      En desktop la .deportes-tabs vuelve a transparent (línea 1911)
      y el glass pasa a cada .deportes-tab individual. */
-  backdrop-filter: blur(10px) saturate(1.3);
-  -webkit-backdrop-filter: blur(10px) saturate(1.3);
+  backdrop-filter: blur(14px) saturate(1.5);
+  -webkit-backdrop-filter: blur(14px) saturate(1.5);
 }
 
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
@@ -1223,13 +1236,18 @@ button {
 .por-que-item {
   padding: 2rem 1.5rem;
   /* 4B: glass más marcado sobre bg-pasto. El fondo verde-oscuro
-     tintado en vez de gris para que dialogue con el pasto de la section. */
-  background: rgba(15, 20, 12, 0.55);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+     tintado en vez de gris para que dialogue con el pasto de la section.
+     4B.1: se suma un sheen diagonal (highlight layer) + inset superior
+     que simula el filo de luz del vidrio, en vez de un blur plano. */
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0) 40%),
+    rgba(15, 20, 12, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.10);
   border-radius: var(--radius-md);
   text-align: center;
-  backdrop-filter: blur(12px) saturate(1.4);
-  -webkit-backdrop-filter: blur(12px) saturate(1.4);
+  backdrop-filter: blur(16px) saturate(1.6);
+  -webkit-backdrop-filter: blur(16px) saturate(1.6);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), inset 0 0 0 1px rgba(255, 255, 255, 0.03);
   transition: transform var(--transition-normal), border-color var(--transition-normal), box-shadow var(--transition-normal);
 }
 
@@ -1240,7 +1258,10 @@ button {
 .por-que-item:hover {
   transform: translateY(-4px);
   border-color: rgba(var(--accent-rgb), 0.35);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.03),
+    0 12px 30px rgba(0, 0, 0, 0.45);
 }
 
 .por-que-icon {
@@ -1768,6 +1789,14 @@ button {
   .sport-panel:focus-within {
     flex-grow: 4;
   }
+
+  /* El círculo no puede bajar de --tap (44px, área táctil mínima),
+     pero el padding de 0.8rem le comía casi la mitad al dibujo del
+     ícono en pantallas chicas donde el clamp cae al piso. Menos
+     padding = mismo círculo, ícono más grande adentro. */
+  .sport-panel-icon {
+    padding: 0.55rem;
+  }
 }
 
 /* ── Mobile muy chico: más aire lateral y FAB más discreto ── */
@@ -1997,13 +2026,18 @@ button {
     gap: 1rem;
     padding: 1rem 1.2rem;
     /* 4B: glass en cada tab. Fondo más translúcido para dejar
-       que la textura del body respire, borde hairline para definir. */
-    background: rgba(16, 20, 14, 0.42);
-    border: 1px solid rgba(255, 255, 255, 0.07);
+       que la textura del body respire, borde hairline para definir.
+       4B.1: sheen diagonal + inset superior (filo de luz) en vez de
+       un flat rgba, para que se lea como vidrio y no como un panel
+       gris semi-transparente genérico. */
+    background:
+      linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0) 45%),
+      rgba(16, 20, 14, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.09);
     border-radius: var(--radius-md);
-    box-shadow: var(--shadow-sm);
-    backdrop-filter: blur(14px) saturate(1.4);
-    -webkit-backdrop-filter: blur(14px) saturate(1.4);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.10), var(--shadow-sm);
+    backdrop-filter: blur(18px) saturate(1.6);
+    -webkit-backdrop-filter: blur(18px) saturate(1.6);
   }
 
   @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
@@ -2025,20 +2059,28 @@ button {
   }
 
   .deportes-tab:hover:not(.is-active) {
-    background: rgba(30, 30, 30, 0.55);
+    background:
+      linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0) 45%),
+      rgba(30, 30, 30, 0.5);
     border-color: var(--accent-20);
     transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), var(--shadow-md);
   }
 
   .deportes-tab.is-active {
     /* 4B: active con glass más denso + acento. Mantiene el borde-izq
-       verde característico del 4A pero sobre superficie translúcida. */
-    background: rgba(var(--accent-rgb), 0.16);
+       verde característico del 4A pero sobre superficie translúcida.
+       4B.1: mismo sheen que el resto de los tabs, más denso sobre el
+       tinte de acento. */
+    background:
+      linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0) 45%),
+      rgba(var(--accent-rgb), 0.16);
     border-color: var(--color-accent);
     border-left-width: 4px;
     padding-left: calc(1.2rem - 3px);
-    box-shadow: 0 8px 24px rgba(var(--accent-rgb), 0.2);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.18),
+      0 8px 24px rgba(var(--accent-rgb), 0.2);
   }
 
   .deporte-detail-hero {
