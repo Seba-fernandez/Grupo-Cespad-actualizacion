@@ -106,6 +106,22 @@ Sebas no domina git y quiere máxima prudencia. Reglas absolutas:
   nic.ar (a nombre de Marcelo, no de Sebas), conectar a Vercel, 
   verificar redirects.
 
+- **Bloque 6 (en definición, pausado)** — Nueva sección pedida por 
+  Marcelo: mostrar que Grupo CESPAD también vende insumos sueltos 
+  (arena para relleno, pasto sintético sin instalación, otros 
+  materiales/accesorios). Público distinto al resto del sitio 
+  (compra de material, no obra llave en mano), copy y CTA propios 
+  ("Consultar por insumos"). Propuesta de tratamiento visual tipo 
+  catálogo compacto (foto expositiva + lista de ítems con ícono, 
+  reutilizando el lenguaje de las tarjetas de specs de Deportes) 
+  en vez de repetir el layout narrativo de Nosotros/Parquización. 
+  Brief completo con propuesta de ubicación, mobile vs desktop e 
+  información faltante en AUDITORIA_DISENO_4B1.md, sección 4. 
+  No arrancar sin antes cerrar con Marcelo: lista real de insumos, 
+  fotos disponibles, si hay precio orientativo o todo va a consulta, 
+  y qué tan grande es este negocio para decidir si es sección propia 
+  o mención dentro de otra.
+
 Meta final: cerrar deploy en +90 PageSpeed sin perseguir perfección 
 infinita. CLS desktop en 0.191 aceptado como no crítico dado que 
 mobile es el tráfico principal.
