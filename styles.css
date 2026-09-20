@@ -1167,7 +1167,7 @@ button {
 
 /* ============================================================
    11b. PARQUIZACIÓN — banda de cross-sell (segunda línea de negocio)
-   Deliberadamente MÁS SIMPLE que Deportes: una foto grande, 3 bullets
+   Deliberadamente MÁS SIMPLE que Deportes: carrusel de obras, 3 bullets
    y un CTA. No compite con el funnel principal, lo complementa.
    ============================================================ */
 .parquizacion {
@@ -1182,12 +1182,122 @@ button {
   align-items: center;
 }
 
-.parquizacion-img {
+/* --- Carrusel de obras (Bloque 3) ---
+   La altura del viewport es la misma clamp() que tenia la foto fija, asi el
+   alto de la seccion no se movio al sumar el carrusel. El desplazamiento usa
+   `translate` (no `transform`) para quedar en el compositor, igual que el
+   nav-pulse y el FAB del 4B. */
+.parq-carrusel {
+  position: relative;
+}
+
+.parq-viewport {
   width: 100%;
   height: clamp(17rem, 62vw, 26rem);
-  object-fit: cover;
+  overflow: hidden;
   border-radius: var(--radius-lg);
   border: 1px solid var(--color-border);
+  /* pan-y: el navegador se queda con el scroll vertical y el JS solo
+     interpreta el gesto horizontal. Sin esto el swipe traba la pagina. */
+  touch-action: pan-y;
+}
+
+.parq-track {
+  display: flex;
+  height: 100%;
+  transition: translate var(--transition-normal);
+}
+
+/* Mientras el dedo arrastra, la foto tiene que seguirlo sin delay. */
+.parq-track.is-dragging {
+  transition: none;
+}
+
+.parq-slide {
+  flex: 0 0 100%;
+  height: 100%;
+}
+
+.parq-slide-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* el arrastre nativo de la imagen compite con el swipe */
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+/* --- Flechas: solo desktop (en mobile y tablet manda el swipe) --- */
+.parq-nav {
+  position: absolute;
+  top: 50%;
+  translate: 0 -50%;
+  display: none;
+  place-items: center;
+  width: var(--tap);
+  height: var(--tap);
+  padding: 0.7rem;
+  color: var(--color-text);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 50%;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0) 45%),
+    rgba(16, 20, 14, 0.45);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), var(--shadow-sm);
+  backdrop-filter: blur(18px) saturate(1.6);
+  -webkit-backdrop-filter: blur(18px) saturate(1.6);
+  transition: color var(--transition-fast), border-color var(--transition-fast);
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .parq-nav { background: rgba(16, 20, 14, 0.9); }
+}
+
+.parq-nav--prev { left: 0.9rem; }
+.parq-nav--next { right: 0.9rem; }
+
+/* Una sola flecha en el sprite: la de "anterior" es la misma espejada. */
+.parq-nav--prev .icon { scale: -1 1; }
+
+.parq-nav:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.parq-nav[disabled] {
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+/* --- Dots --- */
+.parq-dots {
+  display: flex;
+  justify-content: center;
+  /* sin gap: cada dot ya es un boton de 44px, el aire lo pone el padding
+     interno. Con gap quedaban demasiado separados entre si. */
+  margin-top: 0.25rem;
+}
+
+.parq-dot {
+  display: grid;
+  place-items: center;
+  width: var(--tap);
+  height: var(--tap);
+}
+
+.parq-dot::before {
+  content: '';
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.28);
+  transition: background-color var(--transition-fast), width var(--transition-fast);
+}
+
+.parq-dot[aria-current="true"]::before {
+  width: 1.4rem;
+  background: var(--color-accent);
 }
 
 .parquizacion-text .section-eyebrow,
@@ -2153,6 +2263,12 @@ button {
   .parquizacion-inner {
     grid-template-columns: 1.05fr 1fr;
     gap: var(--space-lg);
+  }
+
+  /* Desktop: aparecen las flechas. El swipe sigue funcionando en tablets
+     con puntero tactil, no se desactiva nada. */
+  .parq-nav {
+    display: grid;
   }
 
   .nosotros-inner {

@@ -635,6 +635,11 @@
         <polyline points="19 12 12 19 5 12" />
       </symbol>
 
+      <!-- Una sola flecha: el botón "anterior" del carrusel la espeja por CSS. -->
+      <symbol id="i-flecha-der" viewBox="0 0 24 24">
+        <polyline points="9 5 16 12 9 19" />
+      </symbol>
+
       <symbol id="i-escudo" viewBox="0 0 24 24">
         <path d="M12 2 4 5v6c0 5.5 3.8 10.7 8 12 4.2-1.3 8-6.5 8-12V5l-8-3z" />
         <path d="M9 12l2 2 4-4" />
@@ -978,7 +983,7 @@
               aria-labelledby="tab-tenis" hidden>
               <div class="deporte-detail-hero">
                 <img class="deporte-detail-img" src="img/canchas/tenis-verde.webp" alt="Cancha de tenis"
-                  width="1200" height="586" loading="lazy" decoding="async" />
+                  width="1200" height="617" loading="lazy" decoding="async" />
                 <div class="deporte-detail-hero-overlay">
                   <h3 class="deporte-detail-title">Tenis</h3>
                   <p class="deporte-detail-desc-inline">Superficies de césped sintético con materiales de alto rendimiento y durabilidad.</p>
@@ -1104,9 +1109,40 @@
     <section class="parquizacion cv-auto" id="parquizacion" aria-label="Parquización y espacios verdes">
       <div class="container parquizacion-inner">
 
-        <img class="parquizacion-img" src="img/parquizacion.webp"
-          alt="Jardín residencial con césped sintético instalado por Grupo CESPAD en Córdoba"
-          width="1400" height="1000" loading="lazy" decoding="async" data-reveal />
+        <!-- Carrusel de obras (Bloque 3).
+             Para sumar una foto: un <li class="parq-slide"> más, nada de JS.
+             Los dots y el contador los arma main.js según la cantidad de slides.
+             Con una sola slide el JS hace early-return y los controles no
+             aparecen: la sección vuelve sola a ser una foto fija. -->
+        <div class="parq-carrusel" role="group" aria-roledescription="carrusel"
+          aria-label="Obras de parquización" data-carrusel data-reveal>
+
+          <div class="parq-viewport">
+            <ul class="parq-track" data-carrusel-track>
+              <li class="parq-slide">
+                <img class="parq-slide-img" src="img/parquizacion.webp"
+                  alt="Terraza de uso comercial con césped sintético y mobiliario fijo"
+                  width="1200" height="722" loading="lazy" decoding="async" />
+              </li>
+              <li class="parq-slide">
+                <img class="parq-slide-img" src="img/parquizacion-2.webp"
+                  alt="Patio institucional con césped sintético y sectores de juego delimitados"
+                  width="1200" height="900" loading="lazy" decoding="async" />
+              </li>
+            </ul>
+          </div>
+
+          <button class="parq-nav parq-nav--prev" type="button" data-carrusel-prev
+            aria-label="Foto anterior" hidden>
+            <svg class="icon"><use href="#i-flecha-der" /></svg>
+          </button>
+          <button class="parq-nav parq-nav--next" type="button" data-carrusel-next
+            aria-label="Foto siguiente" hidden>
+            <svg class="icon"><use href="#i-flecha-der" /></svg>
+          </button>
+
+          <div class="parq-dots" data-carrusel-dots></div>
+        </div>
 
         <div class="parquizacion-text" data-reveal data-reveal-delay="1">
           <p class="section-eyebrow">También en tu casa</p>

@@ -82,7 +82,7 @@ HTML5 semántico + CSS3 con custom properties + JS vanilla en IIFEs.
 |---|---|
 | `index.html` | Todo el markup. Incluye el **sprite SVG** (`<defs>` con todos los íconos) y un bloque de **CSS crítico inline** en el `<head>` que duplica a propósito reglas de `styles.css` para el primer render. **Si tocás header o hero en `styles.css`, hay que tocar también el inline o se desincronizan.** |
 | `styles.css` | Hoja principal, cargada diferida. Índice numerado arriba del archivo. Todo sale de tokens en `:root`. |
-| `main.js` | Módulos IIFE independientes, cada uno hace early-return si su markup no existe (por eso se puede borrar una sección sin romper nada). Acá vive `CONFIG` con el número de WhatsApp: **es el único lugar donde se toca**, alimenta el FAB, el teléfono visible y los botones de cada deporte. |
+| `main.js` | Módulos IIFE independientes, cada uno hace early-return si su markup no existe (por eso se puede borrar una sección sin romper nada). Acá vive `CONFIG` con el número de WhatsApp: **es el único lugar donde se toca**, alimenta el FAB, el teléfono visible y los botones de cada deporte. **Número definitivo: `5491131496374` (+54 9 11 3149-6374, Buenos Aires).** Reemplazó al viejo de Córdoba (351); no volver a "corregirlo" a un 351. El único otro lugar donde aparece es el `telephone` del JSON-LD en `index.html`. |
 | `img/_originales/` | Fuente de reprocesamiento, no se sirve. Incluye `logos/` con los logos viejos (ver punto 9). |
 
 Fuentes (Google Fonts): **Bebas Neue** (display) + **DM Sans** (body).
@@ -128,6 +128,23 @@ saturate más generosos. Fix de íconos del hero que se veían en miniatura en
 mobile (el círculo no baja de 44px por accesibilidad, se redujo el padding
 interno a 0.55rem).
 
+**Bloque 3 — Carrusel de Parquización (20-09-2026).** La foto fija pasó a
+carrusel: flechas en desktop (ocultas abajo de 1024px), swipe de dedo en
+mobile/tablet con resistencia en las puntas, dots como indicador de posición.
+Sin loop: en la primera y la última la flecha se apaga. El alto del viewport es
+la misma `clamp(17rem, 62vw, 26rem)` que tenía la foto, así que el layout no se
+movió. El desplazamiento usa `translate` en px (compositable) y se recalcula en
+`resize`. **Para sumar una foto alcanza con un `<li class="parq-slide">` más:**
+los dots y el contador los arma `main.js` (módulo 09) según la cantidad de
+slides, y con una sola slide hace early-return y vuelve a ser foto fija.
+El swipe sólo escucha punteros que no sean mouse, para no pelear con el
+arrastre nativo de la imagen.
+
+**Fotos de tenis (20-09-2026).** `tenis-verde.webp` y `tenis-azul.webp` se
+reemplazaron por versiones nuevas generadas por Sebas, ahora de 1200x617 (antes
+586 y 583, así que el swatch ya no produce salto). Los PNG fuente quedaron en
+`img/_originales/tenis-verde-2026.png` y `tenis-azul-2026.png`.
+
 **Contenido definitivo (19-09-2026).** Ver punto 7.
 
 ### Qué NO tocar
@@ -149,6 +166,46 @@ Esto ya funciona y costó trabajo:
 
 Definitivo **por ahora**: cuando haya ventas se suma más info técnica y datos.
 No reescribir sin pedido explícito.
+
+### Sistema de copy — cómo se escribe cualquier texto nuevo
+
+Rol fijo para todo copy del sitio: **copywriter senior + estratega UX de marcas de
+arquitectura, ingeniería deportiva y paisajismo premium.** Autoridad técnica y
+estatus, cero relleno de IA.
+
+1. **Síntesis drástica.** El texto entra en tarjetas de 3 columnas, etiquetas
+   chicas, viñetas y tablas angostas de mobile. Nada de bloques densos. Si una
+   ventaja se dice en 8 palabras, no van 15. Sin intros, sin "En resumen", sin
+   transiciones obvias: directo al beneficio.
+2. **Cero humo corporativo.** Vetadas: "calidad inigualable", "líderes en el
+   mercado", "la solución definitiva", "un sinfín de opciones", "el cambiante
+   mundo actual", "potenciar tu espacio", "experiencia única", "tecnología de
+   punta". Para transmitir calidad se nombra el hecho de ingeniería o la
+   propiedad física del material, no el adjetivo.
+3. **Eje instalación = ancla de valor.** Nunca "expertos", "profesionales
+   calificados" ni "atención especializada". Siempre **"técnicos capacitados en
+   instalación"**, amplificado con lo que eso significa para la durabilidad:
+   nivelación milimétrica, termosellado de uniones invisibles, control de
+   alineación perimetral, cuadrilla propia sin tercerizar.
+4. **Sin contrastes infantiles.** Prohibida la fórmula "No es solo X, es Y" y las
+   metáforas épicas. El cliente (clubes, complejos, arquitectos, residencial
+   alto) compra certezas operativas, durabilidad y valor de inversión.
+5. **Ritmo de compresión.** Alternar frase corta y contundente (3-5 palabras) con
+   frase técnica fluida. Verbos de acción fuertes, lectura veloz.
+6. **Método de entrega.** Primero medir el espacio visual real (tarjeta, título,
+   viñeta), después filtrar lista negra y relleno, y entregar el copy listo para
+   producción con la opción más pulida primero, sin explicar antes lo que se hizo.
+
+**Extras anti-cliché.** Nada de tricolon ("rápido, simple y confiable"), nada de
+gerundio de apertura ("Brindando soluciones…"), el sujeto es la obra o el material
+y no "nosotros", sin signos de exclamación, sin adjetivo decorativo cuando el
+sustantivo solo alcanza. Prueba final: **si la frase funcionaría igual en la web de
+un competidor, se reescribe.**
+
+**Jerarquía.** Las palabras prohibidas de acá abajo y los textos ya cerrados por
+Marcelo mandan sobre este sistema. "Los mejores materiales" es la excepción
+explícita: está cerrado en Nosotros y en Pádel y no se toca, aunque la regla 2
+vetaría ese tipo de frase en cualquier texto nuevo.
 
 ### Palabras prohibidas — no reintroducir en ningún lado
 - **"instalación especializada" / "especialistas"** → no queremos dar a entender
@@ -229,15 +286,17 @@ y desktop.
   la empresa instaló algo alguna vez.
 - La foto de **Nosotros** (`nosotrosfoto.webp`) son paletas y pelotas de pádel
   sobre el pasto, no el equipo trabajando, aunque el `alt` diga lo contrario.
-- La foto de **Parquización** (`parquizacion.webp`) es una terraza tipo bar con
-  muebles verdes, no un jardín de casa de familia. Es justo la sección que
-  debería hacer sentir identificado al Perfil B.
+- Las fotos de **Parquización** siguen sin mostrar un jardín de casa de familia,
+  que es justo lo que haría sentir identificado al Perfil B. Hoy el carrusel
+  tiene dos: `parquizacion.webp` (terraza comercial con muebles verdes) y
+  `parquizacion-2.webp` (patio institucional con pista pintada). **Con una
+  tercera foto de un jardín residencial real el carrusel gana solo**, no hay que
+  tocar JS. Ojo: `parquizacion-1.webp` es byte a byte idéntica a
+  `parquizacion.webp`, es un duplicado que se puede borrar.
 - Fotos aéreas horizontales reales de fútbol y hockey (las actuales son
   verticales rotadas). Pedirlas cuando haya obra nueva con drone.
 
 ### Bloques pendientes (en orden)
-- **Bloque 3 — Carrusel Parquización.** Flecha derecha en desktop pasa a la
-  siguiente foto, swipe en mobile/tablet, animación liviana.
 - **Bloque 5 — Headers de seguridad** en `vercel.json` (CSP, COOP, XFO).
 - **Migración a dominio propio.** Comprar `grupocespad.com.ar` en nic.ar a
   nombre de Marcelo, conectar a Vercel, verificar redirects.
@@ -307,10 +366,10 @@ Lo que hacen mejor y conviene tener presente:
   de producción.
 - Ponen un calificador de una pregunta en el hero, no un formulario al final.
 
-**No copiarlos.** No se compite contra ellos en escala ni en "somos la fábrica".
+**No copiarlos, MEJORAR LO NUESTRO SIN DAR INDICIOS DE DISEÑO QUE TIRA COMO OUTPUT GENERICO DE IAS, hacer investigacion firme de diseños en webs de altisimo nivel y adaptar la personalidad, no solo "lo mas bueno y correcto"** No se compite contra ellos en escala ni en "somos la fábrica".
 Sirven como referencia de qué tan alta está la vara y de qué convenciones del
 rubro conviene respetar, no como modelo a imitar.
 
 ---
 
-Meta final: cerrar el deploy en +90 PageSpeed sin perseguir perfección infinita.
+Meta final: cerrar el deploy en +92 PageSpeed sin perseguir perfección infinita, la prioridad es que funcione rapida y pueda mantener un gran diseño original.

@@ -13,6 +13,7 @@
    06. Deportes (tabs + swatches + deep-link desde el hero)
    07. Formulario → WhatsApp
    08. WhatsApp global (FAB, teléfono) + año
+   09. Carrusel de parquización (flechas en desktop, swipe en mobile)
    ============================================================ */
 
 'use strict';
@@ -36,7 +37,7 @@ const CONFIG = {
   // Vacío = todo va al número principal. Descomentá sólo lo que quieras derivar.
   // Sirve para repartir por especialidad SIN que compitan por el mismo lead.
   ruteo: {
-    // 'Parquización / Espacios verdes': '549351XXXXXXX',
+    // 'Parquización / Espacios verdes': '54911XXXXXXXX',
   },
 };
 
@@ -370,4 +371,110 @@ const SCROLL_BEHAVIOR = REDUCED_MOTION ? 'auto' : 'smooth';
 
   const anio = $('#year');
   if (anio) anio.textContent = String(new Date().getFullYear());
+})();
+
+/* ------------------------------------------------------------
+   09. CARRUSEL DE PARQUIZACIÓN
+   Flechas en desktop, swipe en mobile/tablet, dots en los dos.
+   La cantidad de slides la define el HTML: sumar un <li> alcanza.
+   ------------------------------------------------------------ */
+(function initCarruselParquizacion() {
+  const carrusel = $('[data-carrusel]');
+  if (!carrusel) return;
+
+  const track = $('[data-carrusel-track]', carrusel);
+  const slides = $$('.parq-slide', carrusel);
+  // Con una sola foto no hay nada que recorrer: se deja como foto fija.
+  if (!track || slides.length < 2) return;
+
+  const prev = $('[data-carrusel-prev]', carrusel);
+  const next = $('[data-carrusel-next]', carrusel);
+  const dotsBox = $('[data-carrusel-dots]', carrusel);
+  const viewport = $('.parq-viewport', carrusel);
+
+  let indice = 0;
+  let arrastre = 0;
+
+  // Los dots se arman acá para que el HTML no tenga que repetir la cantidad.
+  const dots = slides.map((_, i) => {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'parq-dot';
+    b.setAttribute('aria-label', `Ver foto ${i + 1} de ${slides.length}`);
+    dotsBox?.appendChild(b);
+    return b;
+  });
+
+  const render = () => {
+    track.style.translate = `${-indice * viewport.clientWidth + arrastre}px`;
+    if (arrastre) return; // mientras el dedo arrastra no se tocan los controles
+
+    dots.forEach((d, i) => d.setAttribute('aria-current', String(i === indice)));
+    // Sin loop: en las puntas la flecha se apaga en vez de dar la vuelta.
+    if (prev) prev.disabled = indice === 0;
+    if (next) next.disabled = indice === slides.length - 1;
+  };
+
+  const ir = (i) => {
+    indice = Math.max(0, Math.min(slides.length - 1, i));
+    render();
+  };
+
+  if (prev) prev.hidden = false;
+  if (next) next.hidden = false;
+  prev?.addEventListener('click', () => ir(indice - 1));
+  next?.addEventListener('click', () => ir(indice + 1));
+  dotsBox?.addEventListener('click', (e) => {
+    const i = dots.indexOf(e.target.closest('.parq-dot'));
+    if (i >= 0) ir(i);
+  });
+
+  // Flechas del teclado cuando el foco está adentro del carrusel.
+  carrusel.addEventListener('keydown', (e) => {
+    const paso = { ArrowRight: 1, ArrowLeft: -1 }[e.key];
+    if (!paso) return;
+    e.preventDefault();
+    ir(indice + paso);
+  });
+
+  /* Swipe. Sólo para dedo y lápiz: con mouse ya están las flechas, y
+     escuchar el mouse acá pelearía con el arrastre nativo de la imagen. */
+  let inicioX = 0;
+  let siguiendo = false;
+
+  viewport.addEventListener('pointerdown', (e) => {
+    if (e.pointerType === 'mouse') return;
+    siguiendo = true;
+    inicioX = e.clientX;
+    track.classList.add('is-dragging');
+  });
+
+  viewport.addEventListener('pointermove', (e) => {
+    if (!siguiendo) return;
+    // Resistencia en las puntas: se mueve un tercio y se nota que no hay más.
+    const d = e.clientX - inicioX;
+    const enPunta = (d > 0 && indice === 0) || (d < 0 && indice === slides.length - 1);
+    arrastre = enPunta ? d / 3 : d;
+    render();
+  });
+
+  const soltar = () => {
+    if (!siguiendo) return;
+    siguiendo = false;
+    track.classList.remove('is-dragging');
+    // Umbral: 15% del ancho visible o 60px, lo que sea más chico.
+    const umbral = Math.min(viewport.clientWidth * 0.15, 60);
+    const salto = arrastre <= -umbral ? 1 : arrastre >= umbral ? -1 : 0;
+    arrastre = 0;
+    ir(indice + salto);
+  };
+
+  viewport.addEventListener('pointerup', soltar);
+  viewport.addEventListener('pointercancel', soltar);
+  viewport.addEventListener('pointerleave', soltar);
+
+  // El translate va en px, así que hay que recalcularlo si cambia el ancho.
+  window.addEventListener('resize', render, { passive: true });
+
+  render();
 })();
