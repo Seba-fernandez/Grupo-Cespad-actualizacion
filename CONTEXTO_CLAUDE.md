@@ -45,6 +45,57 @@ Sebas no domina git y quiere máxima prudencia. Reglas absolutas:
   _backup_pre_bloqueN/ como redundancia (borrar del repo antes 
   del push a main).
 
+## Contenido definitivo (cerrado por Marcelo/Sebas, 19-09-2026)
+
+Esto reemplaza placeholders anteriores. Es definitivo POR AHORA: cuando haya
+ventas se suma más info técnica y datos. No reescribir sin pedido explícito.
+
+### Palabras prohibidas por ahora (no reintroducir en ningún lado)
+- **"instalación especializada" / "especialistas"** — no queremos dar a entender
+  que hay especialistas. Se dice "equipos técnicos capacitados".
+- **"homologación" / "homologado"** — se agrega más adelante, hoy en ningún lado.
+- **"garantía"** — sacada por las dudas. En su lugar se habla de postventa y
+  seguimiento.
+- **"drenaje"** — todavía no comunicamos ese detalle.
+- **"visitamos el lugar" / "nos acercamos a tu terreno"** — por las dudas. Se
+  dice que asesoramos sin cargo, sin prometer visita.
+
+### Ocultos con [hidden] (contenido conservado para reactivar después)
+- Las 5 fichas técnicas de Deportes (`.deporte-specs`). La prioridad es la foto
+  de la cancha + la descripción breve. Adentro siguen los `[Ej: ...]` sin
+  completar: cuando se reactiven, hay que llenarlos.
+- La tarjeta "Drenaje optimizado" de Por qué elegirnos.
+- Ya estaban ocultas de antes: Stats, Proyectos, Testimonios.
+- El grid de Por qué elegirnos usa auto-fit: al ocultar una tarjeta se
+  reacomoda solo, sin hueco, en mobile/tablet/desktop. Verificado: 3 tarjetas
+  ocupan el ancho completo y la cuarta pista colapsa a 0px.
+
+### Textos cerrados
+- **Nosotros (sticker):** "Los mejores materiales".
+- **Nosotros (descripción):** "…proyectos de parquización que perduran en el
+  tiempo. Combinamos conocimiento y los mejores materiales…".
+- **Deportes (subtítulo):** "Seleccioná tu deporte de interés y conocé los
+  detalles de cada uno", con negrita en "Seleccioná tu deporte" y "detalles de
+  cada uno".
+- **Pádel:** canchas panorámicas y full panorámicas de vidrio templado, césped
+  con líneas incorporadas, estructura con los mejores materiales.
+- **Tenis:** césped sintético con materiales de alto rendimiento y durabilidad.
+- **Fútbol:** superficies profesionales para clubes y privados, de 5, 7, 9 y 11.
+- **Rugby:** usos intensivos y la mejor absorción de impactos.
+- **Hockey:** superficies de arena y de agua, todo tipo de partido, alto nivel.
+- **Parquización:** el mismo césped de clubes adaptado a jardines/quinchos/
+  terrazas/comercios. Gancho en chicos, mascotas y no regar. Sin drenaje.
+- **Por qué elegirnos:** Alta durabilidad / Instalación / Presupuesto sin cargo.
+- **Comparativa:** 4 ítems por lado (se sacaron los de drenaje, homologación y
+  garantía). El de CESPAD cierra con postventa y seguimiento.
+- **Proceso:** consulta = asesoramos sin costo; instalación = máximo detalle y
+  cuidado.
+
+### Pendiente de definir
+- Fotos y nombres de obras reales para activar Proyectos.
+- Números reales para activar Stats.
+- Datos técnicos para reactivar las fichas de cada deporte.
+
 ## Stack
 - HTML5 semántico, CSS3 con custom properties, JS vanilla en IIFEs.
 - Google Fonts: Bebas Neue (display) + DM Sans (body).

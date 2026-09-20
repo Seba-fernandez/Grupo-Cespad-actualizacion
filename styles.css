@@ -343,6 +343,15 @@ button {
   margin-bottom: var(--space-lg);
 }
 
+/* Las negritas dentro de texto atenuado suben a blanco: si quedan del mismo
+   gris, el bold casi no se nota y la palabra clave se pierde. */
+.section-desc strong,
+.parquizacion-desc strong,
+.parquizacion-list strong {
+  color: var(--color-text);
+  font-weight: 600;
+}
+
 /* ============================================================
    06. HEADER Y NAVEGACIÓN
    ============================================================ */
@@ -1227,10 +1236,21 @@ button {
   --pasto-veil-b: rgba(10, 15, 8, 0.92);
 }
 
+/* La grilla se arma según la cantidad de tarjetas VISIBLES: una tarjeta con
+   [hidden] no ocupa columna, así que al ocultar una no queda hueco.
+   Salta de 1 a 3 columnas sin pasar por 2, justamente para que 3 tarjetas
+   nunca dejen una huérfana sola en la última fila. auto-fit deja que vuelva
+   a 4 columnas solo si en el futuro se reactiva la tarjeta oculta. */
 .por-que-grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 1.25rem;
+}
+
+@media (min-width: 760px) {
+  .por-que-grid {
+    grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+  }
 }
 
 .por-que-item {
@@ -1824,7 +1844,8 @@ button {
     --container-pad: 2rem;
   }
 
-  .por-que-grid,
+  /* .por-que-grid ya no entra acá: se arma con auto-fit según las tarjetas
+     visibles (ver sección 12), para que ocultar una no deje hueco. */
   .testimonios-grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -2132,10 +2153,6 @@ button {
   .parquizacion-inner {
     grid-template-columns: 1.05fr 1fr;
     gap: var(--space-lg);
-  }
-
-  .por-que-grid {
-    grid-template-columns: repeat(4, 1fr);
   }
 
   .nosotros-inner {
