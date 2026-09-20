@@ -265,15 +265,7 @@ y desktop.
 
 ## 10. Datos que faltan de Marcelo
 
-- **CRÍTICO — El número de WhatsApp no coincide.** El código usa
-  `5491131496374` (característica 11, Buenos Aires) en `main.js` (`CONFIG.whatsapp`)
-  y en el JSON-LD de `index.html` (`telephone`). Pero el número que Sebas dio
-  como el real del negocio es **+54 9 351 378-5192** (característica 351,
-  Córdoba), y ese no aparece en ningún archivo del proyecto. **Hay que confirmar
-  cuál es el correcto antes de cualquier otra cosa**: el objetivo entero del
-  sitio es el clic a WhatsApp, y si el número está mal todos los leads se pierden
-  sin que nadie se entere. Se corrige en un solo lugar (`CONFIG.whatsapp`) más el
-  JSON-LD.
+
 - Obras reales con nombre de cliente y ciudad (aunque sean 5).
 - Años de trayectoria y cantidad de canchas instaladas, reales, para Stats.
 - Plazos reales de obra por tipo de proyecto.
