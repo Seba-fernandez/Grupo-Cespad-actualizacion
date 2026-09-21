@@ -3,6 +3,11 @@
 Estado: **propuesta, sin implementar.** No se tocó `index.html`, `styles.css` ni
 `main.js`. Esto se discute y recién después se escribe.
 
+Para verlo: `_mockup-insumos.html` en la raíz, servido desde el proyecto (usa el
+`styles.css` real, así que hay que abrirlo con un servidor local, no con doble
+clic). **Ese archivo se borra cuando la sección se implemente de verdad** — no
+va a `main`.
+
 ---
 
 ## 1. El problema, bien planteado
@@ -153,9 +158,28 @@ el estado por defecto, no el degradado.**
 
 | | < 760px | 760–1024px | > 1024px |
 |---|---|---|---|
-| Panel | una columna | una columna | foto + lista, o lista sola |
-| Filas | apiladas, unidad debajo del nombre | apiladas | 1 o 2 columnas según cantidad |
+| Sección | todo apilado | todo apilado | intro izq + panel der, o intro arriba |
+| Filas | ícono + nombre, unidad en su propia línea | unidad al lado del nombre | 1 o 2 columnas según cantidad |
 | CTA | ancho completo | ancho completo | al ras izquierdo |
+
+## 5b. Lo que cambió al maquetarlo
+
+El mockup corrigió tres cosas que en papel parecían bien:
+
+1. **Sin foto, el panel a ancho completo dejaba media pantalla muerta.** El
+   texto del intro usa 45 caracteres de ancho y al lado no había nada. Ahora
+   en desktop son **siempre dos columnas** —intro a la izquierda, panel a la
+   derecha— haya foto o no. El intro queda `sticky` mientras se recorre la
+   lista.
+2. **Con 5 ítems o más, dos columnas adentro de la columna angosta apretaban
+   todo**: los nombres se partían en dos renglones y las specs en tres. Ahora
+   a partir del quinto ítem **el panel se lleva el ancho completo** y el intro
+   se va arriba en una línea. Cada fila pasa de ~320px a ~552px.
+3. **En mobile la pastilla al lado del nombre dejaba dos columnas flacas.**
+   Baja a su propia línea abajo del nombre; recién desde 760px vuelve al
+   costado.
+
+Ninguna de las tres se veía leyendo la propuesta. Por eso conviene mirarlo.
 
 ## 6. Copy
 
