@@ -70,6 +70,12 @@ Sebas no domina git y quiere máxima prudencia.
 - Código limpio, **sin sobreingeniería ni cosas que no pidió**.
 - Bloque por bloque, paso a paso. Una variable por vez.
 - No asumir que se aplicaron cambios anteriores: leer los archivos primero.
+- **Cada etapa cerrada se documenta antes de pasar a la siguiente.** Va en el
+  punto 6 de este archivo (qué se hizo y por qué) y, si cambió algo que el
+  README afirma, también en el README. El README no es un informe interno:
+  está escrito en primera persona por Sebas para tech leads y recruiters de
+  GitHub, y **no puede afirmar nada que el repo no tenga**. Antes de tocarlo,
+  verificar que cada cosa que dice exista de verdad.
 
 ---
 
@@ -308,6 +314,13 @@ y desktop.
   adentro. Los logos viejos están en `img/_originales/logos/` (`Logo.png`,
   `Logo.jpg`, `logo1.jpeg`, `logo2.jpeg`) — rescatados de backups que se
   borraron, **son las únicas copias fuera del historial de git**.
+- **README.** Quedó reescrito el 20-09-2026 en primera persona para GitHub.
+  Antes afirmaba cosas falsas: dominio `grupocespad.com.ar` (no comprado),
+  `vercel.json` y dos `preview-*.png` que no existían (dos imágenes rotas en
+  la portada del repo), parallax en el hero (no existe) y contadores de Stats
+  (sección oculta). Ahora los previews son reales (`preview-desktop.webp` y
+  `preview-mobile.webp`). **Cada vez que cambie algo que el README afirma,
+  se actualiza el README en el mismo commit.**
 - **`image.png` e `image-1.png`** en la raíz: 3MB, trackeados, no los referencia
   ningún archivo. Preguntarle a Sebas si se borran.
 
@@ -350,6 +363,61 @@ y desktop.
   `size-adjust` en `@font-face` o self-hosting de fuentes.
 - Verificar visualmente que el swatch de tenis terracota se ve bien contra el
   verde y el azul.
+
+---
+
+## 9b. Auditoría UX/UI (20-09-2026) — 3.6 / 5
+
+Revisión de consistencia hecha con el sitio corriendo y midiendo, no a ojo.
+El detalle largo está en la conversación; acá queda lo accionable.
+
+### Lo que ya está bien y no hay que romper
+- **Ritmo vertical:** las 9 secciones visibles usan `112px` arriba y abajo,
+  sin una sola excepción.
+- **Movimiento:** 32 de 32 transiciones salen de tokens. Sólo 3 duraciones en
+  todo el sitio.
+- **Botones:** una sola receta (mismo radio, padding, tamaño y familia) en las
+  3 variantes.
+- **Fondos:** alternancia disciplinada de 3 superficies (`#0a0a0a`, `#141414`,
+  verde-pasto `#0d130c`).
+- **Accesibilidad:** `:focus-visible` global de 3px, skip link, ARIA de tabs,
+  targets de 44px. **Contraste AA verificado midiendo el pixel real** detrás
+  del texto atenuado sobre el vidrio nuevo: 6.5:1, el 4B.2 no lo rompió.
+
+### Los 6 puntos débiles, por impacto
+1. **Tipografía sin tokens.** 29 valores distintos de `font-size` en 47
+   declaraciones, y `:root` no tiene un solo token tipográfico mientras color,
+   espaciado, radios, sombras y transiciones sí. Entre `0.7rem` y `0.95rem`
+   hay once valores que el ojo no distingue pero que delatan que no hay regla.
+   Los H3 usan 4 tamaños distintos (22.4 / 24 / 35.2 / 64px).
+2. **Cuatro lenguajes de tarjeta.** Cristal (radio 16px), Comparativa (sólida
+   `#1e1e1e`, radio 24px), inputs del formulario (sólida `#141414`, radio 8px)
+   y swatches (translúcida sin vidrio, radio 16px). El 4B.2 unificó cinco
+   componentes y dejó afuera a los otros tres. **Es el punto que más se nota.**
+3. **Los 4 emojis de Contacto.** `📞` (x2), `📍` y `🚗` son multicolor en una
+   marca de dos colores. Además violan la regla del punto 4 de este archivo.
+   Es el arreglo más barato de todos: 3 símbolos nuevos en el sprite.
+4. **Sin jerarquía entre secciones.** Los 9 H2 miden 64px. Deportes (el funnel
+   principal) grita igual que Proceso. Y 8 están centrados y 1 a la izquierda.
+5. **El H1 es un nombre, no un argumento.** El `<h1>` real mide 32px y lo que
+   domina la pantalla es "GRUPO CESPAD" a 160px. Atlantis (punto 12) titula
+   *"Césped sintético hecho por la fábrica que lo instala"*. El titular más
+   grande del sitio no dice qué vendemos ni por qué.
+6. **Formulario de 7 campos, 4 obligatorios**, para terminar abriendo un chat
+   de WhatsApp. Mucha fricción para el único objetivo del sitio.
+
+### Menores
+- Espaciado: los tokens `--space-*` existen pero los componentes usan ~20
+  valores crudos (`0.4`, `0.6`, `0.65`, `0.7`, `0.75`, `0.8`, `0.85`…).
+- 3 radios fuera de token: `2rem`, `1rem` (duplica `--radius-md`) y `2px`.
+- Eyebrows con registro mezclado: 4 de 9 arrancan con "Nuestro/a" (etiqueta),
+  el resto son afirmaciones.
+- "Respuestas en menos de 24hs por nuestros asesores": promete un plazo que
+  nadie confirmó y usa "asesores", primo hermano de "especialistas".
+
+### Orden sugerido para cerrar la brecha
+Tokens tipográficos → unificar Comparativa y formulario al lenguaje de cristal
+→ emojis a sprite → jerarquía de H2. Con eso el sitio llega a 4.5.
 
 ---
 
