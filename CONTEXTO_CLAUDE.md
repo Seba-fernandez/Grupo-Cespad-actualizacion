@@ -134,6 +134,27 @@ saturate más generosos. Fix de íconos del hero que se veían en miniatura en
 mobile (el círculo no baja de 44px por accesibilidad, se redujo el padding
 interno a 0.55rem).
 
+**Bloque 8 — Jerarquía y corrección de claims (20-09-2026).**
+- **"Equipo propio" fuera de todo el sitio.** Los equipos de instalación no son
+  propios. Estaba afirmado en la Comparativa y en el paso 03 del Proceso. Y
+  había un problema peor: la columna "cancha estándar" le reprochaba a la
+  competencia la instalación tercerizada, o sea que el reproche nos volvía.
+  Ese ítem ahora apunta al **control**, que es el diferencial que sí se puede
+  sostener: "Instalación sin control técnico: el resultado depende de quién la
+  toque ese día". Ver la lista de prohibidas del punto 7.
+- **Dos pesos de título.** Tokens `--title-lg` (hasta 64px) para las secciones
+  donde el visitante decide algo — Deportes, Parquización, Proyectos, Contacto
+  — y `--title-sm` (hasta 48px, con un punto más de letter-spacing porque
+  Bebas se cierra al achicarse) para las que argumentan a favor de esa
+  decisión: Nosotros, Por qué elegirnos, Comparativa, Proceso, Testimonios.
+  Se aplica con la clase `.section-title--sm`.
+- **Titular de Deportes.** El H2 enumeraba los cinco deportes y ocupaba dos
+  renglones. Los nombres ya están en los tabs, en los H3 de cada panel, en el
+  subtítulo del hero, en el marquee y en el JSON-LD, así que sacarlos del H2
+  no cuesta SEO. Quedó "Deporte por deporte" + **"Cada uno pide una cancha
+  distinta"**: un argumento en un renglón, que además explica por qué hay
+  cinco construcciones distintas.
+
 **Bloque 7 — Consistencia (20-09-2026).** Cierra los 3 hallazgos más fuertes
 de la auditoría del punto 9b.
 - **Escala tipográfica en tokens.** 39 declaraciones pasaron a `--text-*`
@@ -239,8 +260,9 @@ estatus, cero relleno de IA.
 3. **Eje instalación = ancla de valor.** Nunca "expertos", "profesionales
    calificados" ni "atención especializada". Siempre **"técnicos capacitados en
    instalación"**, amplificado con lo que eso significa para la durabilidad:
-   nivelación milimétrica, termosellado de uniones invisibles, control de
-   alineación perimetral, cuadrilla propia sin tercerizar.
+   nivelación milimétrica, termosellado de uniones invisibles y control de
+   alineación perimetral. **Nunca con "cuadrilla propia" ni "sin
+   tercerizar":** ver la lista de prohibidas de abajo.
 4. **Sin contrastes infantiles.** Prohibida la fórmula "No es solo X, es Y" y las
    metáforas épicas. El cliente (clubes, complejos, arquitectos, residencial
    alto) compra certezas operativas, durabilidad y valor de inversión.
@@ -269,6 +291,16 @@ vetaría ese tipo de frase en cualquier texto nuevo.
 - **"drenaje"** → todavía no comunicamos ese detalle.
 - **"visitamos el lugar" / "nos acercamos a tu terreno"** → por las dudas. Se
   dice que asesoramos sin cargo, sin prometer visita.
+- **"equipo propio" / "cuadrilla propia" / "sin tercerizar"** (20-09-2026) →
+  **los equipos de instalación no son propios.** Y ojo con el efecto espejo:
+  tampoco se le puede reprochar la tercerización a la competencia, porque el
+  reproche vuelve. El diferencial que sí se puede afirmar es el **control**:
+  "equipos técnicos capacitados y control de calidad en cada etapa".
+
+### Confirmado por Sebas, no volver a marcarlo (20-09-2026)
+- **"asesores"** está bien: son Marcelo y su hermano atendiendo. No es el
+  "especialistas" de la lista de arriba.
+- **"Respuestas en menos de 24hs"** está bien, lo sostienen.
 
 ### Textos cerrados
 Los de abajo son la **sustancia**, que no se toca. La redacción exacta se
@@ -277,6 +309,9 @@ escribir alguno, se respeta la sustancia listada acá, no la redacción vieja.
 - **Nosotros (sticker):** "Los mejores materiales".
 - **Nosotros (descripción):** "…proyectos de parquización que perduran en el
   tiempo. Combinamos conocimiento y los mejores materiales…".
+- **Deportes (título):** eyebrow "Deporte por deporte" + H2 "Cada uno pide una
+  cancha distinta". **No volver a enumerar los cinco deportes en el H2**, se
+  hace eterno y los nombres ya están en otros cinco lugares de la página.
 - **Deportes (subtítulo):** "Seleccioná tu deporte de interés y conocé los
   detalles de cada uno", con negrita en "Seleccioná tu deporte" y "detalles de
   cada uno".
@@ -386,7 +421,7 @@ y desktop.
 
 ---
 
-## 9b. Auditoría UX/UI (20-09-2026) — 3.6 → **4.3 / 5** tras el Bloque 7
+## 9b. Auditoría UX/UI (20-09-2026) — 3.6 → 4.3 → **4.5 / 5** tras el Bloque 8
 
 Revisión de consistencia hecha con el sitio corriendo y midiendo, no a ojo.
 El detalle largo está en la conversación; acá queda lo accionable.
@@ -404,6 +439,12 @@ El detalle largo está en la conversación; acá queda lo accionable.
   targets de 44px. **Contraste AA verificado midiendo el pixel real** detrás
   del texto atenuado sobre el vidrio nuevo: 6.5:1, el 4B.2 no lo rompió.
 
+### RESUELTO en el Bloque 8
+- ~~Sin jerarquía entre secciones~~ → dos pesos de título, `--title-lg` y
+  `--title-sm`. Queda una sola desalineación: Parquización alinea a la
+  izquierda y el resto al centro, **y está bien así**, porque es la única
+  sección a dos columnas.
+
 ### RESUELTO en el Bloque 7
 - ~~Tipografía sin tokens~~ → escala de 10 escalones en `--text-*`.
 - ~~Cuatro lenguajes de tarjeta~~ → dos estados: elevada y hundida.
@@ -415,22 +456,20 @@ Ordenado por lo que más mueve la aguja. Los tres primeros no los toqué porque
 **cambian decisiones de diseño o de negocio, no de consistencia**, y esas las
 decide Sebas.
 
-1. **Sin jerarquía entre secciones.** Los 9 H2 miden 64px. Deportes, que es el
-   funnel, grita igual que Proceso. Y 8 están centrados y 1 a la izquierda.
-   Es lo único que falta para llegar a 4.5.
-2. **El H1 es un nombre, no un argumento.** El `<h1>` real mide 32px y lo que
+1. **El H1 es un nombre, no un argumento.** El `<h1>` real mide 32px y lo que
    domina es "GRUPO CESPAD" a 160px. El hero está en la lista de "no tocar"
    del punto 6, así que esto queda reportado, no propuesto.
-3. **Formulario de 7 campos, 4 obligatorios**, para terminar abriendo un chat
+2. **Formulario de 7 campos, 4 obligatorios**, para terminar abriendo un chat
    de WhatsApp. Es una decisión de negocio: cuántos datos vale perder un lead.
-4. **Espaciado:** los tokens `--space-*` existen pero los componentes siguen
+3. **Espaciado:** los tokens `--space-*` existen pero los componentes siguen
    usando ~20 valores crudos. Es la misma deuda que tenía la tipografía, pero
    se nota mucho menos porque el ritmo entre secciones sí está tokenizado.
-5. **Eyebrows con registro mezclado:** 4 de 9 arrancan con "Nuestro/a"
+4. **Eyebrows con registro mezclado:** 4 de 9 arrancan con "Nuestro/a"
    (etiqueta), el resto son afirmaciones.
-6. **"Respuestas en menos de 24hs por nuestros asesores"**: promete un plazo
-   que nadie confirmó y usa "asesores", primo hermano de "especialistas".
-   **Necesita que Marcelo confirme o que se saque.**
+
+Lo de "asesores" y las "respuestas en menos de 24hs" quedó **confirmado por
+Sebas**: son Marcelo y su hermano, y el plazo lo sostienen. No volver a
+marcarlo.
 
 ### Lo que era el diagnóstico original
 1. **Tipografía sin tokens.** 29 valores distintos de `font-size` en 47

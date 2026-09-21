@@ -75,9 +75,10 @@ entra en `border`. Con fallback para navegadores sin `mask-composite` y sin
 `backdrop-filter`.
 
 **Escala tipográfica.** Diez escalones en tokens, de 12px a 48px. Los títulos
-grandes quedan fuera de la escala a propósito: usan `clamp()` porque ahí el
-tamaño es fluido por viewport. Antes de tokenizar había 29 tamaños sueltos, y
-once de ellos caían entre 11 y 15px, o sea diferencias que nadie distingue.
+de sección van aparte, en dos pesos fluidos: el grande para las secciones donde
+el visitante decide algo y el chico para las que argumentan a favor de esa
+decisión. Antes de tokenizar había 29 tamaños sueltos, y once de ellos caían
+entre 11 y 15px, o sea diferencias que nadie distingue.
 
 **Carrusel de parquización.** Flechas en desktop, swipe en mobile con
 resistencia en las puntas. Los dots los arma el JS según cuántas slides haya,

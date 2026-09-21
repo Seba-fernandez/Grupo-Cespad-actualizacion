@@ -115,6 +115,15 @@
   --text-3xl: 2.2rem;      /* 35.2px — encabezado de comparativa */
   --text-4xl: 3rem;        /* 48px — número de paso del proceso */
 
+  /* Títulos de sección: dos pesos, no uno.
+     Antes los 9 H2 median lo mismo y Deportes (que es el funnel) gritaba
+     igual que Proceso. Ahora --title-lg es para las secciones donde el
+     visitante decide algo (Deportes, Parquización, Proyectos, Contacto) y
+     --title-sm para las que argumentan a favor de esa decisión (Nosotros,
+     Por qué elegirnos, Comparativa, Proceso, Testimonios). */
+  --title-lg: clamp(2.25rem, 6vw, 4rem);      /* hasta 64px */
+  --title-sm: clamp(1.9rem, 4.6vw, 3rem);     /* hasta 48px */
+
   /* Espaciado */
   --space-2xs: 0.25rem;
   --space-xs: 0.5rem;
@@ -453,13 +462,20 @@ button {
 
 .section-title {
   font-family: var(--font-display);
-  font-size: clamp(2.25rem, 6vw, 4rem);
+  font-size: var(--title-lg);
   line-height: 1.05;
   letter-spacing: 0.06em;
   color: var(--color-white);
   margin-bottom: var(--space-sm);
   text-align: center;
   text-wrap: balance;
+}
+
+/* Segundo peso: secciones de apoyo. El letter-spacing sube un punto porque
+   a menor cuerpo, Bebas necesita más aire para no cerrarse. */
+.section-title--sm {
+  font-size: var(--title-sm);
+  letter-spacing: 0.07em;
 }
 
 .section-desc {
