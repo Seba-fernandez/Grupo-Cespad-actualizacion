@@ -114,6 +114,23 @@
       --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.4);
       --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.5);
 
+      /* Vidrio 4B.2: sólo los tres tokens que usa el hero. El set completo
+         (con frost y filter) vive en styles.css, que carga después con los
+         mismos valores. Si cambiás uno acá, cambialo allá. */
+      --glass-sheen: radial-gradient(118% 88% at 16% -8%,
+        rgba(255, 255, 255, 0.30) 0%,
+        rgba(255, 255, 255, 0.08) 24%,
+        rgba(255, 255, 255, 0) 50%);
+      --glass-rim: linear-gradient(135deg,
+        rgba(255, 255, 255, 0.78) 0%,
+        rgba(255, 255, 255, 0.16) 26%,
+        rgba(var(--accent-rgb), 0.34) 50%,
+        rgba(255, 255, 255, 0.10) 72%,
+        rgba(255, 255, 255, 0.62) 100%);
+      --glass-bevel:
+        inset 0 1.5px 1px rgba(255, 255, 255, 0.34),
+        inset 0 -1.5px 1px rgba(0, 0, 0, 0.45);
+
       --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
       --transition-fast: 0.2s ease;
       --transition-normal: 0.4s ease;
@@ -378,32 +395,65 @@
       padding-bottom: clamp(var(--space-md), 9vh, var(--space-xl));
     }
 
+    /* 4B.2 cristal. Espejo de styles.css: si tocás uno, tocá el otro. */
     .sport-panel-icon {
+      position: relative;
       width: clamp(var(--tap), 11vw, 4rem);
       height: clamp(var(--tap), 11vw, 4rem);
       padding: 0.8rem;
       border-radius: 50%;
-      background: rgba(10, 10, 10, 0.6);
-      border: 1.5px solid rgba(240, 240, 240, 0.35);
+      background:
+        var(--glass-sheen),
+        linear-gradient(165deg, rgba(8, 12, 6, 0.14), rgba(8, 12, 6, 0.32));
       color: var(--color-accent);
       display: flex;
       align-items: center;
       justify-content: center;
       pointer-events: auto;
+      backdrop-filter: blur(8px) saturate(2) contrast(1.3) brightness(0.88);
+      -webkit-backdrop-filter: blur(8px) saturate(2) contrast(1.3) brightness(0.88);
+      box-shadow: var(--glass-bevel), 0 6px 18px rgba(0, 0, 0, 0.45);
       transition:
         transform var(--transition-normal),
         background-color var(--transition-normal),
-        border-color var(--transition-normal),
         box-shadow var(--transition-normal);
+    }
+
+    /* El canto: aro de 1.5px con degradé, recortado por máscara. */
+    .sport-panel-icon::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      padding: 1.5px;
+      background: var(--glass-rim);
+      -webkit-mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+      mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+
+    @supports not ((mask-composite: exclude) or (-webkit-mask-composite: xor)) {
+      .sport-panel-icon { border: 1.5px solid rgba(255, 255, 255, 0.22); }
+      .sport-panel-icon::before { display: none; }
     }
 
     .sport-panel-icon:hover,
     .sport-panel-icon:focus-visible {
-      background: var(--color-accent);
+      background: linear-gradient(var(--color-accent), var(--color-accent));
       color: #0a0a0a;
-      border-color: var(--color-accent);
       transform: translateY(-4px) scale(1.05);
       box-shadow: 0 8px 20px rgba(var(--accent-rgb), 0.35);
+    }
+
+    .sport-panel-icon:hover::before,
+    .sport-panel-icon:focus-visible::before {
+      background: linear-gradient(var(--color-accent), var(--color-accent));
     }
 
     .sport-panel-label {
