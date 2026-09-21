@@ -128,6 +128,34 @@ saturate más generosos. Fix de íconos del hero que se veían en miniatura en
 mobile (el círculo no baja de 44px por accesibilidad, se redujo el padding
 interno a 0.55rem).
 
+**Bloque 4B.2 — Cristal (20-09-2026).** El glass del 4B/4B.1 se leía como
+"foto borrosa detrás de un rectángulo": blur parejo + borde plano de un solo
+color. Se reemplazó por una receta de cristal en tokens de `:root`
+(`--glass-frost`, `--glass-sheen`, `--glass-rim`, `--glass-filter`,
+`--glass-bevel`): ruido finísimo en la superficie, especular concentrado
+arriba-izquierda, canto con degradé pintado por `::before` + `mask-composite`,
+y `contrast()`/`brightness()` en el filter para despegar la pieza del fondo.
+Además se **bajó el tinte en todas**: con el tinte denso de antes no se veía
+nada a través del vidrio, que era el problema real. Ahora los íconos del hero
+toman el color del panel que tienen atrás y se leen como lentes.
+Alcanza a: íconos de deporte del hero, contenedor de tabs en mobile, cada tab
+en desktop, tarjetas de Por qué elegirnos, flechas del carrusel y el panel de
+Deportes (su canto va al 55% para que los tabs le ganen en brillo).
+**Para sumar una pieza de vidrio nueva:** agregá su selector al grupo del aro
+(`...::before`) y al bloque `@supports not (mask-composite)`, y componé el
+fondo con los tokens. El filo verde del tab activo ya no es `border-left`
+sino `inset box-shadow`, porque el borde ahora es el canto.
+
+**Pasada de redacción (20-09-2026).** Sin cambiar la sustancia ni sumar datos
+nuevos: se sacó el humo ("superan toda expectativa", "materiales premium"),
+se cortó la repetición (4 de 5 deportes abrían con "Superficies"; parquización
+decía tres veces lo mismo entre H2, descripción y viñetas), se emparejaron los
+largos para que las tarjetas de 3 columnas y los 4 pasos del Proceso cierren
+parejos, y se marcaron negritas donde sirven para escanear. `.nosotros-desc
+strong`, `.por-que-desc strong` y `.contacto-desc strong` se sumaron a la
+regla que sube las negritas a blanco. El copy de **Comparativa no se tocó**:
+sigue siendo la referencia de tono.
+
 **Bloque 3 — Carrusel de Parquización (20-09-2026).** La foto fija pasó a
 carrusel: flechas en desktop (ocultas abajo de 1024px), swipe de dedo en
 mobile/tablet con resistencia en las puntas, dots como indicador de posición.
@@ -217,6 +245,9 @@ vetaría ese tipo de frase en cualquier texto nuevo.
   dice que asesoramos sin cargo, sin prometer visita.
 
 ### Textos cerrados
+Los de abajo son la **sustancia**, que no se toca. La redacción exacta se
+refinó el 20-09-2026 según el sistema de copy de arriba: si hay que volver a
+escribir alguno, se respeta la sustancia listada acá, no la redacción vieja.
 - **Nosotros (sticker):** "Los mejores materiales".
 - **Nosotros (descripción):** "…proyectos de parquización que perduran en el
   tiempo. Combinamos conocimiento y los mejores materiales…".

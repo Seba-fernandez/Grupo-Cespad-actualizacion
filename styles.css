@@ -440,7 +440,10 @@ button {
    gris, el bold casi no se nota y la palabra clave se pierde. */
 .section-desc strong,
 .parquizacion-desc strong,
-.parquizacion-list strong {
+.parquizacion-list strong,
+.nosotros-desc strong,
+.por-que-desc strong,
+.contacto-desc strong {
   color: var(--color-text);
   font-weight: 600;
 }
