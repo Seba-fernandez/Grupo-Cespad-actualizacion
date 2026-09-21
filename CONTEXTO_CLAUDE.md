@@ -134,6 +134,26 @@ saturate más generosos. Fix de íconos del hero que se veían en miniatura en
 mobile (el círculo no baja de 44px por accesibilidad, se redujo el padding
 interno a 0.55rem).
 
+**Bloque 7 — Consistencia (20-09-2026).** Cierra los 3 hallazgos más fuertes
+de la auditoría del punto 9b.
+- **Escala tipográfica en tokens.** 39 declaraciones pasaron a `--text-*`
+  (10 escalones, de `--text-2xs` a `--text-4xl`). Los `clamp()` de los títulos
+  grandes quedan como están a propósito: ahí el tamaño es fluido por viewport,
+  no un escalón. La escala está definida en los DOS `:root` (styles.css y el
+  crítico inline), con los mismos valores.
+- **De cuatro lenguajes de tarjeta a dos estados de superficie.** El sistema
+  ahora distingue **ELEVADA** (`--glass-bevel` + canto + `backdrop-filter`:
+  tarjetas, tabs, botones sobre foto) de **HUNDIDA** (`--glass-inset`: inputs
+  del formulario y panel de swatches). Comparativa entró a la familia de
+  cristal, y su columna premium usa el mismo recurso que el tab activo de
+  Deportes: cristal teñido de acento con canto en acento.
+- **Regla de radios:** contenedor = `--radius-lg`, tarjeta = `--radius-md`,
+  control = `--radius-sm`, pastilla = `--radius-pill` (token nuevo). Los `2rem`
+  y `1rem` sueltos se fueron.
+- **Cero emojis en el markup.** Los 4 de Contacto y el check del sticker de
+  Nosotros son 5 símbolos nuevos del sprite (`i-telefono`, `i-ubicacion`,
+  `i-chat`, `i-reloj`, `i-check`). FCP local bajó de 476 a 432ms.
+
 **Bloque 4B.2 — Cristal (20-09-2026).** El glass del 4B/4B.1 se leía como
 "foto borrosa detrás de un rectángulo": blur parejo + borde plano de un solo
 color. Se reemplazó por una receta de cristal en tokens de `:root`
@@ -366,7 +386,7 @@ y desktop.
 
 ---
 
-## 9b. Auditoría UX/UI (20-09-2026) — 3.6 / 5
+## 9b. Auditoría UX/UI (20-09-2026) — 3.6 → **4.3 / 5** tras el Bloque 7
 
 Revisión de consistencia hecha con el sitio corriendo y midiendo, no a ojo.
 El detalle largo está en la conversación; acá queda lo accionable.
@@ -384,7 +404,35 @@ El detalle largo está en la conversación; acá queda lo accionable.
   targets de 44px. **Contraste AA verificado midiendo el pixel real** detrás
   del texto atenuado sobre el vidrio nuevo: 6.5:1, el 4B.2 no lo rompió.
 
-### Los 6 puntos débiles, por impacto
+### RESUELTO en el Bloque 7
+- ~~Tipografía sin tokens~~ → escala de 10 escalones en `--text-*`.
+- ~~Cuatro lenguajes de tarjeta~~ → dos estados: elevada y hundida.
+- ~~Los 4 emojis de Contacto~~ → 5 símbolos nuevos del sprite.
+- ~~Radios fuera de token~~ → regla de 4 radios, con `--radius-pill` nuevo.
+
+### Lo que sigue abierto
+Ordenado por lo que más mueve la aguja. Los tres primeros no los toqué porque
+**cambian decisiones de diseño o de negocio, no de consistencia**, y esas las
+decide Sebas.
+
+1. **Sin jerarquía entre secciones.** Los 9 H2 miden 64px. Deportes, que es el
+   funnel, grita igual que Proceso. Y 8 están centrados y 1 a la izquierda.
+   Es lo único que falta para llegar a 4.5.
+2. **El H1 es un nombre, no un argumento.** El `<h1>` real mide 32px y lo que
+   domina es "GRUPO CESPAD" a 160px. El hero está en la lista de "no tocar"
+   del punto 6, así que esto queda reportado, no propuesto.
+3. **Formulario de 7 campos, 4 obligatorios**, para terminar abriendo un chat
+   de WhatsApp. Es una decisión de negocio: cuántos datos vale perder un lead.
+4. **Espaciado:** los tokens `--space-*` existen pero los componentes siguen
+   usando ~20 valores crudos. Es la misma deuda que tenía la tipografía, pero
+   se nota mucho menos porque el ritmo entre secciones sí está tokenizado.
+5. **Eyebrows con registro mezclado:** 4 de 9 arrancan con "Nuestro/a"
+   (etiqueta), el resto son afirmaciones.
+6. **"Respuestas en menos de 24hs por nuestros asesores"**: promete un plazo
+   que nadie confirmó y usa "asesores", primo hermano de "especialistas".
+   **Necesita que Marcelo confirme o que se saque.**
+
+### Lo que era el diagnóstico original
 1. **Tipografía sin tokens.** 29 valores distintos de `font-size` en 47
    declaraciones, y `:root` no tiene un solo token tipográfico mientras color,
    espaciado, radios, sombras y transiciones sí. Entre `0.7rem` y `0.95rem`
@@ -418,6 +466,7 @@ El detalle largo está en la conversación; acá queda lo accionable.
 ### Orden sugerido para cerrar la brecha
 Tokens tipográficos → unificar Comparativa y formulario al lenguaje de cristal
 → emojis a sprite → jerarquía de H2. Con eso el sitio llega a 4.5.
+**Los tres primeros están hechos (Bloque 7). Falta la jerarquía de H2.**
 
 ---
 

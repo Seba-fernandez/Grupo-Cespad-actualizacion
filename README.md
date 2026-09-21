@@ -65,11 +65,19 @@ lugar de diecisiete individuales: agregar un deporte es markup, no JS.
 cambiás el color y cambia la foto de la cancha. Los colores disponibles varían
 por deporte y también salen del markup.
 
-**Sistema de vidrio.** Cinco tokens en `:root` (ruido de superficie, reflejo
-especular, canto, filtro y biselado) que componen todas las piezas
-translúcidas. El canto es un `::before` con `mask-composite`, porque un degradé
-no entra en `border`. Con fallback para navegadores sin `mask-composite` y sin
+**Sistema de superficies.** Seis tokens en `:root` componen todas las piezas
+translúcidas: ruido de superficie, reflejo especular, canto, filtro y dos
+relieves opuestos. El sistema distingue superficie elevada (lo que flota:
+tarjetas, tabs, botones sobre foto) de superficie hundida (lo que recibe algo:
+inputs y el panel de swatches), y esa distinción es lo único que separa a una
+de otra. El canto es un `::before` con `mask-composite`, porque un degradé no
+entra en `border`. Con fallback para navegadores sin `mask-composite` y sin
 `backdrop-filter`.
+
+**Escala tipográfica.** Diez escalones en tokens, de 12px a 48px. Los títulos
+grandes quedan fuera de la escala a propósito: usan `clamp()` porque ahí el
+tamaño es fluido por viewport. Antes de tokenizar había 29 tamaños sueltos, y
+once de ellos caían entre 11 y 15px, o sea diferencias que nadie distingue.
 
 **Carrusel de parquización.** Flechas en desktop, swipe en mobile con
 resistencia en las puntas. Los dots los arma el JS según cuántas slides haya,

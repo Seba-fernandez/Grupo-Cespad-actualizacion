@@ -93,6 +93,23 @@
       --font-display: 'Bebas Neue', 'Arial Narrow', sans-serif;
       --font-body: 'DM Sans', system-ui, -apple-system, sans-serif;
 
+      /* Tipografía — escala. Antes había 29 tamaños sueltos en 47 declaraciones
+         y ni un token, mientras color, espaciado, radios, sombras y transiciones
+         sí los tenían. Once de esos valores caían entre 0.7rem y 0.95rem, o sea
+         diferencias que el ojo no distingue pero que prueban que no había regla.
+         Los clamp() de los títulos grandes quedan como están a propósito: ahí el
+         tamaño es fluido por viewport, no un escalón de esta escala. */
+      --text-2xs: 0.75rem;     /* 12px — etiquetas micro en mayúscula */
+      --text-xs: 0.8125rem;    /* 13px — eyebrows, badges, pies, errores */
+      --text-sm: 0.875rem;     /* 14px — labels de formulario */
+      --text-md: 0.9375rem;    /* 15px — texto de tarjeta y de lista */
+      --text-base: 1rem;       /* 16px — cuerpo y inputs (menos ya hace zoom iOS) */
+      --text-lg: 1.0625rem;    /* 17px — bajadas de sección */
+      --text-xl: 1.5rem;       /* 24px — títulos de tarjeta (Bebas) */
+      --text-2xl: 1.6rem;      /* 25.6px — label de tab en desktop */
+      --text-3xl: 2.2rem;      /* 35.2px — encabezado de comparativa */
+      --text-4xl: 3rem;        /* 48px — número de paso del proceso */
+
       --space-2xs: 0.25rem;
       --space-xs: 0.5rem;
       --space-sm: 1rem;
@@ -244,7 +261,7 @@
       width: 100%;
       padding: 1rem;
       text-align: center;
-      font-size: 1.5rem;
+      font-size: var(--text-xl);
       letter-spacing: 0.05em;
       transition: color var(--transition-fast), background-color var(--transition-fast);
     }
@@ -534,7 +551,7 @@
       padding: 0.85rem 2rem;
       border-radius: var(--radius-md);
       font-family: var(--font-body);
-      font-size: 1rem;
+      font-size: var(--text-base);
       font-weight: 600;
       border: 1.5px solid transparent;
       transition:
@@ -683,6 +700,30 @@
       <symbol id="i-flecha-abajo" viewBox="0 0 24 24">
         <line x1="12" y1="5" x2="12" y2="19" />
         <polyline points="19 12 12 19 5 12" />
+      </symbol>
+
+      <symbol id="i-check" viewBox="0 0 24 24">
+        <polyline points="4.5 12.5 9.5 17.5 19.5 6.5" />
+      </symbol>
+
+      <!-- Contacto: reemplazan a los emojis 📞 📍 🚗 ⏱, que eran multicolor
+           sobre una marca de dos colores y rompían el sistema. -->
+      <symbol id="i-telefono" viewBox="0 0 24 24">
+        <path d="M8.4 3.6 10.2 7.4 8.1 9.2c.9 2 2.7 3.8 4.7 4.7l1.8-2.1 3.8 1.8v3.4c0 .9-.8 1.6-1.7 1.5C9.8 19.9 4.1 14.2 3.5 7.3c-.1-.9.6-1.7 1.5-1.7h3.4z" />
+      </symbol>
+
+      <symbol id="i-ubicacion" viewBox="0 0 24 24">
+        <path d="M12 21.2c3.8-4.1 5.7-7.2 5.7-9.7A5.7 5.7 0 0 0 6.3 11.5c0 2.5 1.9 5.6 5.7 9.7z" />
+        <circle cx="12" cy="11.2" r="2.1" />
+      </symbol>
+
+      <symbol id="i-chat" viewBox="0 0 24 24">
+        <path d="M20.2 12.4c0 3.8-3.7 6.9-8.2 6.9-1 0-2-.15-2.9-.43L4.2 20.4l1.3-3.7c-1.1-1.2-1.7-2.7-1.7-4.3 0-3.8 3.7-6.9 8.2-6.9s8.2 3.1 8.2 6.9z" />
+      </symbol>
+
+      <symbol id="i-reloj" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="8.4" />
+        <path d="M12 7.2V12l3.2 1.9" />
       </symbol>
 
       <!-- Una sola flecha: el botón "anterior" del carrusel la espeja por CSS. -->
@@ -916,7 +957,7 @@
           <img class="nosotros-img" src="img/nosotrosfoto.webp" alt="Equipo de Grupo CESPAD trabajando en obra"
             width="1200" height="1400" loading="lazy" decoding="async" />
           <figcaption class="nosotros-float-card">
-            <span class="float-icon" aria-hidden="true">✓</span>
+            <span class="float-icon" aria-hidden="true"><svg class="icon"><use href="#i-check" /></svg></span>
             <span class="float-text">Los mejores materiales</span>
           </figcaption>
         </figure>
@@ -1391,24 +1432,24 @@
           </p>
           <ul class="contact-info">
             <li>
-              <span class="ci-icon" aria-hidden="true">📞</span>
+              <span class="ci-icon" aria-hidden="true"><svg class="icon"><use href="#i-telefono" /></svg></span>
               <a data-wa-link href="#" target="_blank" rel="noopener"><span data-wa-display></span></a>
             </li>
             <!-- Segundo asesor: el JS lo muestra sólo si CONFIG.whatsappSecundario tiene número -->
             <li data-wa-secundario hidden>
-              <span class="ci-icon" aria-hidden="true">📞</span>
+              <span class="ci-icon" aria-hidden="true"><svg class="icon"><use href="#i-telefono" /></svg></span>
               <a data-wa-link-2 href="#" target="_blank" rel="noopener"><span data-wa-display-2></span></a>
             </li>
             <li>
-              <span class="ci-icon" aria-hidden="true">📍</span>
+              <span class="ci-icon" aria-hidden="true"><svg class="icon"><use href="#i-ubicacion" /></svg></span>
               <span>Buenos Aires y Córdoba. Trabajamos en todo el país.</span>
             </li>
             <li>
-              <span class="ci-icon" aria-hidden="true">🚗</span>
+              <span class="ci-icon" aria-hidden="true"><svg class="icon"><use href="#i-chat" /></svg></span>
               <span>Te asesoramos sobre lo que necesites saber, sin cargo.</span>
             </li>
             <li>
-              <span class="ci-icon" aria-hidden="true">⏱</span>
+              <span class="ci-icon" aria-hidden="true"><svg class="icon"><use href="#i-reloj" /></svg></span>
               <span>Respuestas en menos de 24hs por nuestros asesores</span>
             </li>
           </ul>
