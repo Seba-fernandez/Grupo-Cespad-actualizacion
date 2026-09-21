@@ -134,6 +134,38 @@ saturate más generosos. Fix de íconos del hero que se veían en miniatura en
 mobile (el círculo no baja de 44px por accesibilidad, se redujo el padding
 interno a 0.55rem).
 
+**Bloque 5 — Headers de seguridad (21-09-2026).** `vercel.json` nuevo, con
+CSP, XFO, COOP, CORP, nosniff, Referrer-Policy, Permissions-Policy y HSTS.
+
+**Lo que hay que saber del CSP, porque es lo único de este proyecto que puede
+tumbar el sitio entero sin que nadie se dé cuenta:**
+- `script-src 'self'` sin `unsafe-inline`. Para lograrlo, el stub de Vercel
+  Analytics dejó de ser un `<script>` inline y pasó al tope de `main.js`
+  (módulo 00). El orden se mantiene porque los dos scripts son `defer` y los
+  defer corren en orden de aparición.
+- **Los dos `onload` inline del `<head>` son intocables.** `onload="this.media
+  ='all'"` en la hoja de Google Fonts y `onload="this.rel='stylesheet'"` en el
+  preload de `styles.css` son los que cargan el CSS diferido. Al primer intento
+  el CSP los bloqueó y la página quedaba sin estilos abajo del fold. Se
+  resuelven con `'unsafe-hashes'` + el sha256 de cada handler, que está escrito
+  en el `vercel.json`. **Si cambiás el texto de uno de esos dos atributos, hay
+  que recalcular su hash o el sitio se rompe.**
+- `style-src` sí lleva `'unsafe-inline'`, y no hay forma de evitarlo: los
+  swatches de color usan `style="--swatch: url(...)"` en el markup, y los
+  hashes no aplican a atributos `style`. Es un riesgo mucho menor que el de
+  `script-src`.
+- `img-src` incluye `data:` por las texturas SVG inline (grain y frost).
+- **No se puso `Cache-Control` inmutable en `/img/` a propósito:** Sebas
+  reemplaza fotos conservando el nombre (pasó con las de tenis), y con un año
+  de caché nadie vería la nueva.
+- Verificado en navegador inyectando el CSP como `<meta>`: cero violaciones,
+  el CSS diferido se aplica, las fuentes cargan, y tabs, carrusel y link de
+  WhatsApp siguen andando.
+
+También se agregó un **`.gitattributes`** que fija LF para los archivos de
+texto. Sin eso Windows mete CRLF, y cualquier cosa que dependa del contenido
+exacto (un hash de CSP, un diff limpio) se rompe sin avisar.
+
 **Bloque 8 — Jerarquía y corrección de claims (20-09-2026).**
 - **"Equipo propio" fuera de todo el sitio.** Los equipos de instalación no son
   propios. Estaba afirmado en la Comparativa y en el paso 03 del Proceso. Y
@@ -360,10 +392,6 @@ y desktop.
 ## 9. Qué falta
 
 ### Inmediato
-- **Botones de deporte.** A Sebas le gustó cómo se veían los tabs de Deportes en
-  un rediseño que después se descartó entero (ver punto 11). Es lo único que
-  quiere rescatar de ahí. Cambio chico y aislado: sólo los tabs, sin tocar nada
-  más. **Es el próximo paso acordado.**
 - **Logo.** Sebas lo está buscando/haciendo. El header ya tiene el slot: hay un
   `<a class="logo">` con el texto de marca. Cuando esté el logo, va un `<img>`
   adentro. Los logos viejos están en `img/_originales/logos/` (`Logo.png`,
@@ -396,8 +424,11 @@ y desktop.
   verticales rotadas). Pedirlas cuando haya obra nueva con drone.
 
 ### Bloques pendientes (en orden)
-- **Bloque 5 — Headers de seguridad** en `vercel.json` (CSP, COOP, XFO).
-- **Migración a dominio propio.** Comprar `grupocespad.com.ar` en nic.ar a
+- **Migración a dominio propio.** **Sebas lo paga el 21-09-2026** y avisa
+  cuando lo conecte a Vercel. Al conectarlo hay que: actualizar las URLs
+  absolutas del JSON-LD y del `og:url` en `index.html`, cambiar el link del
+  README, y verificar que el `Strict-Transport-Security` del `vercel.json` no
+  moleste mientras propaga el DNS. Comprar `grupocespad.com.ar` en nic.ar a
   nombre de Marcelo, conectar a Vercel, verificar redirects.
 - **Bloque 6 — Insumos y materiales (en definición, pausado).** Marcelo pidió
   una sección para mostrar que también venden insumos sueltos: arena de relleno,

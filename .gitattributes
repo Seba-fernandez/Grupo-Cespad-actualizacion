@@ -1,0 +1,12 @@
+# Los archivos de texto se guardan con LF en el repo, que es lo que Vercel
+# clona y sirve. Sin esto, Windows mete CRLF y cualquier cosa que dependa del
+# contenido exacto (un hash de CSP, un diff limpio) se rompe sin avisar.
+* text=auto eol=lf
+
+# Binarios: que git no los toque nunca.
+*.webp binary
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.ico  binary
+*.woff2 binary

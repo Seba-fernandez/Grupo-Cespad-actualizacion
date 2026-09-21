@@ -19,6 +19,19 @@
 'use strict';
 
 /* ------------------------------------------------------------
+   00. COLA DE VERCEL ANALYTICS
+   Estaba como <script> inline en el HTML. Se mudó acá para que el
+   CSP del Bloque 5 pueda ser script-src 'self' a secas, sin hash ni
+   'unsafe-inline'. Un hash se rompe con sólo cambiar un fin de línea;
+   un archivo propio no.
+   El orden se mantiene: main.js y el script de insights son los dos
+   defer, y los defer corren en el orden en que aparecen en el HTML.
+   ------------------------------------------------------------ */
+window.va = window.va || function () {
+  (window.vaq = window.vaq || []).push(arguments);
+};
+
+/* ------------------------------------------------------------
    01. CONFIG + helpers
    Único lugar donde se toca el número de WhatsApp.
    ------------------------------------------------------------ */

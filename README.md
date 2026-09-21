@@ -84,6 +84,21 @@ entre 11 y 15px, o sea diferencias que nadie distingue.
 resistencia en las puntas. Los dots los arma el JS según cuántas slides haya,
 así que sumar una foto es un `<li>` más.
 
+## Seguridad
+
+CSP con `script-src 'self'`, sin `unsafe-inline`. Para llegar ahí saqué el
+único script inline que quedaba y lo mudé a `main.js`. Los dos `onload` que
+cargan el CSS diferido no se pueden mover sin perder el truco de performance,
+así que van por hash con `unsafe-hashes`. `style-src` sí necesita
+`unsafe-inline`, porque los swatches de color pasan su textura por atributo
+`style` y los hashes no aplican a eso.
+
+Lo probé inyectando la política como `<meta>` antes de deployarla: el primer
+intento bloqueaba los `onload` y dejaba la mitad de abajo de la página sin
+estilos. Un CSP se rompe en silencio, así que conviene verlo fallar en local.
+
+Además: XFO, COOP, CORP, nosniff, Referrer-Policy, Permissions-Policy y HSTS.
+
 ## Accesibilidad
 
 Skip link, `:focus-visible` con outline de 3px en todo el sitio, targets de
@@ -94,10 +109,11 @@ detrás del texto, no el valor del token).
 ## Estructura
 
 ```
-index.html      markup + sprite SVG + CSS crítico inline
-styles.css      hoja principal, índice numerado arriba del archivo
-main.js         módulos IIFE independientes
-img/            webp servidos
+index.html       markup + sprite SVG + CSS crítico inline
+styles.css       hoja principal, índice numerado arriba del archivo
+main.js          módulos IIFE independientes
+vercel.json      headers de seguridad
+img/             webp servidos
 img/_originales/ fuentes de recompresión, no se sirven
 ```
 
