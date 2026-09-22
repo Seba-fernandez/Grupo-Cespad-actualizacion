@@ -2232,11 +2232,67 @@ button {
     display: block;
   }
 
-  /* La card ganó (--container-pad + 1.5rem) de ancho de cada lado: el
-     contenido de abajo (specs/colores/cta) recupera aire lateral acá para
-     no pegarse al borde. */
+  /* ── 4A.11: un solo contenedor, no dos ──────────────────────────────
+     Antes había .deportes-panel con padding y adentro .deportes-card con
+     su propio fondo, borde y radio. Dos cajas anidadas, cada una con su
+     margen, y la foto apretada en el medio.
+
+     Ahora el panel es la única caja: padding 0, gap 0 y overflow hidden,
+     así los tres bloques (tabs, foto, colores) se apilan pegados y a todo
+     el ancho, y el radio del panel les recorta las esquinas.
+
+     El vidrio no se toca: ni el filtro, ni el canto, ni el frost. Lo único
+     que cambia son márgenes, radios y de quién es el padding. */
+  .deportes-panel {
+    padding: 0;
+    gap: 0;
+    overflow: hidden;
+  }
+
+  /* Arriba sigue el radio del panel para que el canto acompañe la curva;
+     abajo recto, que es lo que lo pega a la foto. */
+  .deportes-tabs {
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  }
+
+  /* La card deja de ser una caja visible. Era el segundo contenedor. */
+  .deportes-card {
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+  }
+
+  /* El body deja de repartir padding y gap: los colores tienen que ir
+     pegados a la foto y a todo el ancho. El aire lateral se lo queda
+     únicamente el botón, más abajo. */
   .deporte-detail-body {
-    padding-inline: var(--container-pad);
+    padding: 0;
+    gap: 0;
+  }
+
+  .deporte-colores {
+    /* Pegado a la foto y al ancho completo. Quedan las hairlines de arriba
+       y abajo, que hacen de costura entre bloques. */
+    border-radius: 0;
+    border-inline-width: 0;
+    padding-inline: 1rem;
+    /* 48px: sigue arriba de los 44px de área táctil, pero deja entrar los
+       4 swatches de pádel sin desbordar en una pantalla de 320px. */
+    --swatch-size: 3rem;
+  }
+
+  /* nowrap + space-between: los swatches se reparten el ancho disponible y
+     el último no cae nunca a una segunda fila. */
+  .deporte-colores-swatches {
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+
+  /* El botón es el único que recupera aire lateral, y separado del bloque
+     de colores. */
+  .deporte-detail-body > .btn {
+    margin: 1.25rem var(--container-pad) 1.5rem;
   }
 }
 
