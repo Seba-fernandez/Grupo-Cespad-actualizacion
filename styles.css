@@ -660,23 +660,6 @@ button {
   object-fit: cover;
 }
 
-/* Separador diagonal entre paneles */
-.sport-panel::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: -3px;
-  width: 5px;
-  height: 100%;
-  background: var(--color-bg);
-  transform: skewX(-9deg);
-  z-index: 2;
-}
-
-.sport-panel:last-child::after {
-  display: none;
-}
-
 .sport-panel-overlay {
   position: absolute;
   inset: 0;
