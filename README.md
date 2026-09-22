@@ -84,6 +84,13 @@ entre 11 y 15px, o sea diferencias que nadie distingue.
 resistencia en las puntas. Los dots los arma el JS según cuántas slides haya,
 así que sumar una foto es un `<li>` más.
 
+**Sección de insumos.** El sitio vende obra llave en mano, pero también
+material suelto, que es otro comprador. Esa sección es una lista de consulta:
+marcás los materiales y el botón arma el mensaje de WhatsApp con lo elegido.
+Sin JavaScript sigue funcionando, porque el enlace ya viene armado y el script
+sólo lo reescribe. Y si no hay ningún material cargado, la sección se oculta
+sola con `:has()`, así que se puede publicar vacía.
+
 ## Seguridad
 
 CSP con `script-src 'self'`, sin `unsafe-inline`. Para llegar ahí saqué el
@@ -113,6 +120,7 @@ index.html       markup + sprite SVG + CSS crítico inline
 styles.css       hoja principal, índice numerado arriba del archivo
 main.js          módulos IIFE independientes
 vercel.json      headers de seguridad
+.gitattributes   fija LF: sin esto los hashes del CSP se rompen en Windows
 img/             webp servidos
 img/_originales/ fuentes de recompresión, no se sirven
 ```

@@ -35,7 +35,17 @@ Tres perfiles de cliente:
 - **Local:** `D:\Desarrollo Web Sebas\GREENSET_COURT Paralelo para actualizar\`
 - **Repo:** https://github.com/Seba-fernandez/Grupo-Cespad-actualizacion
 - **Deploy producción (rama `main`):** https://grupo-cespad-actualizacion.vercel.app/
-- **Rama de trabajo actual:** `bloque-4b-visuales`
+- **Ramas vivas (22-09-2026):** `main` es lo publicado. `bloque-6-insumos`
+  tiene la sección Insumos **sin mergear a propósito**, hasta que Sebas la vea
+  funcionando. `bloque-4-deportes` es vieja y ya está contenida en `main`.
+- **Sistema de diseño:** https://claude.ai/artifact/7j4tHUo3cRS3DZTtkKnMPm
+  (privado; ver punto 4b). **Se consulta antes de agregar cualquier cosa nueva.**
+- **Diseño de Insumos, hecho aparte con Claude Design:**
+  https://claude.ai/artifact/E2KyTd5CxJcSyHNtvnUvSH
+- **`HANDOFF.md`** en la raíz: el registro de la sesión del 20 al 22-09-2026,
+  con el detalle de cada bloque, las mediciones y las trampas del código. Este
+  archivo dice **en qué estado está** el proyecto; el handoff dice **cómo se
+  llegó ahí**.
 - Cada rama pusheada genera su propio preview en Vercel. **Ojo:** los previews
   de rama están protegidos por Vercel Authentication (piden login), la URL de
   producción no. Si se audita "el deploy" sin aclarar cuál, es fácil terminar
@@ -70,12 +80,37 @@ Sebas no domina git y quiere máxima prudencia.
 - Código limpio, **sin sobreingeniería ni cosas que no pidió**.
 - Bloque por bloque, paso a paso. Una variable por vez.
 - No asumir que se aplicaron cambios anteriores: leer los archivos primero.
-- **Cada etapa cerrada se documenta antes de pasar a la siguiente.** Va en el
-  punto 6 de este archivo (qué se hizo y por qué) y, si cambió algo que el
-  README afirma, también en el README. El README no es un informe interno:
-  está escrito en primera persona por Sebas para tech leads y recruiters de
-  GitHub, y **no puede afirmar nada que el repo no tenga**. Antes de tocarlo,
-  verificar que cada cosa que dice exista de verdad.
+### Documentar no es opcional
+
+**Todo cambio confirmado y commiteado se documenta en el mismo commit. Sin una
+sola excepción.** No al final del bloque, no "después": en el commit que lo
+introduce. Si el cambio no está documentado, el cambio no está terminado.
+
+Dónde va cada cosa:
+
+| Qué cambió | Dónde se documenta |
+|---|---|
+| Cualquier cambio confirmado | **`CONTEXTO_CLAUDE.md`**, punto 6: qué se hizo y **por qué** |
+| Algo que el README afirma | **`README.md`**, en el mismo commit |
+| Un token, un componente, una regla visual | **el sistema de diseño** (punto 4b) |
+| Una decisión de contenido de Marcelo | punto 7: textos cerrados o palabras prohibidas |
+| Algo que quedó pendiente o a medias | punto 9 |
+
+Tres reglas que se rompen fácil:
+
+1. **El README no puede afirmar nada que el repo no tenga.** No es un informe
+   interno: está escrito en primera persona por Sebas para tech leads y
+   recruiters de GitHub. Antes de tocarlo, verificar que cada cosa que dice
+   exista de verdad. Ya pasó una vez: linkeaba a un dominio no comprado, a un
+   `vercel.json` inexistente y a dos `preview-*.png` que no existían, o sea dos
+   imágenes rotas en la portada del repo.
+2. **Si cambia un token en `styles.css`, se actualiza el sistema de diseño.**
+   Si no, el sistema pasa a mentir y deja de servir para lo único que sirve.
+3. **Lo que se saca de pendientes también se documenta.** Un punto 9 que
+   lista cosas ya hechas es peor que no tenerlo: hace perder tiempo.
+
+El mensaje de commit es parte de la documentación: dice **qué** y **por qué**,
+no sólo qué archivo se tocó.
 
 ---
 
