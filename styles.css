@@ -1805,6 +1805,253 @@ button {
 }
 
 /* ============================================================
+   14b. INSUMOS Y MATERIALES
+   Publico distinto al del resto del sitio. El resto vende resultados y
+   muestra fotos; esto vende materia prima y lista especificaciones, asi
+   que la composicion es una ficha y no una galeria de tarjetas.
+   La lista arma el mensaje de WhatsApp (main.js, modulo 10). Sin JS la
+   seccion sigue sirviendo: el CTA manda el saludo generico.
+   ============================================================ */
+.insumos {
+  padding-block: var(--space-xl);
+}
+
+/* Sin un solo insumo cargado la seccion no existe. Se puede publicar
+   vacia y aparece sola cuando haya contenido. */
+.insumos:not(:has(.insumo)) {
+  display: none;
+}
+
+.insumos-intro .section-eyebrow,
+.insumos-intro .section-title {
+  text-align: left;
+}
+
+.insumos-desc {
+  color: var(--color-text-muted);
+  font-size: var(--text-lg);
+  line-height: 1.7;
+  max-width: 46ch;
+  margin-bottom: var(--space-md);
+  text-wrap: pretty;
+}
+
+.insumos-cta-icon {
+  width: 1.15rem;
+  height: 1.15rem;
+  flex-shrink: 0;
+}
+
+/* Contador de marcados. Lo enciende el JS; sin JS nunca aparece. */
+.insumos-contador {
+  display: grid;
+  place-items: center;
+  min-width: 1.5rem;
+  height: 1.5rem;
+  padding-inline: 0.4rem;
+  border-radius: var(--radius-pill);
+  background: #0a0a0a;
+  color: var(--color-accent);
+  font-size: var(--text-2xs);
+  font-weight: 700;
+}
+
+.insumos-nota {
+  margin-top: 0.75rem;
+  color: var(--color-text-muted);
+  font-size: var(--text-md);
+}
+
+/* Salida al funnel de obra: el que cayo acá por error tiene que poder
+   volver sin scrollear para arriba. */
+.insumos-salida {
+  display: inline-block;
+  margin-top: var(--space-sm);
+  color: var(--color-text);
+  font-size: var(--text-md);
+  font-weight: 600;
+  border-bottom: 1px dashed rgba(var(--accent-rgb), 0.4);
+  transition: color var(--transition-fast);
+}
+
+.insumos-salida:hover {
+  color: var(--color-accent);
+}
+
+/* --- El panel: superficie ELEVADA, la del sistema --- */
+.insumos-panel {
+  position: relative;
+  margin-top: var(--space-md);
+  border-radius: var(--radius-lg);
+  background:
+    var(--glass-frost),
+    var(--glass-sheen),
+    linear-gradient(170deg, rgba(14, 19, 11, 0.46), rgba(14, 19, 11, 0.60));
+  backdrop-filter: var(--glass-filter);
+  -webkit-backdrop-filter: var(--glass-filter);
+  box-shadow: var(--glass-bevel), var(--shadow-md);
+  overflow: hidden;
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .insumos-panel { background: rgba(14, 19, 11, 0.92); }
+}
+
+.insumos-panel-head,
+.insumos-panel-pie {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  padding: 1rem 1.4rem;
+  font-size: var(--text-2xs);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.insumos-panel-head {
+  color: var(--color-text-muted);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.insumos-panel-estado {
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+.insumos-panel-pie {
+  color: var(--color-text-muted);
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: var(--text-md);
+}
+
+/* --- Las filas --- */
+.insumo {
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.insumo:first-child {
+  border-top: 0;
+}
+
+/* El input real vive fuera de la vista pero sigue siendo el control:
+   recibe foco, teclado y lectores de pantalla. La marca visible es
+   .insumo-marca. */
+.insumo-check {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* El <label> envuelve toda la fila: el area tactil es la fila entera,
+   muy por encima de los 44px minimos. */
+.insumo-fila {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  column-gap: 1rem;
+  row-gap: 0.5rem;
+  padding: 1.1rem 1.4rem;
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.insumo-fila:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.insumo-check:focus-visible + .insumo-fila {
+  outline: 3px solid var(--color-accent);
+  outline-offset: -3px;
+}
+
+.insumo-check:checked + .insumo-fila {
+  background: rgba(var(--accent-rgb), 0.07);
+}
+
+.insumo-tile {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  padding: 0.8rem;
+  border-radius: var(--radius-sm);
+  background: rgba(10, 14, 8, 0.5);
+  box-shadow: var(--glass-inset);
+  color: var(--color-text-muted);
+  transition: color var(--transition-fast);
+}
+
+.insumo-check:checked + .insumo-fila .insumo-tile {
+  color: var(--color-accent);
+}
+
+.insumo-texto {
+  display: block;
+  min-width: 0;
+}
+
+.insumo-nombre {
+  display: block;
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  letter-spacing: 0.05em;
+  color: var(--color-white);
+  line-height: 1.1;
+}
+
+.insumo-spec {
+  display: block;
+  margin-top: 0.15rem;
+  font-size: var(--text-md);
+  color: var(--color-text-muted);
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+
+/* Unidad de venta: el unico lugar del sitio donde algo se vende por
+   cantidad y no por proyecto. */
+.insumo-unidad {
+  grid-column: 2;
+  justify-self: start;
+  font-size: var(--text-2xs);
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+/* La casilla visible. El control real es el input de arriba. */
+.insumo-marca {
+  display: grid;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid rgba(255, 255, 255, 0.18);
+  color: transparent;
+  transition: background-color var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
+}
+
+.insumo-marca .icon {
+  width: 0.9rem;
+  height: 0.9rem;
+  stroke-width: 3;
+}
+
+.insumo-check:checked + .insumo-fila .insumo-marca {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: #0a0a0a;
+}
+
+/* ============================================================
    15. PROYECTOS
    ============================================================ */
 .proyectos {
@@ -2499,6 +2746,38 @@ button {
      con puntero tactil, no se desactiva nada. */
   .parq-nav {
     display: grid;
+  }
+
+  /* Insumos: intro a la izquierda, panel a la derecha. Con el panel a
+     ancho completo quedaba media pantalla muerta al lado del texto. */
+  .insumos-inner {
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: var(--space-md);
+    align-items: start;
+  }
+
+  .insumos-intro {
+    position: sticky;
+    top: calc(var(--header-h) + var(--space-md));
+  }
+
+  .insumos-panel {
+    margin-top: 0;
+  }
+
+  /* La unidad entra al lado del nombre recien acá: abajo dejaba dos
+     columnas flacas y partia los nombres en dos renglones. */
+  .insumo-fila {
+    grid-template-columns: auto 1fr auto auto;
+    column-gap: 1.2rem;
+    padding: 1.2rem 1.5rem;
+  }
+
+  .insumo-unidad {
+    grid-column: 3;
+    justify-self: end;
+    text-align: right;
   }
 
   .nosotros-inner {

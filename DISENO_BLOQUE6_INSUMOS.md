@@ -1,12 +1,43 @@
 # Bloque 6 — Insumos y materiales · Propuesta de diseño
 
-Estado: **propuesta, sin implementar.** No se tocó `index.html`, `styles.css` ni
-`main.js`. Esto se discute y recién después se escribe.
+Estado: **IMPLEMENTADA** (22-09-2026). El mockup `_mockup-insumos.html` se borró.
 
-Para verlo: `_mockup-insumos.html` en la raíz, servido desde el proyecto (usa el
-`styles.css` real, así que hay que abrirlo con un servidor local, no con doble
-clic). **Ese archivo se borra cuando la sección se implemente de verdad** — no
-va a `main`.
+## Cómo quedó, y de dónde salió cada cosa
+
+De esta propuesta sobrevivieron el planteo del problema (dos compras distintas
+en una misma página), la ubicación entre Proceso y Contacto, el peso de título
+chico, el fondo `bg-pasto`, el panel de vidrio con filas en vez de tarjetas, la
+pastilla de unidad y el auto-ocultado con `:has()`.
+
+**Lo que cambió, y vino de un diseño que armó Sebas aparte con Claude Design:**
+
+1. **La lista no muestra: registra.** Cada fila tiene una casilla, y lo marcado
+   arma el mensaje de WhatsApp. Eso convierte a la sección de vidriera en
+   herramienta, y engancha con el módulo que ya existía para el formulario. Es
+   la mejora más grande y no estaba en esta propuesta.
+2. **Salida explícita al funnel de obra:** *"¿Buscás la obra completa? Pedí tu
+   presupuesto"*. Resuelve el problema de los dos públicos mejor que nada de lo
+   que yo había planteado: el que cayó acá por error vuelve sin scrollear.
+3. **"También podés escribirnos sin marcar nada"**, para que la casilla no se
+   lea como obligatoria.
+4. **"¿No está en la lista? Escribinos qué necesitás"** en el pie del panel.
+   Cubre el catálogo incompleto, que es justo el estado en el que está el
+   negocio.
+5. **Encabezado del panel** con "Lista de consulta" y el contador de marcados,
+   que le da identidad de herramienta.
+6. Copy más preciso: *"Lastra el paño y mantiene las fibras erguidas"* en vez de
+   un placeholder.
+
+**Lo que agregué yo al implementarlo, que el diseño no resolvía:**
+
+- La casilla es un `<input type="checkbox">` real, oculto visualmente pero
+  operativo, con el `<label>` envolviendo **toda la fila**: área táctil de
+  145px de alto y navegación por teclado gratis.
+- `aria-live="polite"` en el contador, para que un lector de pantalla anuncie
+  los cambios.
+- **Sin JavaScript la sección sigue sirviendo**: el CTA ya trae un `href` válido
+  del módulo 08 y el JS sólo lo reescribe cuando hay algo marcado.
+- Un solo listener delegado: sumar un insumo es markup, no JS.
 
 ---
 

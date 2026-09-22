@@ -702,6 +702,24 @@
         <polyline points="19 12 12 19 5 12" />
       </symbol>
 
+      <!-- Insumos -->
+      <symbol id="i-arena" viewBox="0 0 24 24">
+        <path d="M3.2 18.6c2.2-5.4 5.1-9.1 8.8-11.1 3.7 2 6.6 5.7 8.8 11.1z" />
+        <path d="M8.6 14.2h.01M12 12.2h.01M15.4 14.2h.01M10.4 17h.01M13.6 17h.01" stroke-width="2.1" />
+      </symbol>
+
+      <symbol id="i-rollo" viewBox="0 0 24 24">
+        <path d="M7.4 5.6h9.2a3.4 3.4 0 0 1 0 6.8H7.4z" />
+        <ellipse cx="7.4" cy="9" rx="3.4" ry="3.4" />
+        <path d="M4 18.4h16" />
+        <path d="M6.6 18.4v-2M10.2 18.4v-2M13.8 18.4v-2M17.4 18.4v-2" />
+      </symbol>
+
+      <symbol id="i-bulto" viewBox="0 0 24 24">
+        <path d="M3.6 7.8 12 3.8l8.4 4v8.4L12 20.2l-8.4-4z" />
+        <path d="M3.6 7.8 12 11.9l8.4-4.1M12 11.9v8.3" />
+      </symbol>
+
       <symbol id="i-check" viewBox="0 0 24 24">
         <polyline points="4.5 12.5 9.5 17.5 19.5 6.5" />
       </symbol>
@@ -782,6 +800,7 @@
         <a class="nav-link" href="#nosotros">Nosotros</a>
         <a class="nav-link" href="#deportes">Deportes</a>
         <a class="nav-link" href="#parquizacion">Parquización</a>
+        <a class="nav-link" href="#insumos">Insumos</a>
         <a class="nav-link" href="#proyectos" hidden>Proyectos</a>
         <a class="nav-cta" href="#contacto">Contacto</a>
       </nav>
@@ -1371,6 +1390,96 @@
             <p class="proceso-step-desc">Habilitación de la cancha y postventa directa con nosotros.</p>
           </li>
         </ol>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         INSUMOS Y MATERIALES
+         Publico distinto al del resto del sitio: compra material suelto,
+         no obra llave en mano. Por eso tiene CTA propio y una salida
+         explicita hacia el funnel de obra.
+
+         PARA SUMAR UN INSUMO: un <li class="insumo"> mas. Nada de JS.
+           - el id del <input> y su for= tienen que coincidir y ser unicos
+           - data-insumo es el nombre que viaja en el mensaje de WhatsApp
+         PARA SACARLOS TODOS: la seccion se oculta sola cuando no queda
+         ninguno, asi que se puede publicar vacia.
+         ============================================================ -->
+    <section class="insumos bg-pasto cv-auto" id="insumos" aria-label="Insumos y materiales">
+      <div class="container insumos-inner">
+
+        <div class="insumos-intro" data-reveal>
+          <p class="section-eyebrow">Materiales · sin instalación</p>
+          <h2 class="section-title section-title--sm">Insumos, sin instalación</h2>
+          <p class="insumos-desc">
+            Para constructores, contratistas y clientes que ya tienen quién instale.
+            <strong>Marcá lo que necesitás</strong> y consultá.
+          </p>
+
+          <a class="btn btn--primary insumos-cta" data-wa-link data-wa-msg="insumos y materiales"
+             href="#contacto" target="_blank" rel="noopener">
+            <svg class="icon insumos-cta-icon"><use href="#i-chat" /></svg>
+            <span>Consultar por insumos</span>
+            <span class="insumos-contador" data-insumos-contador hidden></span>
+          </a>
+
+          <p class="insumos-nota">También podés escribirnos sin marcar nada.</p>
+
+          <a class="insumos-salida" href="#contacto">
+            ¿Buscás la obra completa? Pedí tu presupuesto
+          </a>
+        </div>
+
+        <div class="insumos-panel" data-reveal data-reveal-delay="1">
+          <div class="insumos-panel-head">
+            <span class="insumos-panel-titulo">Lista de consulta</span>
+            <span class="insumos-panel-estado" data-insumos-estado aria-live="polite">Nada marcado</span>
+          </div>
+
+          <ul class="insumos-lista">
+            <li class="insumo">
+              <input class="insumo-check" type="checkbox" id="ins-arena" data-insumo="Arena de relleno" />
+              <label class="insumo-fila" for="ins-arena">
+                <span class="insumo-tile"><svg class="icon"><use href="#i-arena" /></svg></span>
+                <span class="insumo-texto">
+                  <span class="insumo-nombre">Arena de relleno</span>
+                  <span class="insumo-spec">Lastra el paño y mantiene las fibras erguidas.</span>
+                </span>
+                <span class="insumo-unidad">[unidad de venta]</span>
+                <span class="insumo-marca" aria-hidden="true"><svg class="icon"><use href="#i-check" /></svg></span>
+              </label>
+            </li>
+
+            <li class="insumo">
+              <input class="insumo-check" type="checkbox" id="ins-cesped" data-insumo="Césped sintético en rollo" />
+              <label class="insumo-fila" for="ins-cesped">
+                <span class="insumo-tile"><svg class="icon"><use href="#i-rollo" /></svg></span>
+                <span class="insumo-texto">
+                  <span class="insumo-nombre">Césped sintético en rollo</span>
+                  <span class="insumo-spec">Paño sin colocación. [Ancho y altura de fibra]</span>
+                </span>
+                <span class="insumo-unidad">[unidad de venta]</span>
+                <span class="insumo-marca" aria-hidden="true"><svg class="icon"><use href="#i-check" /></svg></span>
+              </label>
+            </li>
+
+            <li class="insumo">
+              <input class="insumo-check" type="checkbox" id="ins-3" data-insumo="[Insumo 3]" />
+              <label class="insumo-fila" for="ins-3">
+                <span class="insumo-tile"><svg class="icon"><use href="#i-bulto" /></svg></span>
+                <span class="insumo-texto">
+                  <span class="insumo-nombre">[Insumo 3]</span>
+                  <span class="insumo-spec">[Una línea: propiedad física o uso]</span>
+                </span>
+                <span class="insumo-unidad">[unidad de venta]</span>
+                <span class="insumo-marca" aria-hidden="true"><svg class="icon"><use href="#i-check" /></svg></span>
+              </label>
+            </li>
+          </ul>
+
+          <p class="insumos-panel-pie">¿No está en la lista? Escribinos qué necesitás.</p>
+        </div>
+
       </div>
     </section>
 

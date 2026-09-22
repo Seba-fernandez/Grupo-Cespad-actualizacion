@@ -134,6 +134,29 @@ saturate más generosos. Fix de íconos del hero que se veían en miniatura en
 mobile (el círculo no baja de 44px por accesibilidad, se redujo el padding
 interno a 0.55rem).
 
+**Bloque 6 — Insumos y materiales (22-09-2026).** Sección nueva entre Proceso y
+Contacto, con "Insumos" sumado al nav. Público distinto al del resto del sitio:
+compra material suelto, no obra llave en mano.
+
+- **La lista es una lista de consulta, no una vidriera.** Cada fila tiene una
+  casilla y lo marcado arma el mensaje de WhatsApp (módulo 10 de `main.js`).
+  La idea salió de un diseño que armó Sebas aparte con Claude Design.
+- **Salida explícita al funnel de obra** ("¿Buscás la obra completa?"), para que
+  el que cayó ahí por error no tenga que scrollear para arriba.
+- **Sin JS la sección sigue sirviendo**: el CTA ya trae href válido del módulo
+  08 y el JS sólo lo reescribe cuando hay algo marcado.
+- La casilla es un `<input type="checkbox">` real oculto visualmente, con el
+  `<label>` envolviendo toda la fila: 145px de área táctil y teclado gratis.
+- **Se oculta sola cuando no hay ningún insumo** (`:has()`), así que se puede
+  publicar vacía. Misma idea que el `[hidden]` de Proyectos, pero automática.
+- **Para sumar un insumo: un `<li>` más.** El id del input y su `for` tienen que
+  coincidir, y `data-insumo` es el nombre que viaja en el mensaje.
+
+**Falta para darla por cerrada:** la lista real de Marcelo, **la unidad de venta
+de cada material** (hoy dice `[unidad de venta]` y es lo que sostiene el
+concepto), una línea de especificación por ítem, y definir si el CTA va al mismo
+WhatsApp o se deriva con `CONFIG.ruteo`.
+
 **Bloque 5 — Headers de seguridad (21-09-2026).** `vercel.json` nuevo, con
 CSP, XFO, COOP, CORP, nosniff, Referrer-Policy, Permissions-Policy y HSTS.
 
@@ -430,7 +453,10 @@ y desktop.
   README, y verificar que el `Strict-Transport-Security` del `vercel.json` no
   moleste mientras propaga el DNS. Comprar `grupocespad.com.ar` en nic.ar a
   nombre de Marcelo, conectar a Vercel, verificar redirects.
-- **Bloque 6 — Insumos y materiales (en definición, pausado).** Marcelo pidió
+- **Bloque 6 — Insumos: falta el contenido real.** La sección ya está hecha
+  (ver punto 6), pero publica placeholders. **No sacarle el `[unidad de venta]`
+  sin el dato real.** Contexto original de la sección:
+- ~~**Bloque 6 — Insumos y materiales (en definición, pausado).**~~ Marcelo pidió
   una sección para mostrar que también venden insumos sueltos: arena de relleno,
   césped sintético sin instalación, y otros materiales. Es un **público
   distinto** al del resto del sitio (compra material, no obra llave en mano), así
