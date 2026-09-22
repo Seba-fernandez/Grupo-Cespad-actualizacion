@@ -79,6 +79,31 @@ Sebas no domina git y quiere máxima prudencia.
 
 ---
 
+## 4b. Sistema de diseño CESPAD
+
+**https://claude.ai/artifact/7j4tHUo3cRS3DZTtkKnMPm** (privado: sólo lo abre
+Sebas hasta que lo comparta desde el menú Share de la página).
+
+Salió del CSS de producción, no de una pizarra: cada valor de ahí está hoy en
+el sitio. Tiene los tokens completos (color, tipografía, espaciado, radios,
+sombras), un README con las reglas, y cinco componentes con preview en vivo:
+Superficie, Botón, Tarjeta, Etiqueta y TítuloSección.
+
+**Antes de agregar algo nuevo al sitio, se consulta ahí.** Las cuatro reglas
+que más se rompen:
+1. **Un solo acento.** Si algo necesita destacarse y el acento ya está cerca,
+   se cambia el peso o la superficie, no se suma un color.
+2. **Sólo dos superficies:** elevada (flota) y hundida (recibe algo). No hay
+   una tercera.
+3. **Cuatro radios:** contenedor `lg`, tarjeta `md`, control `sm`, pastilla
+   `pill`.
+4. **El ritmo no se toca:** `space-xl` arriba y abajo en todas las secciones.
+
+**Si cambia un token en `styles.css`, hay que actualizarlo ahí también**, o el
+sistema pasa a mentir y deja de servir.
+
+---
+
 ## 5. Stack y archivos clave
 
 HTML5 semántico + CSS3 con custom properties + JS vanilla en IIFEs.
