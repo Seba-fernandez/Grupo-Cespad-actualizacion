@@ -38,8 +38,8 @@ Tres perfiles de cliente:
 - **Ramas vivas (22-09-2026):** `main` es lo publicado. `bloque-6-insumos`
   tiene la sección Insumos **sin mergear a propósito**, hasta que Sebas la vea
   funcionando. `bloque-4-deportes` es vieja y ya está contenida en `main`.
-- **Sistema de diseño:** https://claude.ai/artifact/7j4tHUo3cRS3DZTtkKnMPm
-  (privado; ver punto 4b). **Se consulta antes de agregar cualquier cosa nueva.**
+- **Sistema de diseño:** la carpeta `design-system/` del repo (ver punto 4b).
+  **Se consulta antes de agregar cualquier cosa nueva.**
 - **Diseño de Insumos, hecho aparte con Claude Design:**
   https://claude.ai/artifact/E2KyTd5CxJcSyHNtvnUvSH
 - **`HANDOFF.md`** en la raíz: el registro de la sesión del 20 al 22-09-2026,
@@ -111,6 +111,42 @@ Tres reglas que se rompen fácil:
 
 El mensaje de commit es parte de la documentación: dice **qué** y **por qué**,
 no sólo qué archivo se tocó.
+
+---
+
+## 4b. Sistema de diseño CESPAD
+
+**La fuente de verdad es la carpeta `design-system/` del repo.** Ahí están el
+README con las reglas, `tokens.json`, las guías de los cinco componentes y
+`verificar.py`.
+
+Vive en el repo a propósito: así **cualquier sesión de Claude que abra el
+proyecto lo lee sola**, sin depender de la memoria de un entorno concreto, y se
+le puede pasar la carpeta entera a un diseñador.
+
+El artifact **https://claude.ai/artifact/7j4tHUo3cRS3DZTtkKnMPm** (privado) es
+el visor, con preview en vivo de cada componente. Es cómodo para mirarlo o
+mostrarlo, pero **si los dos no coinciden, manda la carpeta.**
+
+Las cuatro reglas que más se rompen:
+
+1. **Un solo acento.** Si algo necesita destacarse y el acento ya está cerca,
+   se cambia el peso o la superficie, no se suma un color.
+2. **Sólo dos superficies:** elevada (flota) y hundida (recibe algo). No hay
+   una tercera.
+3. **Cuatro radios:** contenedor `lg`, tarjeta `md`, control `sm`, pastilla
+   `pill`.
+4. **El ritmo no se toca:** `space-xl` arriba y abajo en todas las secciones.
+
+**Si cambia un token en `styles.css`, se actualiza el sistema en el mismo
+commit.** Para no tener que confiar en que se hizo:
+
+```
+python design-system/verificar.py
+```
+
+Compara `tokens.json` contra los `:root` de `styles.css` y sale con código 1 si
+encuentra una diferencia.
 
 ---
 

@@ -121,6 +121,8 @@ styles.css       hoja principal, índice numerado arriba del archivo
 main.js          módulos IIFE independientes
 vercel.json      headers de seguridad
 .gitattributes   fija LF: sin esto los hashes del CSP se rompen en Windows
+design-system/   tokens, reglas y guías de componentes, con un verificador
+                 que los compara contra styles.css
 img/             webp servidos
 img/_originales/ fuentes de recompresión, no se sirven
 ```
