@@ -2255,6 +2255,14 @@ button {
     border-radius: var(--radius-lg) var(--radius-lg) 0 0;
   }
 
+  /* El respiro de arriba sale de acá y no de un padding en el panel: un
+     padding dejaría ver una franja de panel encima de los tabs, con las
+     esquinas redondeadas, y volvería el efecto de caja dentro de caja que
+     justamente sacamos. Más alto de tab da el mismo aire sin sumar borde. */
+  .deportes-tab {
+    padding-block: 1.25rem;
+  }
+
   /* La card deja de ser una caja visible. Era el segundo contenedor. */
   .deportes-card {
     background: transparent;
@@ -2276,17 +2284,28 @@ button {
     border-radius: 0;
     border-inline-width: 0;
     padding-inline: 1rem;
-    /* 48px: sigue arriba de los 44px de área táctil, pero deja entrar los
-       4 swatches de pádel sin desbordar en una pantalla de 320px. */
-    --swatch-size: 3rem;
+    /* Tamaño ideal. Como ahora pueden encoger, en pantallas angostas bajan
+       solos hasta donde entren, y nunca por debajo de los 44px de área
+       táctil: con 4 swatches el piso son ~54px a 320px de ancho. */
+    --swatch-size: 5rem;
   }
 
-  /* nowrap + space-between: los swatches se reparten el ancho disponible y
-     el último no cae nunca a una segunda fila. */
+  /* nowrap: el último no cae nunca a una segunda fila. */
   .deporte-colores-swatches {
     flex-wrap: nowrap;
-    justify-content: space-between;
-    gap: 0.5rem;
+    justify-content: space-around;
+    gap: 0.4rem;
+  }
+
+  /* ...pero si no entran, encogen en vez de desbordar. flex-basis da el
+     tamaño ideal, flex-shrink 1 les deja ceder, y aspect-ratio los mantiene
+     redondos al ceder (con width y height fijos se deformarían).
+     La regla base tiene flex-shrink: 0, que es lo que los desbordaba. */
+  .deporte-colores .color-swatch {
+    flex: 0 1 var(--swatch-size);
+    width: auto;
+    height: auto;
+    aspect-ratio: 1;
   }
 
   /* El botón es el único que recupera aire lateral, y separado del bloque

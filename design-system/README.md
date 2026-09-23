@@ -176,7 +176,10 @@ multicolor en Contacto que eran lo más fuera de sistema de toda la página.
   valor del token. Sobre el vidrio da 6.5:1.
 - `color-text-muted` está en #9a9a9a, subido desde #868686 justamente para
   pasar AA. **No bajarlo.**
-- Área táctil mínima de 44px (`tap`), sin excepciones.
+- Área táctil mínima de 44px (`tap`), sin excepciones. Cuando un control tiene
+  que encoger para entrar, encoge con `flex-basis` + `aspect-ratio` y se
+  verifica que el piso quede arriba de 44px — nunca con un tamaño fijo y
+  `flex-shrink: 0`, que desborda en silencio.
 - `:focus-visible` con outline de 3px en acento, en todo el sitio.
 - Los inputs nunca bajan de 16px o iOS hace zoom al enfocarlos.
 

@@ -48,12 +48,20 @@ las dos.**
 - **Primario** (`btn--primary`): relleno de acento, texto casi negro. Es la
   acción principal. **Uno por sección.** Es el único elemento macizo de acento
   de toda la página, y ahí está su fuerza: si hay dos, no hay ninguno.
-- **Secundario** (`btn--outline`): sólo borde. Para acciones de una sección que
-  no es la de conversión, como "Consultar por cancha de pádel" dentro del panel
-  de Deportes.
+- **Secundario** (`btn--outline`): sólo borde. **Hoy no lo usa nadie.** Era el
+  CTA de cada deporte, pero el botón hueco se leía flojo al lado del resto de
+  la página y pasó a primario el 22-09-2026. La variante queda en el CSS
+  porque es parte del sistema, pero **si vas a usarla, que sea por una razón:
+  una acción real de segundo orden, no por variar.**
 
 No hay terciario ni ghost. Si una acción no merece ninguna de las dos, es un
 link, no un botón.
+
+### Por qué el CTA de Deportes es primario
+
+Cada panel de deporte tiene un solo CTA y esa sección *es* de conversión: pedir
+por una cancha de pádel es el objetivo del sitio, no una acción de apoyo. La
+regla de "uno por sección" se sigue cumpliendo, porque hay exactamente uno.
 
 ### Reglas
 
