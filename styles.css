@@ -923,19 +923,30 @@ button {
 
 /* ============================================================
    9b. GRAIN — 4B
-   Textura de ruido sutil para secciones lisas (Nosotros y Contacto).
-   SVG feTurbulence inline como data URI: 0 requests extra, ~700 bytes.
+   Textura de ruido sutil para las secciones lisas: las cuatro que NO tienen
+   el bg-pasto texturado encima (Nosotros, Parquización, Proceso y Contacto).
+   SVG feTurbulence inline como data URI: 0 requests extra, ~700 bytes, y
+   sumar selectores acá no suma un solo byte más.
    pointer-events: none para no interferir con clicks.
    isolation: isolate contiene el mix-blend-mode a la sección.
-   Por qué elegirnos NO recibe grain porque ya tiene bg-pasto propio.
-   ============================================================ */
+   Deportes, Por qué elegirnos e Insumos NO reciben grain: ya tienen la
+   textura de pasto.
+   4A.13: entran Parquización y Proceso. Eran las dos únicas secciones del
+   sitio sin ninguna textura, planas sobre negro puro, y Parquización encima
+   queda entre dos secciones de pasto, así que el contraste hacía que se
+   leyera como un hueco. El color base no cambia: lo que faltaba no era
+   luz, era superficie. */
 .nosotros,
+.parquizacion,
+.proceso,
 .contacto {
   position: relative;
   isolation: isolate;
 }
 
 .nosotros::before,
+.parquizacion::before,
+.proceso::before,
 .contacto::before {
   content: '';
   position: absolute;
@@ -948,7 +959,20 @@ button {
   background-size: 140px 140px;
 }
 
+/* Sobre negro casi puro, overlay no rinde: la fórmula del modo da
+   2 × fondo × fuente, así que con un fondo al 4% de luminancia el ruido
+   queda en nada por más que se suba la opacidad. Las dos secciones que
+   apoyan sobre --color-bg usan screen, que sí levanta los negros, y ahí
+   el grano se ve. En #141414 overlay alcanza y se deja como estaba. */
+.parquizacion::before,
+.proceso::before {
+  mix-blend-mode: screen;
+  opacity: 0.05;
+}
+
 .nosotros > .container,
+.parquizacion > .container,
+.proceso > .container,
 .contacto > .container {
   position: relative;
   z-index: 1;
@@ -2087,11 +2111,14 @@ button {
      sobre verde y los dos se fundían. Ahora van tres capas: un filo oscuro
      que lo despega de lo que tenga atrás sea oscuro o lima, una sombra real
      de elevación, y el glow verde atenuado, que es lo que le da carácter
-     sobre los fondos oscuros. */
+     sobre los fondos oscuros.
+     El halo va DIFUSO y no como aro de 1.5px: un borde duro alrededor de un
+     círculo se lee como sticker troquelado. Difuso separa igual y no dibuja
+     un contorno. */
   box-shadow:
-    0 0 0 1.5px rgba(10, 10, 10, 0.5),
+    0 0 10px 3px rgba(8, 10, 8, 0.45),
     var(--shadow-md),
-    0 0.5rem 1.5rem rgba(37, 211, 102, 0.28);
+    0 0.5rem 1.5rem rgba(37, 211, 102, 0.26);
   /* 4B: transition solo sobre transform (compositable). La sombra
      queda estática — la "vida" del hover viene del scale. */
   transition: transform var(--transition-fast);

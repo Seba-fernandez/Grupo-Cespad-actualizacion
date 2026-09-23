@@ -205,6 +205,44 @@ saturate más generosos. Fix de íconos del hero que se veían en miniatura en
 mobile (el círculo no baja de 44px por accesibilidad, se redujo el padding
 interno a 0.55rem).
 
+**Bloque 4A.11 a 4A.13 — Deportes en mobile y textura (22-09-2026).**
+
+- **Un solo contenedor, no dos.** El panel tenía padding y adentro la card su
+  propio fondo, borde y radio: dos cajas anidadas con la foto apretada en el
+  medio. Ahora el panel es la única caja (padding 0, gap 0, overflow hidden) y
+  los tres bloques —tabs, foto, colores— se apilan pegados y a todo el ancho.
+  **El vidrio no se tocó:** sólo márgenes, radios y de quién es el padding.
+- **El respiro de arriba sale del `padding-block` del tab**, no de un padding
+  en el panel: un padding dejaría ver una franja de panel con las esquinas
+  redondeadas encima de los tabs, y volvería la caja dentro de caja.
+- **Los swatches encogen en vez de desbordar:** `flex: 0 1 var(--swatch-size)`
+  más `aspect-ratio: 1`. La regla base tiene `flex-shrink: 0` y ancho fijo, que
+  es lo que los desbordaba al subir el tamaño. Medido: de 56px a 320px hasta
+  80px de 430 para arriba, siempre arriba de los 44px de área táctil.
+- **El CTA de cada deporte pasó de `btn--outline` a `btn--primary`.** El hover
+  que se pidió ya existía: el primario va de `--color-accent` a
+  `--color-accent-dark`. `btn--outline` quedó sin uso; la variante se conserva
+  y queda documentada como tal.
+- **El FAB tenía glow verde, no sombra.** Sobre el CTA lima se sumaba verde
+  sobre verde. Ahora lleva halo oscuro difuso + `--shadow-md` + el glow
+  atenuado. **Difuso y no aro:** un borde duro alrededor de un círculo se lee
+  como sticker troquelado.
+
+**Bloque 4A.13 — Textura en las secciones planas (22-09-2026).** Parquización y
+Proceso eran las dos únicas secciones sin ninguna textura, planas sobre negro
+puro. Parquización además queda entre dos secciones de pasto, así que el
+contraste la hacía leer como un hueco.
+
+**No se tocó el color base.** Se evaluó subir `--color-bg` y se descartó: es el
+piso de la página (body, hero, Proceso, Parquización) y levantarlo achica el
+escalón contra `--color-surface`, que es justo lo que sostiene la alternancia
+de tres fondos. Lo que faltaba no era luz, era superficie.
+
+Reciben el mismo grain que Nosotros y Contacto, **pero con `mix-blend-mode:
+screen` en vez de `overlay`**: sobre negro casi puro overlay no rinde, porque
+la fórmula da `2 × fondo × fuente`. El primer intento fue con overlay y quedó
+idéntica de plana. Queda documentado en el sistema de diseño.
+
 **Bloque 5 — Headers de seguridad (21-09-2026).** `vercel.json` nuevo, con
 CSP, XFO, COOP, CORP, nosniff, Referrer-Policy, Permissions-Policy y HSTS.
 
@@ -475,8 +513,10 @@ y desktop.
   (sección oculta). Ahora los previews son reales (`preview-desktop.webp` y
   `preview-mobile.webp`). **Cada vez que cambie algo que el README afirma,
   se actualiza el README en el mismo commit.**
-- **`image.png` e `image-1.png`** en la raíz: 3MB, trackeados, no los referencia
-  ningún archivo. Preguntarle a Sebas si se borran.
+- ~~`image.png` e `image-1.png`~~ **borrados el 22-09-2026**, junto con
+  `parquizacion-1.webp` (duplicado byte a byte de `parquizacion.webp`) y
+  `textura-pasto2.webp`. Ninguno lo referenciaba nada: ~3 MB. Siguen en el
+  historial de git si alguna vez hacen falta.
 
 ### Fotos pendientes (bloquean secciones enteras)
 - **Fotos de obra con nombre de cliente y ciudad** para activar Proyectos. Es lo

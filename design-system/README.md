@@ -146,6 +146,26 @@ Los dos fallbacks están en producción y hacen falta:
 
 ---
 
+## Textura de grano
+
+Las cuatro secciones que **no** llevan el fondo de pasto (Nosotros,
+Parquización, Proceso, Contacto) llevan una capa de ruido finísimo: el mismo
+`feTurbulence` inline del vidrio, a opacidad muy baja. Cuesta cero requests, y
+sumar una sección más son dos selectores.
+
+**Ojo con el modo de fusión, que depende de qué tan oscuro sea el fondo:**
+
+| Fondo | Modo | Por qué |
+|---|---|---|
+| `color-surface` (#141414) | `overlay`, opacidad 0.055 | Ahí overlay rinde. |
+| `color-bg` (#0a0a0a) | `screen`, opacidad 0.05 | Overlay da `2 × fondo × fuente`: con un fondo al 4% de luminancia el ruido queda en nada por más que se suba la opacidad. `screen` sí levanta los negros. |
+
+Ese fue un error real: se le puso grain a Parquización con `overlay` y quedó
+exactamente igual de plana que antes. **Una textura sobre negro casi puro
+necesita un modo que sume luz, no uno que multiplique.**
+
+---
+
 ## Movimiento
 
 Tres duraciones y nada más:
