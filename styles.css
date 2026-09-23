@@ -2083,7 +2083,15 @@ button {
   border-radius: 50%;
   background-color: #25d366;
   color: #fff;
-  box-shadow: 0 0.5rem 1.5rem rgba(37, 211, 102, 0.45);
+  /* El glow verde solo no alcanzaba: encima del CTA lima se sumaba verde
+     sobre verde y los dos se fundían. Ahora van tres capas: un filo oscuro
+     que lo despega de lo que tenga atrás sea oscuro o lima, una sombra real
+     de elevación, y el glow verde atenuado, que es lo que le da carácter
+     sobre los fondos oscuros. */
+  box-shadow:
+    0 0 0 1.5px rgba(10, 10, 10, 0.5),
+    var(--shadow-md),
+    0 0.5rem 1.5rem rgba(37, 211, 102, 0.28);
   /* 4B: transition solo sobre transform (compositable). La sombra
      queda estática — la "vida" del hover viene del scale. */
   transition: transform var(--transition-fast);
