@@ -205,6 +205,28 @@ saturate más generosos. Fix de íconos del hero que se veían en miniatura en
 mobile (el círculo no baja de 44px por accesibilidad, se redujo el padding
 interno a 0.55rem).
 
+**Fotos de fútbol y textura de pasto (22-09-2026).** Sebas mandó una aérea
+vertical nueva porque en la anterior se veía el pasto gastado. De ese único
+archivo salen las dos versiones:
+
+- **Hero** (`aereo-futbol.webp`): 500×964, q72, 56 KB. 500px de ancho es el
+  estándar de las cinco verticales del hero, y el ratio 0.519 la deja alineada
+  con tenis (0.518) y rugby (0.535).
+- **Deportes** (`aereo-futbol-horizontal.webp`): 1200×858, q78, 132 KB (antes
+  217 KB). Sale de rotar la vertical 90° y recortar el centro al ratio que
+  declara el HTML, que es como estaban hechas las otras horizontales.
+
+También se reemplazó **`textura-pasto.webp`**, el fondo de las secciones
+`bg-pasto`, por la versión nueva. Va a **900×506 y q45**, no a los 1200/q72 de
+la convención: el pasto es ruido de alta frecuencia y a 1200/q72 pesaba 140 KB
+contra los 45 KB de la anterior. Vive bajo un velo del 60-88%, así que el
+detalle no se ve y bajarla no cuesta nada visualmente. Quedó en 56 KB.
+
+**Neto de las tres: 307 KB → 244 KB.**
+
+Los originales van a `img/_originales/aereo-futbol-2026.png` y
+`textura-pasto-2026.png`.
+
 **Bloque 4A.11 a 4A.13 — Deportes en mobile y textura (22-09-2026).**
 
 - **Un solo contenedor, no dos.** El panel tenía padding y adentro la card su
@@ -531,8 +553,9 @@ y desktop.
   tercera foto de un jardín residencial real el carrusel gana solo**, no hay que
   tocar JS. Ojo: `parquizacion-1.webp` es byte a byte idéntica a
   `parquizacion.webp`, es un duplicado que se puede borrar.
-- Fotos aéreas horizontales reales de fútbol y hockey (las actuales son
-  verticales rotadas). Pedirlas cuando haya obra nueva con drone.
+- Fotos aéreas horizontales reales de fútbol y hockey. Las dos siguen siendo
+  verticales rotadas: la de fútbol se renovó el 22-09-2026 con una foto mejor,
+  pero sigue siendo una rotación. Pedirlas cuando haya obra nueva con drone.
 
 ### Bloques pendientes (en orden)
 - **Migración a dominio propio.** **Sebas lo paga el 21-09-2026** y avisa
