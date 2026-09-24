@@ -110,12 +110,18 @@
       --text-3xl: 2.2rem;      /* 35.2px — encabezado de comparativa */
       --text-4xl: 3rem;        /* 48px — número de paso del proceso */
 
-      --space-2xs: 0.25rem;
-      --space-xs: 0.5rem;
-      --space-sm: 1rem;
-      --space-md: 2rem;
-      --space-lg: 4rem;
-      --space-xl: 7rem;
+      /* Espejo de la escala de styles.css. Si cambia una, cambia la otra. */
+      --space-4: 0.25rem;
+      --space-8: 0.5rem;
+      --space-12: 0.75rem;
+      --space-16: 1rem;
+      --space-20: 1.25rem;
+      --space-24: 1.5rem;
+      --space-32: 2rem;
+      --space-40: 2.5rem;
+      --space-48: 3rem;
+      --space-64: 4rem;
+      --space-112: 7rem;
 
       --container-max: 75rem;
       --container-pad: 1.25rem;
@@ -180,7 +186,7 @@
       top: 0;
       translate: -50% -150%;
       z-index: 300;
-      padding: 0.75rem 1.5rem;
+      padding: var(--space-12) var(--space-24);
       background: var(--color-accent);
       color: #0a0a0a;
       font-weight: 600;
@@ -248,7 +254,7 @@
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--color-border);
-      padding-block: 1.5rem;
+      padding-block: var(--space-24);
     }
 
     .nav.is-open { display: flex; }
@@ -259,7 +265,7 @@
     .nav-link,
     .nav-cta {
       width: 100%;
-      padding: 1rem;
+      padding: var(--space-16);
       text-align: center;
       font-size: var(--text-xl);
       letter-spacing: 0.05em;
@@ -271,7 +277,7 @@
     .nav-link:hover { color: var(--color-accent); }
 
     .nav-cta {
-      margin-top: 0.5rem;
+      margin-top: var(--space-8);
       font-weight: 500;
       background-color: var(--color-accent);
       color: #0a0a0a;
@@ -312,7 +318,7 @@
         display: flex;
         position: static;
         flex-direction: row;
-        gap: 3rem;
+        gap: var(--space-48);
         background: none;
         backdrop-filter: none;
         -webkit-backdrop-filter: none;
@@ -323,7 +329,7 @@
       .nav-link,
       .nav-cta {
         width: auto;
-        padding: 0.5rem 1.25rem;
+        padding: var(--space-8) var(--space-20);
       }
 
       .nav-cta {
@@ -393,9 +399,9 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 0.7rem;
+      gap: var(--space-12);
       width: 100%;
-      padding-bottom: clamp(var(--space-md), 9vh, var(--space-xl));
+      padding-bottom: clamp(var(--space-32), 9vh, var(--space-112));
     }
 
     /* 4B.2 cristal. Espejo de styles.css: si tocás uno, tocá el otro. */
@@ -403,7 +409,7 @@
       position: relative;
       width: clamp(var(--tap), 11vw, 4rem);
       height: clamp(var(--tap), 11vw, 4rem);
-      padding: 0.8rem;
+      padding: var(--space-12);
       border-radius: 50%;
       background:
         var(--glass-sheen),
@@ -487,14 +493,14 @@
       flex-direction: column;
       align-items: center;
       text-align: center;
-      padding-block: calc(var(--header-h) + var(--space-md)) 38svh;
-      padding-inline: var(--space-sm);
+      padding-block: calc(var(--header-h) + var(--space-32)) 38svh;
+      padding-inline: var(--space-16);
       pointer-events: none;
     }
 
     .hero-content a { pointer-events: auto; }
 
-    .hero-title { margin-bottom: var(--space-sm); }
+    .hero-title { margin-bottom: var(--space-16); }
 
     .hero-kicker {
       display: block;
@@ -504,7 +510,7 @@
       letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--color-accent);
-      margin-bottom: var(--space-xs);
+      margin-bottom: var(--space-8);
     }
 
     .hero-brand {
@@ -521,7 +527,7 @@
       font-size: clamp(1rem, 2.5vw, 1.35rem);
       color: rgba(240, 240, 240, 0.92);
       max-width: 40rem;
-      margin-bottom: var(--space-md);
+      margin-bottom: var(--space-32);
       line-height: 1.5;
       text-shadow: 0 1px 6px rgba(0, 0, 0, 0.5);
       text-wrap: balance;
@@ -531,10 +537,10 @@
       display: inline-flex;
       justify-content: center;
       align-items: center;
-      gap: 0.6rem;
+      gap: var(--space-8);
       max-width: 100%;
       min-height: var(--tap);
-      padding: 0.85rem 2rem;
+      padding: var(--space-12) var(--space-32);
       border-radius: var(--radius-md);
       font-family: var(--font-body);
       font-size: var(--text-base);
@@ -588,7 +594,7 @@
 
     @media (max-width: 599px) {
       .hero-content {
-        padding-block: calc(var(--header-h) + var(--space-sm)) 34svh;
+        padding-block: calc(var(--header-h) + var(--space-16)) 34svh;
       }
 
       .sport-panel:focus-within {
@@ -596,7 +602,7 @@
       }
 
       .sport-panel-icon {
-        padding: 0.55rem;
+        padding: var(--space-8);
       }
     }
   </style>

@@ -32,7 +32,8 @@ Tres perfiles de cliente:
 
 ## 2. Dónde vive el proyecto
 
-- **Local:** `D:\Desarrollo Web Sebas\GREENSET_COURT Paralelo para actualizar\`
+- **Local:** `D:\Desarrollo Web Sebas\GRUPO_CESPAD\` (se renombró el
+  23-09-2026; antes era `GREENSET_COURT Paralelo para actualizar`)
 - **Repo:** https://github.com/Seba-fernandez/Grupo-Cespad-actualizacion
 - **Deploy producción (rama `main`):** https://grupo-cespad-actualizacion.vercel.app/
 - **Ramas vivas (22-09-2026):** `main` es lo publicado. `bloque-6-insumos`
@@ -204,6 +205,30 @@ superior que simula el filo de luz del vidrio, en vez de blur plano. Blur y
 saturate más generosos. Fix de íconos del hero que se veían en miniatura en
 mobile (el círculo no baja de 44px por accesibilidad, se redujo el padding
 interno a 0.55rem).
+
+**Bloque 11 — Escala de espaciado (23-09-2026).** Última deuda de
+consistencia que quedaba de la auditoría, y la gemela de la tipografía.
+
+Había **26 valores crudos distintos en 79 declaraciones**, contra 35 que sí
+usaban token. El motivo no era descuido: la escala vieja tenía seis escalones
+con nombres de talle (`2xs` a `xl`) y saltos de 2x a 4x entre uno y otro, o sea
+que **no tenía los valores intermedios que un componente necesita**. Un sistema
+que no cubre los casos reales no se usa.
+
+La escala nueva tiene **once escalones nombrados por su valor en px**:
+`--space-4`, `8`, `12`, `16`, `20`, `24`, `32`, `40`, `48`, `64`, `112`. El
+nombre te dice cuánto mide, así que elegir uno deja de requerir ir a buscar la
+tabla. Y es extensible: sumar un escalón no rompe el orden de los nombres, que
+es exactamente lo que le pasaba a la escala de talles.
+
+109 valores crudos mapeados al escalón más cercano y 44 usos de los tokens
+viejos renombrados, en `styles.css` y en el CSS crítico inline.
+
+**Verificado midiendo la geometría antes y después**, a 390 y 1440px: el alto
+total de la página cambió **-37px sobre 10162** (0.36%), ningún ancho cambió,
+el ritmo de sección sigue en 112px exactos, y no hay desborde horizontal a 320,
+390, 768 ni 1440. Los dos deltas más grandes son el botón (55 → 52px) y los
+inputs (51 → 47px), los dos todavía **por encima de los 44px de área táctil**.
 
 **Fotos de fútbol y textura de pasto (22-09-2026).** Sebas mandó una aérea
 vertical nueva porque en la anterior se veía el pasto gastado. De ese único
@@ -626,11 +651,12 @@ decide Sebas.
    del punto 6, así que esto queda reportado, no propuesto.
 2. **Formulario de 7 campos, 4 obligatorios**, para terminar abriendo un chat
    de WhatsApp. Es una decisión de negocio: cuántos datos vale perder un lead.
-3. **Espaciado:** los tokens `--space-*` existen pero los componentes siguen
-   usando ~20 valores crudos. Es la misma deuda que tenía la tipografía, pero
-   se nota mucho menos porque el ritmo entre secciones sí está tokenizado.
-4. **Eyebrows con registro mezclado:** 4 de 9 arrancan con "Nuestro/a"
-   (etiqueta), el resto son afirmaciones.
+3. **Eyebrows con registro mezclado:** 4 de 9 arrancan con "Nuestro/a"
+   (etiqueta), el resto son afirmaciones. **Es lo único de consistencia que
+   queda abierto**, y es copy, no código.
+
+~~Espaciado: los componentes usaban ~20 valores crudos~~ → **resuelto en el
+Bloque 11** con una escala de once escalones nombrados por su valor en px.
 
 Lo de "asesores" y las "respuestas en menos de 24hs" quedó **confirmado por
 Sebas**: son Marcelo y su hermano, y el plazo lo sostienen. No volver a

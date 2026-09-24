@@ -65,9 +65,22 @@ Si dudás entre dos, preguntá qué es la pieza, no cuán redonda te gusta.
 
 ### 4. El ritmo no se toca
 
-**Todas** las secciones usan `space-xl` (112px) arriba y abajo. Sin una sola
+**Todas** las secciones usan `space-112` arriba y abajo. Sin una sola
 excepción, y así tiene que seguir: es lo que hace que la página se sienta de
 una pieza aunque cada sección sea distinta.
+
+La escala tiene **once escalones, nombrados por su valor en px**: `space-4`,
+`space-8`, `space-12`, `space-16`, `space-20`, `space-24`, `space-32`,
+`space-40`, `space-48`, `space-64`, `space-112`. El nombre te dice cuánto mide,
+así que no hay que ir a buscarlo.
+
+Antes eran seis escalones con nombres de talle (`2xs` a `xl`) y saltos de 2x a
+4x entre uno y otro. **No tenía los valores intermedios que un componente
+necesita, y por eso el código los salteaba:** había 26 valores crudos distintos
+en 79 declaraciones. Un sistema que no cubre los casos reales no se usa.
+
+Si hace falta un escalón nuevo, se suma acá y se documenta. Lo que no se hace
+es volver a escribir un rem suelto.
 
 Los fondos alternan entre tres: `color-bg` (#0a0a0a), `color-surface`
 (#141414) y `color-pasto` (#0d130c con textura). Dos secciones seguidas nunca

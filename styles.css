@@ -125,12 +125,25 @@
   --title-sm: clamp(1.9rem, 4.6vw, 3rem);     /* hasta 48px */
 
   /* Espaciado */
-  --space-2xs: 0.25rem;
-  --space-xs: 0.5rem;
-  --space-sm: 1rem;
-  --space-md: 2rem;
-  --space-lg: 4rem;
-  --space-xl: 7rem;
+  /* Escala de espaciado. Once escalones, nombrados por su valor en px: el
+     nombre te dice cuánto mide, así que no hay que ir a buscarlo a ningún
+     lado. Antes eran seis escalones con nombres de talle (2xs a xl) y saltos
+     de 2x o 4x entre uno y otro: no tenía los valores intermedios que un
+     componente necesita, y por eso el código los salteaba y escribía rem
+     crudos. Había 26 valores distintos en 79 declaraciones.
+     Si hace falta un escalón nuevo, se suma acá y se documenta. Lo que no se
+     hace es volver a escribir un rem suelto. */
+  --space-4: 0.25rem;
+  --space-8: 0.5rem;
+  --space-12: 0.75rem;
+  --space-16: 1rem;
+  --space-20: 1.25rem;
+  --space-24: 1.5rem;
+  --space-32: 2rem;
+  --space-40: 2.5rem;
+  --space-48: 3rem;
+  --space-64: 4rem;
+  --space-112: 7rem;
 
   /* Layout */
   --container-max: 75rem;
@@ -234,7 +247,7 @@ button {
   top: 0;
   translate: -50% -150%;
   z-index: 300;
-  padding: 0.75rem 1.5rem;
+  padding: var(--space-12) var(--space-24);
   background: var(--color-accent);
   color: #0a0a0a;
   font-weight: 600;
@@ -399,10 +412,10 @@ button {
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  gap: 0.6rem;
+  gap: var(--space-8);
   max-width: 100%;
   min-height: var(--tap);
-  padding: 0.85rem 2rem;
+  padding: var(--space-12) var(--space-32);
   border-radius: var(--radius-md);
   font-family: var(--font-body);
   font-size: var(--text-base);
@@ -456,7 +469,7 @@ button {
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--color-accent);
-  margin-bottom: 0.75rem;
+  margin-bottom: var(--space-12);
   text-align: center;
 }
 
@@ -466,7 +479,7 @@ button {
   line-height: 1.05;
   letter-spacing: 0.06em;
   color: var(--color-white);
-  margin-bottom: var(--space-sm);
+  margin-bottom: var(--space-16);
   text-align: center;
   text-wrap: balance;
 }
@@ -488,7 +501,7 @@ button {
 }
 
 .section-header {
-  margin-bottom: var(--space-lg);
+  margin-bottom: var(--space-64);
 }
 
 /* Las negritas dentro de texto atenuado suben a blanco: si quedan del mismo
@@ -555,7 +568,7 @@ button {
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--color-border);
-  padding-block: 1.5rem;
+  padding-block: var(--space-24);
 }
 
 .nav.is-open {
@@ -565,7 +578,7 @@ button {
 .nav-link,
 .nav-cta {
   width: 100%;
-  padding: 1rem;
+  padding: var(--space-16);
   text-align: center;
   font-size: var(--text-xl);
   letter-spacing: 0.05em;
@@ -581,7 +594,7 @@ button {
 }
 
 .nav-cta {
-  margin-top: 0.5rem;
+  margin-top: var(--space-8);
   font-weight: 500;
   background-color: var(--color-accent);
   color: #0a0a0a;
@@ -676,9 +689,9 @@ button {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.7rem;
+  gap: var(--space-12);
   width: 100%;
-  padding-bottom: clamp(var(--space-md), 9vh, var(--space-xl));
+  padding-bottom: clamp(var(--space-32), 9vh, var(--space-112));
 }
 
 /* 4B.2: cristal. Apoyan sobre fotos aéreas, así que el tinte es más denso
@@ -688,7 +701,7 @@ button {
   position: relative;
   width: clamp(var(--tap), 11vw, 4rem);
   height: clamp(var(--tap), 11vw, 4rem);
-  padding: 0.8rem;
+  padding: var(--space-12);
   border-radius: 50%;
   background:
     var(--glass-sheen),
@@ -756,8 +769,8 @@ button {
   flex-direction: column;
   align-items: center;
   text-align: center;
-  padding-block: calc(var(--header-h) + var(--space-md)) 38svh;
-  padding-inline: var(--space-sm);
+  padding-block: calc(var(--header-h) + var(--space-32)) 38svh;
+  padding-inline: var(--space-16);
   pointer-events: none;
 }
 
@@ -768,7 +781,7 @@ button {
 /* El H1 tiene dos partes: kicker (keyword + geo) y marca.
    Visualmente es igual que antes; el kicker ocupa el lugar del eyebrow. */
 .hero-title {
-  margin-bottom: var(--space-sm);
+  margin-bottom: var(--space-16);
 }
 
 .hero-kicker {
@@ -779,7 +792,7 @@ button {
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--color-accent);
-  margin-bottom: var(--space-xs);
+  margin-bottom: var(--space-8);
 }
 
 .hero-brand {
@@ -796,7 +809,7 @@ button {
   font-size: clamp(1rem, 2.5vw, 1.35rem);
   color: rgba(240, 240, 240, 0.92);
   max-width: 40rem;
-  margin-bottom: var(--space-md);
+  margin-bottom: var(--space-32);
   line-height: 1.5;
   text-shadow: 0 1px 6px rgba(0, 0, 0, 0.5);
   text-wrap: balance;
@@ -837,7 +850,7 @@ button {
    08. STATS
    ============================================================ */
 .stats {
-  padding-block: var(--space-lg);
+  padding-block: var(--space-64);
   background-color: var(--color-accent);
 }
 
@@ -845,14 +858,14 @@ button {
   display: grid;
   grid-template-columns: 1fr;
   text-align: center;
-  gap: var(--space-sm);
+  gap: var(--space-16);
 }
 
 .stat-item {
   display: flex;
   flex-direction: column;
-  gap: var(--space-2xs);
-  padding: var(--space-sm);
+  gap: var(--space-4);
+  padding: var(--space-16);
 }
 
 .stat-number {
@@ -874,7 +887,7 @@ button {
    09. MARQUEE
    ============================================================ */
 .marquee-specs {
-  padding-block: 0.9rem;
+  padding-block: var(--space-16);
   background-color: var(--color-surface);
   border-block: 1px solid var(--color-border);
   overflow: hidden;
@@ -904,7 +917,7 @@ button {
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--color-text-muted);
-  padding-inline: 1.2rem;
+  padding-inline: var(--space-20);
   white-space: nowrap;
 }
 
@@ -982,14 +995,14 @@ button {
    10. NOSOTROS
    ============================================================ */
 .nosotros {
-  padding-block: var(--space-xl);
+  padding-block: var(--space-112);
   background-color: var(--color-surface);
 }
 
 .nosotros-inner {
   display: grid;
   grid-template-columns: 1fr;
-  gap: var(--space-lg);
+  gap: var(--space-64);
   align-items: center;
 }
 
@@ -1012,8 +1025,8 @@ button {
   right: 1rem;
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  padding: 0.8rem 1.5rem;
+  gap: var(--space-12);
+  padding: var(--space-12) var(--space-24);
   background-color: var(--color-accent);
   border-radius: var(--radius-md);
   box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.4);
@@ -1036,12 +1049,12 @@ button {
 }
 
 .nosotros-text {
-  padding-top: 1rem;
+  padding-top: var(--space-16);
 }
 
 .nosotros-desc {
   color: var(--color-text-muted);
-  margin-bottom: var(--space-sm);
+  margin-bottom: var(--space-16);
   line-height: 1.75;
   text-align: center;
   text-wrap: pretty;
@@ -1051,7 +1064,7 @@ button {
    11. DEPORTES
    ============================================================ */
 .deportes {
-  padding-block: var(--space-xl);
+  padding-block: var(--space-112);
   content-visibility: auto;
   contain-intrinsic-size: auto 1400px;
 }
@@ -1075,8 +1088,8 @@ button {
   position: relative;
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1.5rem;
-  padding: 1.5rem;
+  gap: var(--space-24);
+  padding: var(--space-24);
   /* 4B.2: el panel es la pieza de cristal grande que sostiene a los tabs.
      Va más tenue que ellos a propósito: si los dos tienen el mismo peso,
      los tabs dejan de despegarse y la jerarquía se pierde. */
@@ -1122,9 +1135,9 @@ button {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 0.4rem;
+  gap: var(--space-8);
   min-height: var(--tap);
-  padding: 0.9rem 0.35rem;
+  padding: var(--space-16) var(--space-4);
   color: var(--color-text-muted);
   transition: background-color var(--transition-fast), color var(--transition-fast);
 }
@@ -1212,7 +1225,7 @@ button {
 .deporte-detail-hero-overlay {
   position: absolute;
   inset: auto 0 0 0;
-  padding: 2rem;
+  padding: var(--space-32);
   background: linear-gradient(
     to top,
     rgba(0, 0, 0, 0.85) 0%,
@@ -1221,7 +1234,7 @@ button {
   );
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: var(--space-8);
 }
 
 .deporte-detail-title {
@@ -1246,22 +1259,22 @@ button {
 .deporte-detail-body {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
-  padding: 1.5rem 1.25rem 1.75rem;
+  gap: var(--space-24);
+  padding: var(--space-24) var(--space-20) var(--space-24);
 }
 
 /* --- Specs --- */
 .deporte-specs {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 0.6rem;
+  gap: var(--space-8);
 }
 
 .deporte-specs li {
   display: flex;
   flex-direction: column;
-  gap: 0.15rem;
-  padding: 0.75rem 0.9rem;
+  gap: var(--space-4);
+  padding: var(--space-12) var(--space-16);
   background: var(--accent-06);
   border: 1px solid var(--accent-20);
   border-radius: var(--radius-sm);
@@ -1285,8 +1298,8 @@ button {
 .deporte-colores {
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
-  padding: 1.1rem 1rem;
+  gap: var(--space-12);
+  padding: var(--space-16) var(--space-16);
   /* Hundida, igual que los inputs: es el panel que contiene a los swatches. */
   background: rgba(10, 14, 8, 0.5);
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -1305,7 +1318,7 @@ button {
 .deporte-colores-swatches {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.65rem;
+  gap: var(--space-12);
   align-items: center;
 }
 
@@ -1352,14 +1365,14 @@ button {
    y un CTA. No compite con el funnel principal, lo complementa.
    ============================================================ */
 .parquizacion {
-  padding-block: var(--space-xl);
+  padding-block: var(--space-112);
   background-color: var(--color-bg);
 }
 
 .parquizacion-inner {
   display: grid;
   grid-template-columns: 1fr;
-  gap: var(--space-md);
+  gap: var(--space-32);
   align-items: center;
 }
 
@@ -1418,7 +1431,7 @@ button {
   place-items: center;
   width: var(--tap);
   height: var(--tap);
-  padding: 0.7rem;
+  padding: var(--space-12);
   color: var(--color-text);
   border-radius: 50%;
   /* 4B.2: mismo cristal que el resto, con tinte denso porque apoya
@@ -1465,7 +1478,7 @@ button {
   justify-content: center;
   /* sin gap: cada dot ya es un boton de 44px, el aire lo pone el padding
      interno. Con gap quedaban demasiado separados entre si. */
-  margin-top: 0.25rem;
+  margin-top: var(--space-4);
 }
 
 .parq-dot {
@@ -1495,7 +1508,7 @@ button {
 .parquizacion-desc {
   color: var(--color-text-muted);
   line-height: 1.75;
-  margin-bottom: var(--space-sm);
+  margin-bottom: var(--space-16);
   text-wrap: pretty;
   overflow-wrap: anywhere;
 }
@@ -1503,13 +1516,13 @@ button {
 .parquizacion-list {
   display: flex;
   flex-direction: column;
-  gap: 0.65rem;
-  margin-bottom: var(--space-md);
+  gap: var(--space-12);
+  margin-bottom: var(--space-32);
 }
 
 .parquizacion-list li {
   position: relative;
-  padding-left: 1.75rem;
+  padding-left: var(--space-24);
   font-size: var(--text-md);
   color: var(--color-text);
   overflow-wrap: anywhere;
@@ -1530,7 +1543,7 @@ button {
    12. POR QUÉ ELEGIRNOS
    ============================================================ */
 .por-que {
-  padding-block: var(--space-xl);
+  padding-block: var(--space-112);
   --pasto-veil-a: rgba(10, 15, 8, 0.40);
   --pasto-veil-b: rgba(10, 15, 8, 0.92);
 }
@@ -1543,7 +1556,7 @@ button {
 .por-que-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1.25rem;
+  gap: var(--space-20);
 }
 
 @media (min-width: 760px) {
@@ -1554,7 +1567,7 @@ button {
 
 .por-que-item {
   position: relative;
-  padding: 2rem 1.5rem;
+  padding: var(--space-32) var(--space-24);
   /* 4B.2: cristal completo. Es la pieza más grande del sistema, así que
      es donde más se notaba el blur plano: la superficie quedaba muerta.
      El frost le da grano y el canto le da espesor. El tinte sigue siendo
@@ -1594,7 +1607,7 @@ button {
   display: block;
   width: 3rem;
   height: 3rem;
-  margin: 0 auto 1rem;
+  margin: 0 auto var(--space-16);
   color: var(--color-accent);
 }
 
@@ -1603,7 +1616,7 @@ button {
   font-size: var(--text-xl);
   letter-spacing: 0.05em;
   color: var(--color-white);
-  margin-bottom: 0.6rem;
+  margin-bottom: var(--space-8);
 }
 
 .por-que-desc {
@@ -1617,17 +1630,17 @@ button {
    13. COMPARATIVA
    ============================================================ */
 .comparativa {
-  padding-block: var(--space-xl);
+  padding-block: var(--space-112);
   background-color: var(--color-surface);
 }
 
 .comparativa-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1.5rem;
+  gap: var(--space-24);
   max-width: 62rem;
   margin-inline: auto;
-  margin-bottom: var(--space-md);
+  margin-bottom: var(--space-32);
 }
 
 /* Las dos columnas son tarjetas, así que van con el mismo cristal y el
@@ -1636,7 +1649,7 @@ button {
    --radius-lg, tarjeta = --radius-md. */
 .comparativa-col {
   position: relative;
-  padding: 3rem 2rem;
+  padding: var(--space-48) var(--space-32);
   border-radius: var(--radius-md);
 }
 
@@ -1671,7 +1684,7 @@ button {
   top: -0.85rem;
   left: 50%;
   transform: translateX(-50%);
-  padding: 0.4rem 1.1rem;
+  padding: var(--space-8) var(--space-16);
   background-color: var(--color-accent);
   color: #0a0a0a;
   font-size: var(--text-2xs);
@@ -1687,7 +1700,7 @@ button {
   font-family: var(--font-display);
   font-size: var(--text-3xl);
   letter-spacing: 0.05em;
-  margin-bottom: 1.75rem;
+  margin-bottom: var(--space-24);
   text-align: center;
 }
 
@@ -1697,12 +1710,12 @@ button {
 .comparativa-list {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: var(--space-16);
 }
 
 .comparativa-list li {
   position: relative;
-  padding-left: 2rem;
+  padding-left: var(--space-32);
   font-size: var(--text-md);
   line-height: 1.55;
   color: var(--color-text-muted);
@@ -1758,14 +1771,14 @@ button {
    14. PROCESO
    ============================================================ */
 .proceso {
-  padding-block: var(--space-xl);
+  padding-block: var(--space-112);
   background-color: var(--color-bg);
 }
 
 .proceso-steps {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1rem;
+  gap: var(--space-16);
   max-width: 28rem;
   margin-inline: auto;
 }
@@ -1774,7 +1787,7 @@ button {
 .proceso-step {
   position: relative;
   text-align: center;
-  padding: 1.5rem;
+  padding: var(--space-24);
 }
 
 .proceso-step:not(:last-child)::after {
@@ -1793,7 +1806,7 @@ button {
   font-size: var(--text-4xl);
   line-height: 1;
   color: var(--color-accent);
-  margin-bottom: 0.5rem;
+  margin-bottom: var(--space-8);
 }
 
 .proceso-step-title {
@@ -1801,7 +1814,7 @@ button {
   font-size: var(--text-xl);
   letter-spacing: 0.05em;
   color: var(--color-white);
-  margin-bottom: 0.5rem;
+  margin-bottom: var(--space-8);
 }
 
 .proceso-step-desc {
@@ -1815,18 +1828,18 @@ button {
    15. PROYECTOS
    ============================================================ */
 .proyectos {
-  padding-block: var(--space-xl);
+  padding-block: var(--space-112);
   background-color: var(--color-surface);
 }
 
 .masonry {
   column-count: 1;
-  column-gap: 1rem;
+  column-gap: var(--space-16);
 }
 
 .masonry img {
   width: 100%;
-  margin-bottom: 1rem;
+  margin-bottom: var(--space-16);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   break-inside: avoid;
@@ -1842,20 +1855,20 @@ button {
    16. TESTIMONIOS
    ============================================================ */
 .testimonios {
-  padding-block: var(--space-lg);
+  padding-block: var(--space-64);
 }
 
 .testimonios-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1.25rem;
+  gap: var(--space-20);
 }
 
 .testimonio {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
-  padding: 2rem;
+  gap: var(--space-20);
+  padding: var(--space-32);
   background-color: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
@@ -1876,7 +1889,7 @@ button {
 .testimonio-autor {
   display: flex;
   flex-direction: column;
-  gap: 0.2rem;
+  gap: var(--space-4);
 }
 
 .testimonio-autor strong {
@@ -1895,20 +1908,20 @@ button {
    17. CONTACTO Y FORMULARIO
    ============================================================ */
 .contacto {
-  padding-block: var(--space-xl);
+  padding-block: var(--space-112);
   background-color: var(--color-surface);
 }
 
 .contacto-inner {
   display: grid;
   grid-template-columns: 1fr;
-  gap: var(--space-lg);
+  gap: var(--space-64);
   align-items: start;
 }
 
 .contacto-desc {
   color: var(--color-text-muted);
-  margin-bottom: var(--space-md);
+  margin-bottom: var(--space-32);
   line-height: 1.75;
   font-size: var(--text-lg);
   text-align: center;
@@ -1918,13 +1931,13 @@ button {
 .contact-info {
   display: flex;
   flex-direction: column;
-  gap: 0.875rem;
+  gap: var(--space-12);
 }
 
 .contact-info li {
   display: flex;
   align-items: flex-start;
-  gap: 0.75rem;
+  gap: var(--space-12);
   font-size: var(--text-md);
   color: var(--color-text-muted);
 }
@@ -1943,7 +1956,7 @@ button {
 .ci-icon {
   width: 1.15rem;
   height: 1.15rem;
-  margin-top: 0.15rem;
+  margin-top: var(--space-4);
   flex-shrink: 0;
   color: var(--color-accent);
 }
@@ -1951,8 +1964,8 @@ button {
 .form {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
-  padding: 2rem;
+  gap: var(--space-20);
+  padding: var(--space-32);
   background-color: var(--color-surface-2);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
@@ -1961,7 +1974,7 @@ button {
 .form-group {
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
+  gap: var(--space-8);
 }
 
 .form-label {
@@ -1976,7 +1989,7 @@ button {
 .form-input {
   width: 100%;
   min-height: var(--tap);
-  padding: 0.875rem 1rem;
+  padding: var(--space-12) var(--space-16);
   background-color: rgba(10, 14, 8, 0.55);
   border: 1.5px solid rgba(255, 255, 255, 0.10);
   border-radius: var(--radius-sm);
@@ -2007,7 +2020,7 @@ button {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%239a9a9a' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 1rem center;
-  padding-right: 2.5rem;
+  padding-right: var(--space-40);
 }
 
 .form-select option {
@@ -2041,7 +2054,7 @@ button {
    18. FOOTER
    ============================================================ */
 .site-footer {
-  padding-block: var(--space-md);
+  padding-block: var(--space-32);
   border-top: 1px solid var(--color-border);
   background-color: var(--color-bg);
 }
@@ -2050,7 +2063,7 @@ button {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-sm);
+  gap: var(--space-16);
   text-align: center;
 }
 
@@ -2073,7 +2086,7 @@ button {
 
 .footer-social {
   display: flex;
-  gap: 0.5rem;
+  gap: var(--space-8);
 }
 
 .social-link {
@@ -2146,7 +2159,7 @@ button {
 /* ── Mobile chico: el hero necesita menos aire abajo ── */
 @media (max-width: 599px) {
   .hero-content {
-    padding-block: calc(var(--header-h) + var(--space-sm)) 34svh;
+    padding-block: calc(var(--header-h) + var(--space-16)) 34svh;
   }
 
   .sport-panel:focus-within {
@@ -2158,7 +2171,7 @@ button {
      ícono en pantallas chicas donde el clamp cae al piso. Menos
      padding = mismo círculo, ícono más grande adentro. */
   .sport-panel-icon {
-    padding: 0.55rem;
+    padding: var(--space-8);
   }
 }
 
@@ -2295,7 +2308,7 @@ button {
      esquinas redondeadas, y volvería el efecto de caja dentro de caja que
      justamente sacamos. Más alto de tab da el mismo aire sin sumar borde. */
   .deportes-tab {
-    padding-block: 1.25rem;
+    padding-block: var(--space-20);
   }
 
   /* La card deja de ser una caja visible. Era el segundo contenedor. */
@@ -2318,7 +2331,7 @@ button {
        y abajo, que hacen de costura entre bloques. */
     border-radius: 0;
     border-inline-width: 0;
-    padding-inline: 1rem;
+    padding-inline: var(--space-16);
     /* Tamaño ideal. Como ahora pueden encoger, en pantallas angostas bajan
        solos hasta donde entren, y nunca por debajo de los 44px de área
        táctil: con 4 swatches el piso son ~54px a 320px de ancho. */
@@ -2329,7 +2342,7 @@ button {
   .deporte-colores-swatches {
     flex-wrap: nowrap;
     justify-content: space-around;
-    gap: 0.4rem;
+    gap: var(--space-8);
   }
 
   /* ...pero si no entran, encogen en vez de desbordar. flex-basis da el
@@ -2346,7 +2359,7 @@ button {
   /* El botón es el único que recupera aire lateral, y separado del bloque
      de colores. */
   .deporte-detail-body > .btn {
-    margin: 1.25rem var(--container-pad) 1.5rem;
+    margin: var(--space-20) var(--container-pad) var(--space-24);
   }
 }
 
@@ -2366,7 +2379,7 @@ button {
     display: flex;
     position: static;
     flex-direction: row;
-    gap: 3rem;
+    gap: var(--space-48);
     background: none;
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
@@ -2377,7 +2390,7 @@ button {
   .nav-link,
   .nav-cta {
     width: auto;
-    padding: 0.5rem 1.25rem;
+    padding: var(--space-8) var(--space-20);
   }
 
   .nav-cta {
@@ -2415,7 +2428,7 @@ button {
   .hero-content {
     max-width: 55rem;
     margin-inline: auto;
-    padding-block: calc(var(--header-h) + var(--space-md)) 40svh;
+    padding-block: calc(var(--header-h) + var(--space-32)) 40svh;
   }
 
   .sport-panel:hover,
@@ -2432,19 +2445,19 @@ button {
 
   .stats-grid {
     grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-md);
+    gap: var(--space-32);
   }
 
   /* Deportes: tabs a la izquierda como cards verticales */
   .deportes-panel {
     grid-template-columns: 260px 1fr;
-    gap: 2rem;
-    padding: 2rem;
+    gap: var(--space-32);
+    padding: var(--space-32);
   }
 
   .deportes-tabs {
     grid-template-columns: 1fr;
-    gap: 0.6rem;
+    gap: var(--space-8);
     background: transparent;
     border: none;
     box-shadow: none;
@@ -2470,8 +2483,8 @@ button {
   .deportes-tab {
     flex-direction: row;
     justify-content: space-evenly;
-    gap: 1rem;
-    padding: 1rem 1.2rem;
+    gap: var(--space-16);
+    padding: var(--space-16) var(--space-20);
     /* 4B.2: cada tab es una pieza de cristal propia, con frost, especular
        concentrado y canto. El tinte es más denso que en 4B.1 porque el tab
        apoya sobre el panel (que ya es vidrio) y sobre la textura de pasto:
@@ -2565,17 +2578,17 @@ button {
   :root { --swatch-size: 6rem; }
 
   .deporte-detail-hero-overlay {
-    padding: 2.5rem;
+    padding: var(--space-40);
   }
 
   .deporte-detail-body {
-    padding: 2rem 2.25rem 2.25rem;
-    gap: 1.75rem;
+    padding: var(--space-32) var(--space-32) var(--space-32);
+    gap: var(--space-24);
   }
 
   .deporte-specs {
     grid-template-columns: repeat(2, 1fr);
-    gap: 0.8rem;
+    gap: var(--space-12);
   }
 
   /* Cuando el deporte no tiene selector de color, las specs van en 4 columnas */
@@ -2585,7 +2598,7 @@ button {
 
   .parquizacion-inner {
     grid-template-columns: 1.05fr 1fr;
-    gap: var(--space-lg);
+    gap: var(--space-64);
   }
 
   /* Desktop: aparecen las flechas. El swipe sigue funcionando en tablets
@@ -2596,7 +2609,7 @@ button {
 
   .nosotros-inner {
     grid-template-columns: 1fr 1fr;
-    gap: 4rem;
+    gap: var(--space-64);
   }
 
   .nosotros-img {
