@@ -14,6 +14,7 @@
    07. Formulario → WhatsApp
    08. WhatsApp global (FAB, teléfono) + año
    09. Carrusel de parquización (flechas en desktop, swipe en mobile)
+   10. Insumos — la lista marcada arma el mensaje de WhatsApp
    ============================================================ */
 
 'use strict';
@@ -490,4 +491,60 @@ const SCROLL_BEHAVIOR = REDUCED_MOTION ? 'auto' : 'smooth';
   window.addEventListener('resize', render, { passive: true });
 
   render();
+})();
+
+/* ------------------------------------------------------------
+   10. INSUMOS — la lista marcada arma el mensaje de WhatsApp
+   El CTA ya trae un href valido desde el modulo 08. Este modulo
+   solo lo reescribe cuando hay algo marcado, asi que sin JS la
+   seccion sigue funcionando: manda la consulta generica.
+   Agregar un insumo es markup: un <li> con su input y su data-insumo.
+   ------------------------------------------------------------ */
+(function initInsumos() {
+  const seccion = $('#insumos');
+  if (!seccion) return;
+
+  const checks = $$('.insumo-check', seccion);
+  const cta = $('.insumos-cta', seccion);
+  const contador = $('[data-insumos-contador]', seccion);
+  const estado = $('[data-insumos-estado]', seccion);
+  if (!checks.length || !cta) return;
+
+  const generico = cta.href; // el del modulo 08, con el saludo por defecto
+
+  const actualizar = () => {
+    const elegidos = checks.filter((c) => c.checked).map((c) => c.dataset.insumo);
+
+    if (estado) {
+      estado.textContent = elegidos.length
+        ? `${elegidos.length} de ${checks.length} marcados`
+        : 'Nada marcado';
+    }
+
+    if (contador) {
+      contador.textContent = String(elegidos.length);
+      contador.hidden = elegidos.length === 0;
+    }
+
+    if (!elegidos.length) {
+      cta.href = generico;
+      return;
+    }
+
+    const lineas = [
+      'Hola Grupo CESPAD, quiero consultar por estos materiales, sin instalación:',
+      '',
+      ...elegidos.map((nombre) => `• ${nombre}`),
+      '',
+      'Quedo a la espera de su respuesta. ¡Gracias!',
+    ];
+    cta.href = `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(lineas.join('\n'))}`;
+  };
+
+  // Un solo listener delegado: sumar un insumo no toca este archivo.
+  seccion.addEventListener('change', (e) => {
+    if (e.target.classList.contains('insumo-check')) actualizar();
+  });
+
+  actualizar();
 })();

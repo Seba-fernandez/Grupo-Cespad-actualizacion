@@ -151,6 +151,31 @@ encuentra una diferencia.
 
 ---
 
+## 4b. Sistema de diseño CESPAD
+
+**https://claude.ai/artifact/7j4tHUo3cRS3DZTtkKnMPm** (privado: sólo lo abre
+Sebas hasta que lo comparta desde el menú Share de la página).
+
+Salió del CSS de producción, no de una pizarra: cada valor de ahí está hoy en
+el sitio. Tiene los tokens completos (color, tipografía, espaciado, radios,
+sombras), un README con las reglas, y cinco componentes con preview en vivo:
+Superficie, Botón, Tarjeta, Etiqueta y TítuloSección.
+
+**Antes de agregar algo nuevo al sitio, se consulta ahí.** Las cuatro reglas
+que más se rompen:
+1. **Un solo acento.** Si algo necesita destacarse y el acento ya está cerca,
+   se cambia el peso o la superficie, no se suma un color.
+2. **Sólo dos superficies:** elevada (flota) y hundida (recibe algo). No hay
+   una tercera.
+3. **Cuatro radios:** contenedor `lg`, tarjeta `md`, control `sm`, pastilla
+   `pill`.
+4. **El ritmo no se toca:** `space-xl` arriba y abajo en todas las secciones.
+
+**Si cambia un token en `styles.css`, hay que actualizarlo ahí también**, o el
+sistema pasa a mentir y deja de servir.
+
+---
+
 ## 5. Stack y archivos clave
 
 HTML5 semántico + CSS3 con custom properties + JS vanilla en IIFEs.
@@ -289,6 +314,28 @@ Reciben el mismo grain que Nosotros y Contacto, **pero con `mix-blend-mode:
 screen` en vez de `overlay`**: sobre negro casi puro overlay no rinde, porque
 la fórmula da `2 × fondo × fuente`. El primer intento fue con overlay y quedó
 idéntica de plana. Queda documentado en el sistema de diseño.
+**Bloque 6 — Insumos y materiales (22-09-2026).** Sección nueva entre Proceso y
+Contacto, con "Insumos" sumado al nav. Público distinto al del resto del sitio:
+compra material suelto, no obra llave en mano.
+
+- **La lista es una lista de consulta, no una vidriera.** Cada fila tiene una
+  casilla y lo marcado arma el mensaje de WhatsApp (módulo 10 de `main.js`).
+  La idea salió de un diseño que armó Sebas aparte con Claude Design.
+- **Salida explícita al funnel de obra** ("¿Buscás la obra completa?"), para que
+  el que cayó ahí por error no tenga que scrollear para arriba.
+- **Sin JS la sección sigue sirviendo**: el CTA ya trae href válido del módulo
+  08 y el JS sólo lo reescribe cuando hay algo marcado.
+- La casilla es un `<input type="checkbox">` real oculto visualmente, con el
+  `<label>` envolviendo toda la fila: 145px de área táctil y teclado gratis.
+- **Se oculta sola cuando no hay ningún insumo** (`:has()`), así que se puede
+  publicar vacía. Misma idea que el `[hidden]` de Proyectos, pero automática.
+- **Para sumar un insumo: un `<li>` más.** El id del input y su `for` tienen que
+  coincidir, y `data-insumo` es el nombre que viaja en el mensaje.
+
+**Falta para darla por cerrada:** la lista real de Marcelo, **la unidad de venta
+de cada material** (hoy dice `[unidad de venta]` y es lo que sostiene el
+concepto), una línea de especificación por ítem, y definir si el CTA va al mismo
+WhatsApp o se deriva con `CONFIG.ruteo`.
 
 **Bloque 5 — Headers de seguridad (21-09-2026).** `vercel.json` nuevo, con
 CSP, XFO, COOP, CORP, nosniff, Referrer-Policy, Permissions-Policy y HSTS.
@@ -589,20 +636,17 @@ y desktop.
   README, y verificar que el `Strict-Transport-Security` del `vercel.json` no
   moleste mientras propaga el DNS. Comprar `grupocespad.com.ar` en nic.ar a
   nombre de Marcelo, conectar a Vercel, verificar redirects.
-- **Bloque 6 — Insumos y materiales (en definición, pausado).** Marcelo pidió
-  una sección para mostrar que también venden insumos sueltos: arena de relleno,
-  césped sintético sin instalación, y otros materiales. Es un **público
-  distinto** al del resto del sitio (compra material, no obra llave en mano), así
-  que necesita copy y CTA propios ("Consultar por insumos"), si no se mezcla el
-  funnel. Tratamiento visual propuesto: catálogo compacto (una foto expositiva
-  de un lado, lista de 3-4 ítems con ícono del otro, reutilizando el lenguaje
-  de las tarjetas de specs), en vez de repetir el layout narrativo de
-  Nosotros/Parquización. Ubicación sugerida: después de Comparativa y antes de
-  Proceso, o como franja compacta antes de Contacto.
-  **No arrancar sin cerrar con Marcelo:** lista real de insumos, si hay fotos,
-  si se muestra precio orientativo o todo va a consulta, y qué tan grande es ese
-  negocio (define si merece sección propia o una mención dentro de otra).
-
+- **Bloque 6 — Insumos: mergeado a `main` el 23-09-2026 pero OCULTO.** La
+  sección está construida y andando (ver punto 6), pero va con `[hidden]`
+  junto con su link del nav, porque publica placeholders. **Para activarla:**
+  completar los `<li class="insumo">` con la lista real y sacar la palabra
+  `hidden` de la `<section>` y del link del nav.
+  **Lo que falta de Marcelo:** la lista de materiales, **la unidad de venta de
+  cada uno** (hoy dice `[unidad de venta]` y es lo que sostiene todo el
+  concepto), una línea de especificación por ítem, y si el CTA va al mismo
+  WhatsApp o se deriva con `CONFIG.ruteo`.
+  Idea abierta: un botón "Materiales para encargar" que lleve a una **página
+  aparte** dedicada al catálogo, en vez de una sección.
 ### No bloqueante
 - CLS desktop 0.191. Si desktop pasa a ser tráfico crítico, el fix requiere
   `size-adjust` en `@font-face` o self-hosting de fuentes.
