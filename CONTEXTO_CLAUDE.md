@@ -35,10 +35,12 @@ Tres perfiles de cliente:
 - **Local:** `D:\Desarrollo Web Sebas\GRUPO_CESPAD\` (se renombró el
   23-09-2026; antes era `GREENSET_COURT Paralelo para actualizar`)
 - **Repo:** https://github.com/Seba-fernandez/Grupo-Cespad-actualizacion
-- **Deploy producción (rama `main`):** https://grupo-cespad-actualizacion.vercel.app/
-- **Ramas vivas (22-09-2026):** `main` es lo publicado. `bloque-6-insumos`
-  tiene la sección Insumos **sin mergear a propósito**, hasta que Sebas la vea
-  funcionando. `bloque-4-deportes` es vieja y ya está contenida en `main`.
+- **Producción (rama `main`):** **https://www.grupocespad.com/**. El apex
+  `grupocespad.com` redirige con 308 a `www`. La URL vieja
+  https://grupo-cespad-actualizacion.vercel.app/ sigue andando como espejo,
+  pero ya no es la canónica.
+- **Ramas (28-09-2026):** sólo `main`. `bloque-6-insumos` y
+  `bloque-4-deportes` ya se mergearon y se borraron.
 - **Sistema de diseño:** la carpeta `design-system/` del repo (ver punto 4b).
   **Se consulta antes de agregar cualquier cosa nueva.**
 - **Diseño de Insumos, hecho aparte con Claude Design:**
@@ -51,8 +53,31 @@ Tres perfiles de cliente:
   de rama están protegidos por Vercel Authentication (piden login), la URL de
   producción no. Si se audita "el deploy" sin aclarar cuál, es fácil terminar
   mirando `main` en vez de la rama en la que se está trabajando.
-- Migrar a `grupocespad.com.ar` cuando esté comprado (a nombre de Marcelo, no de
-  Sebas).
+
+### Dominio, DNS y Google (conectado el 28-09-2026)
+
+- **Dominio `grupocespad.com`**, comprado por Sebas. DNS en **Cloudflare**, en
+  la cuenta de Sebas (él maneja la parte técnica; se puede sumar a Marcelo como
+  miembro cuando haga falta).
+- **Registros en Cloudflare.** Los dos primeros van en **"Solo DNS" (nube
+  gris)**: con el proxy naranja, Vercel no puede verificar el dominio ni emitir
+  el SSL.
+
+  | Tipo | Nombre | Valor |
+  |---|---|---|
+  | A | `@` | `76.76.21.21` |
+  | CNAME | `www` | `720c2a7974fdad06.vercel-dns-017.com` |
+  | TXT | `@` | verificación de Google (la agregó Search Console sola) |
+
+- **SSL:** Let's Encrypt; Vercel lo emite y lo renueva solo. En los primeros
+  minutos después de conectar un dominio, Chrome muestra
+  `ERR_CERT_COMMON_NAME_INVALID` ("La conexión no es privada") hasta que el
+  certificado se emite. Es normal, no es un ataque.
+- **Search Console:** propiedad de tipo **Dominio** (`grupocespad.com`, que
+  cubre `www` y el apex), verificada vía Cloudflare con la cuenta de Sebas.
+  El 28-09-2026 se envió el sitemap y se pidió la indexación de la home.
+- `grupocespad.com.ar` **no está comprado**. Es opcional; si se compra, tiene
+  que redirigir a `.com`.
 
 ---
 
@@ -148,31 +173,6 @@ python design-system/verificar.py
 
 Compara `tokens.json` contra los `:root` de `styles.css` y sale con código 1 si
 encuentra una diferencia.
-
----
-
-## 4b. Sistema de diseño CESPAD
-
-**https://claude.ai/artifact/7j4tHUo3cRS3DZTtkKnMPm** (privado: sólo lo abre
-Sebas hasta que lo comparta desde el menú Share de la página).
-
-Salió del CSS de producción, no de una pizarra: cada valor de ahí está hoy en
-el sitio. Tiene los tokens completos (color, tipografía, espaciado, radios,
-sombras), un README con las reglas, y cinco componentes con preview en vivo:
-Superficie, Botón, Tarjeta, Etiqueta y TítuloSección.
-
-**Antes de agregar algo nuevo al sitio, se consulta ahí.** Las cuatro reglas
-que más se rompen:
-1. **Un solo acento.** Si algo necesita destacarse y el acento ya está cerca,
-   se cambia el peso o la superficie, no se suma un color.
-2. **Sólo dos superficies:** elevada (flota) y hundida (recibe algo). No hay
-   una tercera.
-3. **Cuatro radios:** contenedor `lg`, tarjeta `md`, control `sm`, pastilla
-   `pill`.
-4. **El ritmo no se toca:** `space-xl` arriba y abajo en todas las secciones.
-
-**Si cambia un token en `styles.css`, hay que actualizarlo ahí también**, o el
-sistema pasa a mentir y deja de servir.
 
 ---
 
@@ -457,6 +457,16 @@ reemplazaron por versiones nuevas generadas por Sebas, ahora de 1200x617 (antes
 
 **Contenido definitivo (19-09-2026).** Ver punto 7.
 
+**Dominio propio y SEO base (28-09-2026).** Se conectó `grupocespad.com` (ver
+punto 2). Las seis URLs absolutas de `index.html` (`canonical`, `og:url`,
+`og:image` y `@id`/`url`/`image` del JSON-LD) pasaron de `vercel.app` a
+`https://www.grupocespad.com/`. Si no se cambiaban, Google indexaba la URL
+vieja y la vista previa de WhatsApp/Instagram mostraba el dominio viejo. Se
+sumaron `robots.txt` (permite todo y apunta al sitemap) y `sitemap.xml` (una
+sola URL, porque es una landing). El HSTS del `vercel.json` no molestó: el SSL
+se emitió antes de que hiciera falta. **Si algún día cambia el dominio
+canónico, hay que tocar esas seis URLs y los dos archivos.**
+
 ### Qué NO tocar
 Esto ya funciona y costó trabajo:
 - El **hero de 5 paneles** con selector de deporte. Es lo más distintivo del
@@ -612,6 +622,24 @@ y desktop.
   `textura-pasto2.webp`. Ninguno lo referenciaba nada: ~3 MB. Siguen en el
   historial de git si alguna vez hacen falta.
 
+### Después del dominio (fuera del código, en orden de impacto)
+Es lo que más consultas va a traer ahora, y casi nada es código.
+1. **Google Business Profile.** En búsquedas como "césped sintético Córdoba",
+   lo primero que aparece es el mapa, no las webs. Hay que crearlo **con la
+   cuenta de la empresa o la de Marcelo** y sumar a Sebas como administrador,
+   porque las reseñas son un activo del negocio. Cargar fotos de obra, el link
+   a la web, el WhatsApp y **pedirles reseñas a clientes anteriores**.
+2. **Search Console, seguimiento.** En unos días el sitemap tiene que pasar de
+   "No se ha podido obtener" a "Correcto". Sumar a Marcelo como propietario
+   (Configuración → Usuarios y permisos).
+3. **Medir clics a WhatsApp.** Es la única conversión del sitio y hoy no se
+   mide: Vercel Analytics cuenta visitas, no clics. Mientras tanto, Marcelo
+   pregunta "¿cómo nos encontraste?" en cada consulta y lo anota.
+4. **Mail `@grupocespad.com`** (por ejemplo `contacto@`) con Cloudflare Email
+   Routing, que es gratis. Da más seriedad frente a clubes y arquitectas.
+5. **Link en la bio de Instagram** a `grupocespad.com`.
+6. **PageSpeed contra el dominio nuevo**, para confirmar el 92/90.
+
 ### Fotos pendientes (bloquean secciones enteras)
 - **Fotos de obra con nombre de cliente y ciudad** para activar Proyectos. Es lo
   que más falta: hoy se puede recorrer el sitio entero sin ver una prueba de que
@@ -623,19 +651,12 @@ y desktop.
   tiene dos: `parquizacion.webp` (terraza comercial con muebles verdes) y
   `parquizacion-2.webp` (patio institucional con pista pintada). **Con una
   tercera foto de un jardín residencial real el carrusel gana solo**, no hay que
-  tocar JS. Ojo: `parquizacion-1.webp` es byte a byte idéntica a
-  `parquizacion.webp`, es un duplicado que se puede borrar.
+  tocar JS.
 - Fotos aéreas horizontales reales de fútbol y hockey. Las dos siguen siendo
   verticales rotadas: la de fútbol se renovó el 22-09-2026 con una foto mejor,
   pero sigue siendo una rotación. Pedirlas cuando haya obra nueva con drone.
 
 ### Bloques pendientes (en orden)
-- **Migración a dominio propio.** **Sebas lo paga el 21-09-2026** y avisa
-  cuando lo conecte a Vercel. Al conectarlo hay que: actualizar las URLs
-  absolutas del JSON-LD y del `og:url` en `index.html`, cambiar el link del
-  README, y verificar que el `Strict-Transport-Security` del `vercel.json` no
-  moleste mientras propaga el DNS. Comprar `grupocespad.com.ar` en nic.ar a
-  nombre de Marcelo, conectar a Vercel, verificar redirects.
 - **Bloque 6 — Insumos: mergeado a `main` el 23-09-2026 pero OCULTO.** La
   sección está construida y andando (ver punto 6), pero va con `[hidden]`
   junto con su link del nav, porque publica placeholders. **Para activarla:**

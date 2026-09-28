@@ -8,13 +8,17 @@ archivo que hay que leer para retomar el proyecto desde cero.
 - **Qué usar al agregar algo nuevo** → el sistema de diseño (link abajo)
 - **Qué pasó en esta sesión y por qué** → este archivo
 
+> **Nota del 28-09-2026:** este archivo es histórico. Después de esta sesión se
+> conectó el dominio propio (`www.grupocespad.com`), quedó sólo la rama `main` y
+> se hizo la limpieza del punto 7. El estado actual está en `CONTEXTO_CLAUDE.md`.
+
 ---
 
 ## 1. Dónde está todo parado
 
 | | |
 |---|---|
-| Producción (`main`) | https://grupo-cespad-actualizacion.vercel.app/ |
+| Producción (`main`) | https://www.grupocespad.com/ (antes https://grupo-cespad-actualizacion.vercel.app/) |
 | Repo | https://github.com/Seba-fernandez/Grupo-Cespad-actualizacion |
 | Sistema de diseño | https://claude.ai/artifact/7j4tHUo3cRS3DZTtkKnMPm (privado) |
 | Diseño de Insumos (Claude Design) | https://claude.ai/artifact/E2KyTd5CxJcSyHNtvnUvSH |
@@ -388,9 +392,8 @@ git commit -m "chore: sacar el jpeg suelto que revivio el merge"
 - **Favicon.** Necesita una marca **cuadrada** que se lea a 32px: un escudo,
   una C, un isotipo sin texto al lado. Hay cuatro logos viejos en
   `img/_originales/logos/` por si alguno sirve recortado.
-- **Dominio.** Sebas lo iba a pagar. Al conectarlo a Vercel hay que actualizar
-  las URLs absolutas del JSON-LD y del `og:url` en `index.html`, el link del
-  README, y verificar el HSTS mientras propaga el DNS.
+- ~~**Dominio.**~~ Hecho el 28-09-2026: `grupocespad.com` conectado, URLs
+  actualizadas y `robots.txt` y `sitemap.xml` sumados.
 - **Insumos:** la lista real y la unidad de venta de cada material.
 
 ### Bloques pendientes
@@ -406,7 +409,5 @@ git commit -m "chore: sacar el jpeg suelto que revivio el merge"
 
 ### Limpieza pendiente
 
-- `image.png` e `image-1.png` en la raíz: 3 MB trackeados que no referencia
-  ningún archivo. Hay que preguntarle a Sebas si se borran.
-- `parquizacion-1.webp` es byte a byte idéntica a `parquizacion.webp`.
-- La rama `bloque-4-deportes` ya está contenida en `main`.
+Toda hecha: `image.png`, `image-1.png` y `parquizacion-1.webp` se borraron el
+22-09-2026, y las ramas `bloque-4-deportes` y `bloque-6-insumos` ya no existen.

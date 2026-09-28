@@ -7,8 +7,7 @@ step: se sirve tal cual está en el repo.
 La conversión del sitio es una sola: que el visitante abra WhatsApp. No hay
 checkout ni reserva online, así que todo está ordenado para acortar ese camino.
 
-**[Ver en vivo](https://grupo-cespad-actualizacion.vercel.app/)** · dominio
-propio pendiente de compra
+**[Ver en vivo](https://www.grupocespad.com/)**
 
 | Desktop | Mobile |
 |---|---|
@@ -25,7 +24,7 @@ lo va a mantener alguien que no necesariamente sabe npm.
 ## Stack
 
 HTML5 semántico, CSS3 con custom properties, JS vanilla en IIFEs. Deploy en
-Vercel, una preview por rama. Fuentes: Bebas Neue + DM Sans.
+Vercel, una preview por rama, con dominio propio y DNS en Cloudflare. Fuentes: Bebas Neue + DM Sans.
 
 Cada módulo de `main.js` hace early-return si su markup no existe, así que se
 puede borrar una sección entera del HTML sin romper el resto. El número de
@@ -106,6 +105,14 @@ estilos. Un CSP se rompe en silencio, así que conviene verlo fallar en local.
 
 Además: XFO, COOP, CORP, nosniff, Referrer-Policy, Permissions-Policy y HSTS.
 
+## SEO
+
+La URL canónica, el Open Graph y el JSON-LD de organización apuntan al dominio
+propio (`www.grupocespad.com`); el apex redirige ahí con un 308. `robots.txt` y
+`sitemap.xml` están en la raíz y la propiedad está verificada en Search Console.
+La `og:image` es `.jpg` y no `.webp` a propósito: WhatsApp y Facebook no leen
+webp de forma confiable en la vista previa.
+
 ## Accesibilidad
 
 Skip link, `:focus-visible` con outline de 3px en todo el sitio, targets de
@@ -120,6 +127,8 @@ index.html       markup + sprite SVG + CSS crítico inline
 styles.css       hoja principal, índice numerado arriba del archivo
 main.js          módulos IIFE independientes
 vercel.json      headers de seguridad
+robots.txt       apunta al sitemap
+sitemap.xml      una sola URL: es una landing de una página
 .gitattributes   fija LF: sin esto los hashes del CSP se rompen en Windows
 design-system/   tokens, reglas y guías de componentes, con un verificador
                  que los compara contra styles.css
