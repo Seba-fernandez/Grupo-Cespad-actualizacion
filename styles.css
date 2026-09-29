@@ -388,10 +388,14 @@ button {
   background-color: #0d130c;
   background-image:
     linear-gradient(var(--pasto-veil-a, rgba(10, 15, 8, 0.60)), var(--pasto-veil-b, rgba(10, 15, 8, 0.88))),
-    url('img/textura-pasto.webp');
-  background-size: auto, cover;
+    url('img/textura-pasto-tile.webp');
+  /* Mosaico sin costuras a tamaño nativo (600x360), no cover: cover estiraba
+     una textura de 900px hasta 3-4x en secciones altas (borroso) y
+     recalculaba el zoom cada vez que la sección cambiaba de alto (al
+     cambiar de deporte el pasto se agrandaba y achicaba). */
+  background-size: auto, 600px 360px;
   background-position: center;
-  background-repeat: no-repeat;
+  background-repeat: no-repeat, repeat;
 }
 
 .bg-pasto > .container {
@@ -2711,14 +2715,10 @@ button {
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
     overflow: visible;
-    /* align-self:start evita que el align-items:stretch default del grid
-       de .deportes-panel estire esta columna a la altura del detail activo
-       (variable por deporte desde 4A.5/4A.6). height:44rem le da a la
-       columna la misma referencia que tenía el hero fijo pre-4A.5, y
-       grid-template-rows reparte los 5 tabs parejo en esa altura (display
-       de este selector ya es grid, heredado de la regla base). */
-    align-self: start;
-    height: 44rem;
+    /* El detalle tiene alto fijo (54rem, ver .deporte-detail), así que la
+       columna se estira a esa misma altura y tabs y card cierran parejos
+       abajo. grid-template-rows reparte los 5 tabs parejo en esa altura. */
+    align-self: stretch;
     grid-template-rows: repeat(5, 1fr);
   }
 
@@ -2797,10 +2797,23 @@ button {
       rgba(var(--accent-rgb), 0.85) 100%);
   }
 
+  /* Alto fijo del detalle para todos los deportes: antes cada foto usaba
+     su ratio propio y pádel/tenis sumaban además el bloque de colores
+     (~215px), así que la sección cambiaba de alto en cada tab y hacía
+     saltar la página. Ahora el detalle mide siempre lo mismo y la foto
+     (flex:1) ocupa lo que deja el body: más baja en pádel/tenis, más alta
+     en fútbol/rugby/hockey. cover recorta los bordes, sin reescalar. */
+  .deporte-detail {
+    height: 54rem;
+  }
+
+  .deporte-detail-body {
+    flex: none;
+  }
+
   .deporte-detail-hero {
     width: 100%;
-    height: auto;
-    max-height: 44rem;
+    flex: 1 1 auto;
     min-height: 0;
     border-top-right-radius: var(--radius-lg);
     border-bottom-right-radius: 0;
@@ -2809,6 +2822,8 @@ button {
   }
 
   .deporte-detail-img {
+    position: absolute;
+    inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
