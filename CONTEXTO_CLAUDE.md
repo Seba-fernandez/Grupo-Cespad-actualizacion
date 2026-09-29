@@ -637,8 +637,15 @@ Es lo que más consultas va a traer ahora, y casi nada es código.
    pregunta "¿cómo nos encontraste?" en cada consulta y lo anota.
 4. **Mail `@grupocespad.com`** (por ejemplo `contacto@`) con Cloudflare Email
    Routing, que es gratis. Da más seriedad frente a clubes y arquitectas.
-5. **Link en la bio de Instagram** a `grupocespad.com`.
+5. **Link en la bio de Instagram** a `grupocespad.com`. La cuenta es
+   **`instagram.com/marceloferna`** (la de la web vieja). `instagram.com/grupocespad`
+   no existe: estuvo puesta por error hasta el 28-09-2026 (footer y `sameAs`).
 6. **PageSpeed contra el dominio nuevo**, para confirmar el 92/90.
+7. **Teléfono del tío de Sebas debajo del de Marcelo en Contacto.** Falta que
+   Sebas pase el número. El lugar ya existe: en `main.js`, `CONFIG`, completar
+   `whatsappSecundario` (formato `549...`, sin `+` ni espacios) y
+   `whatsappSecundarioDisplay` (como se lee, ej. `+54 9 11 XXXX-XXXX`). Con eso
+   la segunda línea de Contacto aparece sola, no hay que tocar el HTML.
 
 ### Fotos pendientes (bloquean secciones enteras)
 - **Fotos de obra con nombre de cliente y ciudad** para activar Proyectos. Es lo
