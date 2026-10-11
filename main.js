@@ -133,7 +133,10 @@ const SCROLL_BEHAVIOR = REDUCED_MOTION ? 'auto' : 'smooth';
       activate(entry.target);
       io.unobserve(entry.target); // cada elemento se anima una sola vez
     }
-  }, { threshold: 0.2, rootMargin: '0px 0px -60px 0px' });
+  // threshold 0: se activa apenas asoma. Con 0.2 un bloque alto (el panel
+  // de Deportes con la letra agrandada del celular) tardaba en aparecer al
+  // bajar rápido, y si medía más de 5 pantallas no aparecía nunca.
+  }, { threshold: 0, rootMargin: '0px 0px -40px 0px' });
 
   targets.forEach((el) => io.observe(el));
 })();

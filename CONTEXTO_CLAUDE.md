@@ -638,8 +638,8 @@ Es lo que más consultas va a traer ahora, y casi nada es código.
 4. **Mail `@grupocespad.com`** (por ejemplo `contacto@`) con Cloudflare Email
    Routing, que es gratis. Da más seriedad frente a clubes y arquitectas.
 5. **Link en la bio de Instagram** a `grupocespad.com`. La cuenta es
-   **`instagram.com/marceloferna`** (la de la web vieja). `instagram.com/grupocespad`
-   no existe: estuvo puesta por error hasta el 28-09-2026 (footer y `sameAs`).
+   **`instagram.com/grupocespad`**: el 11-10-2026 Sebas renombró la cuenta vieja
+   (`marceloferna`) a `grupocespad`. Footer y `sameAs` ya apuntan ahí.
 6. **PageSpeed contra el dominio nuevo**, para confirmar el 92/90.
 7. **Teléfono del tío de Sebas debajo del de Marcelo en Contacto.** Falta que
    Sebas pase el número. El lugar ya existe: en `main.js`, `CONFIG`, completar

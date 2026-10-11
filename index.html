@@ -234,11 +234,22 @@
     }
 
     .logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45em;
+      line-height: 1;
       font-family: var(--font-display);
       font-size: clamp(1.4rem, 3vw, 2rem);
       letter-spacing: 0.05em;
       color: var(--color-white);
       transition: color var(--transition-fast);
+    }
+
+    /* En em para que el isotipo acompañe al texto si el celular agranda la letra. */
+    .logo-mark {
+      flex: none;
+      width: 1.6em;
+      height: 1.6em;
     }
 
     .logo:hover { color: var(--color-accent); }
@@ -647,7 +658,8 @@
       "Canchas de pádel", "Canchas de tenis", "Canchas de fútbol",
       "Canchas de rugby", "Canchas de hockey", "Césped sintético", "Parquización"
     ],
-    "sameAs": ["https://www.instagram.com/marceloferna"]
+    "logo": "https://www.grupocespad.com/img/logo/logo-cespad-512.png",
+    "sameAs": ["https://www.instagram.com/grupocespad"]
   }
   </script>
 </head>
@@ -783,7 +795,12 @@
        ============================================================ -->
   <header class="site-header" id="site-header">
     <div class="container header-inner">
-      <a href="#hero" class="logo" aria-label="Ir al inicio">Grupo CESPAD</a>
+      <a href="#hero" class="logo" aria-label="Grupo CESPAD, ir al inicio">
+        <img class="logo-mark" src="img/logo/logo-cespad-96.webp"
+          srcset="img/logo/logo-cespad-96.webp 96w, img/logo/logo-cespad-192.webp 192w" sizes="3.2em"
+          width="96" height="96" alt="" decoding="async" />
+        <span>Grupo CESPAD</span>
+      </a>
 
       <button class="nav-toggle" id="nav-toggle" type="button" aria-label="Abrir menú" aria-expanded="false"
         aria-controls="primary-nav">
@@ -999,7 +1016,7 @@
           </p>
         </div>
 
-        <div class="deportes-panel" data-reveal>
+        <div class="deportes-panel">
 
           <!-- Tabs -->
           <div class="deportes-tabs" role="tablist" aria-label="Deportes disponibles">
@@ -1657,10 +1674,15 @@
        ============================================================ -->
   <footer class="site-footer">
     <div class="container footer-inner">
-      <a href="#hero" class="footer-brand" aria-label="Volver arriba">Grupo CESPAD</a>
+      <a href="#hero" class="footer-brand" aria-label="Grupo CESPAD, volver arriba">
+        <img class="logo-mark" src="img/logo/logo-cespad-96.webp"
+          srcset="img/logo/logo-cespad-96.webp 96w, img/logo/logo-cespad-192.webp 192w" sizes="3.2em"
+          width="96" height="96" alt="" loading="lazy" decoding="async" />
+        <span>Grupo CESPAD</span>
+      </a>
       <p class="footer-copy">© <span id="year">2026</span> Grupo CESPAD. Todos los derechos reservados.</p>
       <div class="footer-social">
-        <a class="social-link" href="https://www.instagram.com/marceloferna" aria-label="Instagram" target="_blank"
+        <a class="social-link" href="https://www.instagram.com/grupocespad" aria-label="Instagram" target="_blank"
           rel="noopener">
           <svg class="icon" width="20" height="20"><use href="#i-instagram" /></svg>
         </a>

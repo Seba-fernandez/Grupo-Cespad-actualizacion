@@ -548,6 +548,10 @@ button {
 }
 
 .logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+  line-height: 1;
   font-family: var(--font-display);
   font-size: clamp(1.4rem, 3vw, 2rem);
   letter-spacing: 0.05em;
@@ -557,6 +561,14 @@ button {
 
 .logo:hover {
   color: var(--color-accent);
+}
+
+/* Isotipo del header y del footer. En em para que acompañe al texto
+   si el celular agranda la letra (accesibilidad). */
+.logo-mark {
+  flex: none;
+  width: 1.6em;
+  height: 1.6em;
 }
 
 /* Nav — mobile por defecto (panel desplegable) */
@@ -1067,10 +1079,11 @@ button {
 /* ============================================================
    11. DEPORTES
    ============================================================ */
+/* Sin content-visibility ni reveal en el panel: es la sección principal y
+   está a una pantalla del hero. Saltear su render (o esperar al reveal)
+   hacía que al bajar rápido se viera el fondo vacío un instante. */
 .deportes {
   padding-block: var(--space-112);
-  content-visibility: auto;
-  contain-intrinsic-size: auto 1400px;
 }
 
 /* Container más ancho SOLO para Deportes: scoped, no afecta otras secciones */
@@ -1215,20 +1228,27 @@ button {
   position: relative;
   overflow: hidden;
   background-color: var(--color-surface-2);
+  /* Foto y texto apilados en la misma celda de grid, no el texto en
+     absolute encima: así, si la letra crece (celulares con fuente grande
+     o zoom de accesibilidad), la celda crece con el texto y la foto lo
+     acompaña, en vez de que el título se salga por arriba y se corte. */
+  display: grid;
   /* width/height reales por breakpoint más abajo: mobile usa el ratio
      intrínseco del <img> (foto completa), desktop fuerza una altura para
      tener cover consistente entre tabs. */
 }
 
 .deporte-detail-img {
+  grid-area: 1 / 1;
   display: block;
   object-fit: cover;
   /* width/height reales por breakpoint más abajo */
 }
 
 .deporte-detail-hero-overlay {
-  position: absolute;
-  inset: auto 0 0 0;
+  grid-area: 1 / 1;
+  align-self: end;
+  position: relative;
   padding: var(--space-32);
   background: linear-gradient(
     to top,
@@ -2319,6 +2339,10 @@ button {
 }
 
 .footer-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+  line-height: 1;
   font-family: var(--font-display);
   font-size: var(--text-xl);
   letter-spacing: 0.05em;
@@ -2511,7 +2535,10 @@ button {
 
   .deporte-detail-img {
     width: 100%;
-    height: auto;
+    /* 100% de la celda del grid: el alto de la fila lo pone el mayor entre
+       la foto (su ratio) y el texto del overlay, así que con letra grande
+       la foto se estira y cover la recorta, sin cortar el título. */
+    height: 100%;
     /* min-height DIRECTO en el <img>, no height:100% del padre: probé
        height:100% primero y no funciona acá — .deporte-detail-hero tiene
        height:auto, y un min-height en el padre NO lo vuelve "definite"
@@ -2804,7 +2831,7 @@ button {
      (flex:1) ocupa lo que deja el body: más baja en pádel/tenis, más alta
      en fútbol/rugby/hockey. cover recorta los bordes, sin reescalar. */
   .deporte-detail {
-    height: 54rem;
+    min-height: 54rem;
   }
 
   .deporte-detail-body {
@@ -2814,7 +2841,8 @@ button {
   .deporte-detail-hero {
     width: 100%;
     flex: 1 1 auto;
-    min-height: 0;
+    /* Nunca más bajo que el texto que lleva encima (letra grande o zoom). */
+    min-height: max-content;
     border-top-right-radius: var(--radius-lg);
     border-bottom-right-radius: 0;
     border-top-left-radius: 0;
