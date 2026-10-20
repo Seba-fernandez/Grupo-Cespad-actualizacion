@@ -1,4 +1,5 @@
 # Grupo CESPAD — landing
+[![Licencia MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 
 Landing de una empresa de canchas de césped sintético y parquización que opera
 desde Córdoba a todo el país. La hice yo, de cero, sin framework y sin build
@@ -145,6 +146,6 @@ En desarrollo. Hay secciones que existen en el HTML pero están con `[hidden]`
 esperando contenido real: proyectos, testimonios y las métricas de la empresa.
 Preferí dejarlas escritas y apagadas antes que publicar números inventados.
 
-## Licencia
+## 📄 Licencia
 
-MIT
+Este proyecto está bajo la [Licencia MIT](LICENSE). Puedes ver el archivo de la licencia para más detalles.
