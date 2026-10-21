@@ -25,6 +25,7 @@ lo va a mantener alguien que no necesariamente sabe npm.
 
 HTML5 semántico, CSS3 con custom properties, JS vanilla en IIFEs. Deploy en
 Vercel, una preview por rama, con dominio propio y DNS en Cloudflare. Fuentes: Bebas Neue + DM Sans.
+Métricas con Vercel Analytics y mapas de calor con Microsoft Clarity.
 
 Cada módulo de `main.js` hace early-return si su markup no existe, así que se
 puede borrar una sección entera del HTML sin romper el resto. El número de
@@ -102,6 +103,9 @@ así que van por hash con `unsafe-hashes`. `style-src` sí necesita
 Lo probé inyectando la política como `<meta>` antes de deployarla: el primer
 intento bloqueaba los `onload` y dejaba la mitad de abajo de la página sin
 estilos. Un CSP se rompe en silencio, así que conviene verlo fallar en local.
+Me volvió a pasar con Clarity: pegué el snippet oficial, que es inline, y el
+CSP lo bloqueó sin avisar. Lo cargo desde `main.js` y sus dominios están
+habilitados uno por uno.
 
 Además: XFO, COOP, CORP, nosniff, Referrer-Policy, Permissions-Policy y HSTS.
 

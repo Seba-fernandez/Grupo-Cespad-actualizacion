@@ -32,6 +32,19 @@ window.va = window.va || function () {
   (window.vaq = window.vaq || []).push(arguments);
 };
 
+/* Microsoft Clarity (mapas de calor). Mismo motivo que la cola de arriba:
+   el snippet oficial es inline y el CSP lo bloqueaba. Los dominios de
+   clarity.ms están habilitados en vercel.json. */
+(function initClarity() {
+  window.clarity = window.clarity || function () {
+    (window.clarity.q = window.clarity.q || []).push(arguments);
+  };
+  const s = document.createElement('script');
+  s.async = true;
+  s.src = 'https://www.clarity.ms/tag/z0vjqekl33';
+  document.head.appendChild(s);
+})();
+
 /* ------------------------------------------------------------
    01. CONFIG + helpers
    Único lugar donde se toca el número de WhatsApp.
@@ -54,6 +67,11 @@ const CONFIG = {
     // 'Parquización / Espacios verdes': '54911XXXXXXXX',
   },
 };
+
+// Va directo a api.whatsapp.com y no a wa.me: el redirect de wa.me cambia
+// los emojis del mensaje por "�" (probado con curl, la ¡ y la • sí pasan).
+const waUrl = (numero, texto) =>
+  `https://api.whatsapp.com/send?phone=${numero}&text=${encodeURIComponent(texto)}`;
 
 const $ = (sel, ctx = document) => ctx.querySelector(sel);
 const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
@@ -356,9 +374,12 @@ const SCROLL_BEHAVIOR = REDUCED_MOTION ? 'auto' : 'smooth';
 
     // Si el tipo de cancha tiene un número asignado en CONFIG.ruteo, va ahí.
     const destino = CONFIG.ruteo[valor('deporte')] || CONFIG.whatsapp;
-    const url = `https://wa.me/${destino}?text=${encodeURIComponent(lineas.join('\n'))}`;
-    const ventana = window.open(url, '_blank', 'noopener');
-    if (!ventana) window.location.href = url; // fallback si el navegador bloquea el popup
+    const url = waUrl(destino, lineas.join('\n'));
+    // Sin 'noopener' en los features: con él window.open devuelve null
+    // siempre, el fallback corría igual y WhatsApp se abría dos veces.
+    const ventana = window.open(url, '_blank');
+    if (ventana) ventana.opener = null;
+    else window.location.href = url; // fallback si el navegador bloquea el popup
   });
 })();
 
@@ -367,21 +388,19 @@ const SCROLL_BEHAVIOR = REDUCED_MOTION ? 'auto' : 'smooth';
    Un solo número en CONFIG alimenta el FAB y el teléfono visible.
    ------------------------------------------------------------ */
 (function initGlobales() {
-  const link = (numero, texto) => `https://wa.me/${numero}?text=${encodeURIComponent(texto)}`;
-
   // Un solo recorrido cubre el FAB, el teléfono de contacto y los botones
   // de cada deporte. data-wa-msg define el contexto del mensaje.
   $$('[data-wa-link]').forEach((a) => {
     const msg = a.dataset.waMsg
       ? `Hola Grupo CESPAD, quiero consultar por ${a.dataset.waMsg}.`
       : CONFIG.whatsappSaludo;
-    a.href = link(CONFIG.whatsapp, msg);
+    a.href = waUrl(CONFIG.whatsapp, msg);
   });
   $$('[data-wa-display]').forEach((el) => { el.textContent = CONFIG.whatsappDisplay; });
 
   // Segundo asesor: sólo aparece si está cargado en CONFIG.
   if (CONFIG.whatsappSecundario) {
-    $$('[data-wa-link-2]').forEach((a) => { a.href = link(CONFIG.whatsappSecundario, CONFIG.whatsappSaludo); });
+    $$('[data-wa-link-2]').forEach((a) => { a.href = waUrl(CONFIG.whatsappSecundario, CONFIG.whatsappSaludo); });
     $$('[data-wa-display-2]').forEach((el) => { el.textContent = CONFIG.whatsappSecundarioDisplay; });
     $$('[data-wa-secundario]').forEach((el) => { el.hidden = false; });
   }
@@ -541,7 +560,7 @@ const SCROLL_BEHAVIOR = REDUCED_MOTION ? 'auto' : 'smooth';
       '',
       'Quedo a la espera de su respuesta. ¡Gracias!',
     ];
-    cta.href = `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(lineas.join('\n'))}`;
+    cta.href = waUrl(CONFIG.whatsapp, lineas.join('\n'));
   };
 
   // Un solo listener delegado: sumar un insumo no toca este archivo.
