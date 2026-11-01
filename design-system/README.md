@@ -19,7 +19,7 @@ color, qué tamaño de letra, qué radio, si esa pieza flota o está hundida.
 
 **Si cambia un token en `styles.css`, se actualiza acá en el mismo commit.** Si
 no, el sistema pasa a mentir y deja de servir para lo único que sirve. Es la
-regla del punto 4 de `CONTEXTO_CLAUDE.md` y no tiene excepciones.
+regla del punto 4 de `CONTEXTO_CLAUDE.md` (nota interna, fuera del repo) y no tiene excepciones.
 
 ---
 
