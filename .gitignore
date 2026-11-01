@@ -1,2 +1,7 @@
 .claude/
 .vscode/
+
+# Notas internas: viven en el Proyecto de Claude (notas-internas/) y en la carpeta local
+CONTEXTO_CLAUDE.md
+HANDOFF.md
+DISENO_BLOQUE6_INSUMOS.md
