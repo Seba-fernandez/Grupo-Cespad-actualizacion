@@ -134,10 +134,11 @@ vercel.json      headers de seguridad
 robots.txt       apunta al sitemap
 sitemap.xml      una sola URL: es una landing de una página
 .gitattributes   fija LF: sin esto los hashes del CSP se rompen en Windows
+.vercelignore    deja fuera del sitio los .md, img/_originales/ y design-system/
 design-system/   tokens, reglas y guías de componentes, con un verificador
-                 que los compara contra styles.css
+                 que los compara contra styles.css (no se publica)
 img/             webp servidos
-img/_originales/ fuentes de recompresión, no se sirven
+img/_originales/ fuentes de recompresión (no se publica)
 ```
 
 Ojo con una cosa: el CSS crítico inline duplica a propósito reglas del header y

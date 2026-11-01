@@ -54,6 +54,30 @@ Tres perfiles de cliente:
   producción no. Si se audita "el deploy" sin aclarar cuál, es fácil terminar
   mirando `main` en vez de la rama en la que se está trabajando.
 
+### Qué se publica en el sitio (`.vercelignore`, 01-11-2026)
+
+- **`.vercelignore`**, en la raíz, lista los archivos del repo que Vercel deja
+  fuera del sitio publicado. Hoy excluye todos los `.md` (este archivo,
+  `HANDOFF.md`, `DISENO_BLOQUE6_INSUMOS.md` y `README.md`), `img/_originales/`
+  y `design-system/`. Hasta el 01-11-2026 esos archivos se podían abrir desde
+  el dominio, por ejemplo en `https://www.grupocespad.com/CONTEXTO_CLAUDE.md`.
+- **ADVERTENCIA: el `.vercelignore` actúa solo sobre Vercel.** GitHub guarda y
+  muestra esos archivos igual que antes. El repo es **público**: todo lo que
+  está escrito en este archivo y en `HANDOFF.md` se puede leer en
+  github.com/Seba-fernandez/Grupo-Cespad-actualizacion.
+- **Regla:** los archivos del repo llevan solo información técnica. La
+  información interna del negocio (organización operativa, datos de los
+  socios, situación laboral de las personas involucradas y precios internos)
+  se guarda fuera del repo, en el Proyecto de Claude.
+- **Control después de cada deploy de `main`:** estas tres direcciones
+  devuelven 404.
+  - `https://www.grupocespad.com/CONTEXTO_CLAUDE.md`
+  - `https://www.grupocespad.com/HANDOFF.md`
+  - `https://www.grupocespad.com/img/_originales/HeroOriginal.jpg`
+- **Archivo nuevo de notas o carpeta de trabajo:** se suma al `.vercelignore`
+  en el mismo commit que lo crea.
+- **Migración a Cloudflare:** la misma lista va en `.assetsignore`.
+
 ### Dominio, DNS y Google (conectado el 28-09-2026)
 
 - **Dominio `grupocespad.com`**, comprado por Sebas. DNS en **Cloudflare**, en

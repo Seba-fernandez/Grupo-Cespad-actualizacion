@@ -1,0 +1,12 @@
+# Archivos del repo que no se publican en www.grupocespad.com.
+# Actua solo sobre Vercel: GitHub los sigue guardando y mostrando.
+# Ver CONTEXTO_CLAUDE.md, punto 2, "Que se publica en el sitio".
+
+# Notas de trabajo y documentacion
+*.md
+
+# Fuentes de recompresion de imagenes
+img/_originales/
+
+# Sistema de diseno (tokens, guias y verificador)
+design-system/
