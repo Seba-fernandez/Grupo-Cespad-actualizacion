@@ -1,4 +1,2 @@
-.claude/*
-!.claude/settings.json
-!.claude/skills/
+.claude/
 .vscode/
