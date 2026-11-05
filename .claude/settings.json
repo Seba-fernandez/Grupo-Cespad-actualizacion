@@ -1,0 +1,27 @@
+{
+  "enabledPlugins": {
+    "claude-mem@thedotmack": true,
+    "ponytail@ponytail": true,
+    "expo@expo-plugins": true
+  },
+  "extraKnownMarketplaces": {
+    "thedotmack": {
+      "source": {
+        "source": "github",
+        "repo": "thedotmack/claude-mem"
+      }
+    },
+    "ponytail": {
+      "source": {
+        "source": "github",
+        "repo": "DietrichGebert/ponytail"
+      }
+    },
+    "expo-plugins": {
+      "source": {
+        "source": "github",
+        "repo": "expo/skills"
+      }
+    }
+  }
+}

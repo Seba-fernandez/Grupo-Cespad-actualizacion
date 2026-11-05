@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "skills": {
+    "ad-creative-brief": {
+      "source": "mbfinotti/advertising-skills",
+      "sourceType": "github",
+      "skillPath": "skills/ad-creative-brief/SKILL.md",
+      "computedHash": "71f7f6e9975209e0f3b22bce25eb34446a68a4cb17206c7cd5174979a2b03e7c"
+    },
+    "agent-reach": {
+      "source": "Panniantong/Agent-Reach",
+      "sourceType": "github",
+      "skillPath": "agent_reach/skill/SKILL.md",
+      "computedHash": "ee371b5d2404b213d9038b8078a22a395a6b8480e022a2a6c1dfa3d7e07e9a09"
+    },
+    "find-skills": {
+      "source": "vercel-labs/skills",
+      "sourceType": "github",
+      "skillPath": "skills/find-skills/SKILL.md",
+      "computedHash": "913b9d37d0d54047dd65222bb8c67b2bf04e3cb87dcad1729068d7a8b2c8c396"
+    }
+  }
+}
